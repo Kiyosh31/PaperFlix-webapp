@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import Layout from "./components/Layout/Layout";
+import Row from "./components/Row/Row";
+import Banner from "./components/Banner/Banner";
+import Nav from "./components/Nav/Nav";
+import requests from "./Requests";
 
 class App extends Component {
-  componentDidMount() {
-    fetch("http://127.0.0.1:8000/api/user-list/", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-  }
-
   render() {
     return (
-      <div className="App">
-        <Layout>
-          <p>PaperFlix esta vivo!</p>
-        </Layout>
+      <div className="app__color">
+        <Nav />
+        <Banner />
+        <Row
+          title="TRENDINGS"
+          fetchURL={requests.fetchPapers}
+          isLargeRow={true}
+        />
+        <Row title="COSMOS" fetchURL={requests.fetchPapers} />
+        <Row title="BIOLOGIA" fetchURL={requests.fetchPapers} />
+        <Row title="MATEMATICAS" fetchURL={requests.fetchPapers} />
       </div>
     );
   }
