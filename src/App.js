@@ -1,25 +1,20 @@
 import React, { Component } from "react";
 import "./App.css";
+import { Route, Switch } from "react-router-dom";
 
-import Row from "./components/Row/Row";
-import Banner from "./components/Banner/Banner";
-import Nav from "./components/Nav/Nav";
-import requests from "./Requests";
+import Login from "./containers/Auth/Login/Login";
+import Register from "./containers/Auth/Register/Register";
+import Home from "./containers/Home/Home";
 
 class App extends Component {
   render() {
     return (
       <div className="app__color">
-        <Nav />
-        <Banner />
-        <Row
-          title="TRENDINGS"
-          fetchURL={requests.fetchPapers}
-          isLargeRow={true}
-        />
-        <Row title="COSMOS" fetchURL={requests.fetchPapers} />
-        <Row title="BIOLOGIA" fetchURL={requests.fetchPapers} />
-        <Row title="MATEMATICAS" fetchURL={requests.fetchPapers} />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/" exact component={Home} />
+        </Switch>
       </div>
     );
   }

@@ -4,7 +4,7 @@ import "./Nav.css";
 import logo from "../../assets/img/logo.png";
 import avatar from "../../assets/img/avatar.png";
 
-function Nav() {
+const Nav = () => {
   const [show, handleShow] = useState(false);
 
   useEffect(() => {
@@ -24,6 +24,6 @@ function Nav() {
       <img className="nav__avatar" src={avatar} alt="Paperflix-avatar" />
     </div>
   );
-}
+};
 
 export default Nav;

@@ -5,7 +5,7 @@ import "./Banner.css";
 
 import Background from "../../assets/img/bojack.jpg";
 
-function Banner() {
+const Banner = () => {
   const [paper, setPaper] = useState([]);
 
   useEffect(() => {
@@ -45,6 +45,6 @@ function Banner() {
       <div className="banner__fadeBottom" />
     </header>
   );
-}
+};
 
 export default Banner;

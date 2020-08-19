@@ -4,7 +4,7 @@ import "./Row.css";
 
 import mockImage from "../../assets/img/stranger.jpg";
 
-function Row(props) {
+const Row = (props) => {
   const [papers, setPapers] = useState([]);
 
   // Run once when the row loads
@@ -32,6 +32,6 @@ function Row(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Row;
