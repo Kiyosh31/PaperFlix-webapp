@@ -41,14 +41,13 @@ const Login = () => {
               <div className="login__remember_container">
                 <span>
                   <input className="login__rememberme" type="checkbox" />
+                  <span>Remember me</span>
                 </span>
-                <span>Remember me</span>
               </div>
-              <div className="login__register">Need help?</div>
             </div>
             <div className="new-to-netflix">
               <p>
-                New in Paperflix? <a href="">Signup Now</a>
+                New in Paperflix? <a href="">Register</a>
               </p>
             </div>
           </form>
