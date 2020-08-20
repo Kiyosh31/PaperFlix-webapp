@@ -10,19 +10,21 @@ import Button from "components/Button/Button";
 import CheckBox from "components/CheckBox/CheckBox";
 import Link from "components/Link/Link";
 
+import BackgroundImage from "assets/img/login.jpg";
+
 class Login extends Component {
   // const [username, setUsername] = useState([]);
   // const [password, setPassword] = useState([]);
 
   render() {
     return (
-      <Background>
+      <Background image={BackgroundImage}>
         <Header />
         <Box>
           <Title title="Sing In" />
           <Form>
-            <Input placeholder="Username" />
-            <Input placeholder="Password" />
+            <Input type="text" placeholder="Username" />
+            <Input type="password" placeholder="Password" />
             <Button text="Sign In" />
             <CheckBox text="Remember me" />
           </Form>

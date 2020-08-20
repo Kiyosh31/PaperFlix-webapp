@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Row.css";
 
-import mockImage from "../../assets/img/stranger.jpg";
+import mockImage from "assets/img/stranger.jpg";
 
 const Row = (props) => {
   const [papers, setPapers] = useState([]);
