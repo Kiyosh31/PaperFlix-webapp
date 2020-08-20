@@ -1,0 +1,14 @@
+.checkbox__container {
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.rememberme {
+  width: 15px;
+  height: 15px;
+}

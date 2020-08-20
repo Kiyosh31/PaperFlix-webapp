@@ -1,0 +1,17 @@
+.link__register {
+  margin-top: 150px;
+}
+
+.link__register p {
+  color: #8a8686;
+  font-size: 15px;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+.link__register p a {
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 10px;
+}

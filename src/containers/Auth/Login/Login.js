@@ -1,60 +1,36 @@
-import React, { useState } from "react";
-import "./Login.css";
+import React, { Component, useState } from "react";
 
-import Logo from "assets/img/logo.png";
+import Background from "components/Background/Background";
+import Header from "components/Header/Header";
+import Box from "components/Box/Box";
+import Title from "components/Title/Title";
+import Form from "components/Form/Form";
+import Input from "components/Input/Input";
+import Button from "components/Button/Button";
+import CheckBox from "components/CheckBox/CheckBox";
+import Link from "components/Link/Link";
 
-const Login = () => {
-  const [username, setUsername] = useState([]);
-  const [password, setPassword] = useState([]);
+class Login extends Component {
+  // const [username, setUsername] = useState([]);
+  // const [password, setPassword] = useState([]);
 
-  return (
-    <div className="login">
-      <header className="login__header">
-        <div className="login__header_inner">
-          <img className="login__logo" src={Logo} />
-        </div>
-      </header>
-      <div className="login__box">
-        <div className="login__box-inner">
-          <h1 className="login__title">Sing In</h1>
-          <form>
-            <div className="login__input-container">
-              <input
-                className="login__input"
-                type="text"
-                placeholder="Username"
-              />
-            </div>
-            <div className="login__input-container">
-              <input
-                className="login__input"
-                type="password"
-                placeholder="Password"
-              />
-            </div>
-            <div className="login__input-container">
-              <button className="login__button" type="submit">
-                Sign In
-              </button>
-            </div>
-            <div className="login__remember">
-              <div className="login__remember_container">
-                <span>
-                  <input className="login__rememberme" type="checkbox" />
-                  <span>Remember me</span>
-                </span>
-              </div>
-            </div>
-            <div className="new-to-netflix">
-              <p>
-                New in Paperflix? <a href="">Register</a>
-              </p>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-};
+  render() {
+    return (
+      <Background>
+        <Header />
+        <Box>
+          <Title title="Sing In" />
+          <Form>
+            <Input placeholder="Username" />
+            <Input placeholder="Password" />
+            <Button text="Sign In" />
+            <CheckBox text="Remember me" />
+          </Form>
+          <Link question="New in Paperflix?" text="Register" />
+        </Box>
+      </Background>
+    );
+  }
+}
 
 export default Login;
