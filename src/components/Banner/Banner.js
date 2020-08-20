@@ -24,14 +24,7 @@ const Banner = () => {
   }
 
   return (
-    <header
-      className="banner"
-      style={{
-        backgroundSize: "cover",
-        backgroundImage: "url(" + Background + ")",
-        backgroundPosition: "center center",
-      }}
-    >
+    <header className="banner">
       <div className="banner__contents">
         <h1 className="banner__title">{paper?.title}</h1>
         <div className="banner__button_container">

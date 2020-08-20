@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import Login from "./containers/Auth/Login/Login";
 import Register from "./containers/Auth/Register/Register";
@@ -11,9 +11,11 @@ class App extends Component {
     return (
       <div className="app__color">
         <Switch>
-          <Route path="/login" component={Login} />
+          <Route path="/home" component={Home} />
           <Route path="/register" component={Register} />
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={Login}>
+            {/* <Redirect to="/login" /> */}
+          </Route>
         </Switch>
       </div>
     );
