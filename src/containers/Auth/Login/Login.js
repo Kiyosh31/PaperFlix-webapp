@@ -25,7 +25,7 @@ class Login extends Component {
           <Form>
             <Input type="text" placeholder="Username" />
             <Input type="password" placeholder="Password" />
-            <Button text="Sign In" />
+            <Button text="Sign In" btnType="submit" />
             <CheckBox text="Remember me" />
           </Form>
           <Link

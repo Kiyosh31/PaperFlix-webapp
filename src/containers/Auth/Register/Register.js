@@ -25,7 +25,7 @@ class Register extends Component {
             <Input type="text" placeholder="Mail" />
             <Input type="text" placeholder="Password" />
             <Input type="text" placeholder="Confirm Password" />
-            <Button text="Register" />
+            <Button text="Register" btnType="submit" />
           </Form>
           <Link question="Have an account?" text="Sign In" navigate="/" />
         </Box>
