@@ -7,12 +7,13 @@ import Title from "components/Title/Title";
 import Form from "components/Form/Form";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
-import CheckBox from "components/CheckBox/CheckBox";
-import Link from "components/Link/Link";
+import Link from "components/RegisterLink/RegisterLink";
 
 import BackgroundImage from "assets/img/register.jpg";
 
 class Register extends Component {
+  goToLoginHandler = () => {};
+
   render() {
     return (
       <Background image={BackgroundImage}>
@@ -26,7 +27,7 @@ class Register extends Component {
             <Input type="text" placeholder="Confirm Password" />
             <Button text="Register" />
           </Form>
-          <Link question="Have an account?" text="Sign In" />
+          <Link question="Have an account?" text="Sign In" navigate="/" />
         </Box>
       </Background>
     );

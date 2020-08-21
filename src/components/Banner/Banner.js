@@ -3,8 +3,6 @@ import axios from "axios";
 import requests from "../../Requests";
 import "./Banner.css";
 
-import Background from "../../assets/img/bojack.jpg";
-
 const Banner = () => {
   const [paper, setPaper] = useState([]);
 

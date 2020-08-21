@@ -8,7 +8,7 @@ import Form from "components/Form/Form";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import CheckBox from "components/CheckBox/CheckBox";
-import Link from "components/Link/Link";
+import Link from "components/RegisterLink/RegisterLink";
 
 import BackgroundImage from "assets/img/login.jpg";
 
@@ -28,7 +28,11 @@ class Login extends Component {
             <Button text="Sign In" />
             <CheckBox text="Remember me" />
           </Form>
-          <Link question="New in Paperflix?" text="Register" />
+          <Link
+            question="New in Paperflix?"
+            text="Register"
+            navigate="/register"
+          />
         </Box>
       </Background>
     );
