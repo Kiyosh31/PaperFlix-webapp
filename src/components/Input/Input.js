@@ -2,15 +2,31 @@ import React from "react";
 import "./Input.css";
 
 const Input = (props) => {
-  return (
-    <div className="input__container">
-      <input
-        type={props.type}
-        className="input"
-        placeholder={props.placeholder}
-      />
-    </div>
-  );
+  let inputElement = null;
+
+  switch (props.elementType) {
+    case "input":
+      inputElement = (
+        <input
+          className="input"
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
+      );
+      break;
+    default:
+      inputElement = (
+        <input
+          className="input"
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
+      );
+  }
+
+  return <div className="input__container">{inputElement}</div>;
 };
 
 export default Input;
