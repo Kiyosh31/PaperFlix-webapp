@@ -15,6 +15,16 @@ const Input = (props) => {
         />
       );
       break;
+    case "textarea":
+      inputElement = (
+        <input
+          className="input"
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
+      );
+      break;
     default:
       inputElement = (
         <input

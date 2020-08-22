@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import requests from "Requests";
 import "./Banner.css";
+import instance from "axios-instance";
 
 const Banner = () => {
   const [paper, setPaper] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(requests.fetchTrendings);
+      const request = await instance.get("paper-list/");
       setPaper(
-        request.data[Math.floor(Math.random() * request.data.length - 1)]
+        request.data[
+          request.data.length > 1
+            ? Math.floor(Math.random() * request.data.length - 1)
+            : 0
+        ]
       );
       return request;
     }

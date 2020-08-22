@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 import Background from "components/Background/Background";
 import Header from "components/Header/Header";
@@ -8,9 +7,9 @@ import Title from "components/Title/Title";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import Link from "components/RegisterLink/RegisterLink";
-import requests from "Requests";
 
 import BackgroundImage from "assets/img/register.jpg";
+import instance from "axios-instance";
 
 class Register extends Component {
   state = {
@@ -115,11 +114,11 @@ class Register extends Component {
       password: this.state.controls.password.value,
     };
 
-    axios
-      .post(requests.postUser, payload)
+    instance
+      .post("user-create/", payload)
       .then((response) => {
         console.log(response);
-        if (response.data.code === 201) {
+        if (response.status === 201) {
           console.log("USER CREATED SUCCESFULLY");
         }
       })

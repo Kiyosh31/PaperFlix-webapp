@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./Row.css";
 
 import mockImage from "assets/img/stranger.jpg";
+import instance from "axios-instance";
 
 const Row = (props) => {
   const [papers, setPapers] = useState([]);
@@ -10,7 +10,7 @@ const Row = (props) => {
   // Run once when the row loads
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(props.fetchURL);
+      const request = await instance.get(props.fetchURL);
       setPapers(request.data);
       return request;
     }

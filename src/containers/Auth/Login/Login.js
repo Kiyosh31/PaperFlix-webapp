@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 import Background from "components/Background/Background";
 import Header from "components/Header/Header";
@@ -9,9 +8,9 @@ import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import CheckBox from "components/CheckBox/CheckBox";
 import Link from "components/RegisterLink/RegisterLink";
-import requests from "Requests";
 
 import BackgroundImage from "assets/img/login.jpg";
+import instance from "axios-instance";
 
 class Login extends Component {
   state = {
@@ -102,8 +101,8 @@ class Login extends Component {
       password: this.state.controls.password.value,
     };
 
-    axios
-      .post(requests.userLogin, payload)
+    instance
+      .post("user-login/", payload)
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
