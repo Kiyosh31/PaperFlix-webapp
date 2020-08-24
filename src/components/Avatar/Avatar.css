@@ -1,0 +1,6 @@
+.avatar {
+  position: fixed;
+  right: 30px;
+  width: 30px;
+  object-fit: contain;
+}

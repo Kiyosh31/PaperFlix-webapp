@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Row from "components/Row/Row";
 import Banner from "components/Banner/Banner";
-import NavBar from "components/NavBar/NavBar";
+import Toolbar from "components/Toolbar/Toolbar";
 import Modal from "components/Modal/Modal";
 
 class Home extends Component {
@@ -19,14 +19,14 @@ class Home extends Component {
 
     return (
       <div>
-        <Modal
+        {/* <Modal
           clicked={this.modalHandler}
           show={this.state.showModal}
           modalClosed={this.modalHandler}
         >
           Hola
-        </Modal>
-        <NavBar />
+        </Modal> */}
+        <Toolbar />
         <Banner />
         <Row title="TRENDINGS" fetchURL={fetchURL} isLargeRow={true} />
         <Row title="COSMOS" fetchURL={fetchURL} />
