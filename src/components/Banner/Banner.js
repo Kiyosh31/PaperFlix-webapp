@@ -25,7 +25,7 @@ const Banner = () => {
   }
 
   return (
-    <header className="banner">
+    <div className="banner">
       <div className="banner__contents">
         <h1 className="banner__title">{paper?.title}</h1>
         <div className="banner__button_container">
@@ -37,7 +37,7 @@ const Banner = () => {
         </h1>
       </div>
       <div className="banner__fadeBottom" />
-    </header>
+    </div>
   );
 };
 
