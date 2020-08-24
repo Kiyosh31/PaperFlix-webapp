@@ -2,15 +2,31 @@ import React, { Component } from "react";
 
 import Row from "components/Row/Row";
 import Banner from "components/Banner/Banner";
-import Nav from "components/Nav/Nav";
+import NavBar from "components/NavBar/NavBar";
+import Modal from "components/Modal/Modal";
 
 class Home extends Component {
+  state = {
+    showModal: true,
+  };
+
+  modalHandler = () => {
+    this.setState({ showModal: !this.state.showModal });
+  };
+
   render() {
     const fetchURL = "paper-list/";
 
     return (
       <div>
-        <Nav />
+        <Modal
+          clicked={this.modalHandler}
+          show={this.state.showModal}
+          modalClosed={this.modalHandler}
+        >
+          Hola
+        </Modal>
+        <NavBar />
         <Banner />
         <Row title="TRENDINGS" fetchURL={fetchURL} isLargeRow={true} />
         <Row title="COSMOS" fetchURL={fetchURL} />
