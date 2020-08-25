@@ -4,18 +4,44 @@ import Row from "components/Row/Row";
 import Banner from "components/Banner/Banner";
 import Toolbar from "components/Toolbar/Toolbar";
 import Modal from "components/Modal/Modal";
+import Spinner from "components/Spinner/Spinner";
+import WithErrorHandler from "components/WithErrorHandler/WithErrorHandler";
+
+import instance from "axios-instance";
 
 class Home extends Component {
   state = {
-    showModal: false,
+    showModal: true,
+    loading: true,
+    trendings: [],
   };
+
+  componentDidMount() {
+    instance
+      .get("paper-list/")
+      .then((response) => {
+        const trendings = response.data;
+        this.setState({
+          trendings: trendings,
+          showModal: false,
+          loading: false,
+        });
+      })
+      .catch((err) => {
+        this.setState({ showModal: false, loading: false });
+        console.log(err);
+      });
+  }
 
   modalHandler = () => {
     this.setState({ showModal: !this.state.showModal });
   };
 
   render() {
-    const fetchURL = "paper-list/";
+    let homePage = null;
+    if (this.state.loading) {
+      homePage = <Spinner />;
+    }
 
     return (
       <div>
@@ -24,21 +50,29 @@ class Home extends Component {
           show={this.state.showModal}
           modalClosed={this.modalHandler}
         >
-          Hola
+          {homePage}
         </Modal>
         <Toolbar />
         <Banner openModal={this.modalHandler} />
         <Row
           title="TRENDINGS"
-          fetchURL={fetchURL}
+          data={this.state.trendings}
           isLargeRow={true}
           clicked={this.modalHandler}
         />
-        <Row title="COSMOS" fetchURL={fetchURL} clicked={this.modalHandler} />
-        <Row title="BIOLOGIA" fetchURL={fetchURL} clicked={this.modalHandler} />
+        <Row
+          title="COSMOS"
+          data={this.state.trendings}
+          clicked={this.modalHandler}
+        />
+        <Row
+          title="BIOLOGIA"
+          data={this.state.trendings}
+          clicked={this.modalHandler}
+        />
         <Row
           title="MATEMATICAS"
-          fetchURL={fetchURL}
+          data={this.state.trendings}
           clicked={this.modalHandler}
         />
       </div>
@@ -46,4 +80,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default WithErrorHandler(Home, instance);

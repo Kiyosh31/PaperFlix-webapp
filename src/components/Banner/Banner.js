@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Banner.css";
+
 import instance from "axios-instance";
 
 const Banner = (props) => {
