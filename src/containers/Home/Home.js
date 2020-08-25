@@ -5,9 +5,8 @@ import Banner from "components/Banner/Banner";
 import Toolbar from "components/Toolbar/Toolbar";
 import Modal from "components/Modal/Modal";
 import Spinner from "components/Spinner/Spinner";
-import WithErrorHandler from "components/WithErrorHandler/WithErrorHandler";
-
 import instance from "axios-instance";
+import Footer from "components/Footer/Footer";
 
 class Home extends Component {
   state = {
@@ -75,9 +74,10 @@ class Home extends Component {
           data={this.state.trendings}
           clicked={this.modalHandler}
         />
+        <Footer />
       </div>
     );
   }
 }
 
-export default WithErrorHandler(Home, instance);
+export default Home;
