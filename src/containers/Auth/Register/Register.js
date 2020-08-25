@@ -23,6 +23,7 @@ class Register extends Component {
         value: "",
         validation: {
           required: true,
+          minLength: 3,
         },
         valid: false,
         touched: false,
@@ -50,12 +51,13 @@ class Register extends Component {
         value: "",
         validation: {
           required: true,
-          minLength: 6,
+          minLength: 5,
         },
         valid: false,
         touched: false,
       },
     },
+    formIsValid: false,
   };
 
   checkValidity(value, rules) {
@@ -102,17 +104,29 @@ class Register extends Component {
         touched: true,
       },
     };
-    this.setState({ controls: updatedControls });
+
+    let formIsValid = true;
+    for (let inputIdentifier in updatedControls) {
+      formIsValid = updatedControls[inputIdentifier].valid && formIsValid;
+    }
+    this.setState({ controls: updatedControls, formIsValid: formIsValid });
   };
 
   submitHandler = (event) => {
     event.preventDefault();
+
+    if (!this.state.formIsValid) {
+      console.log("Invalido");
+      return;
+    }
 
     const payload = {
       name: this.state.controls.name.value,
       email: this.state.controls.email.value,
       password: this.state.controls.password.value,
     };
+
+    console.log(payload);
 
     instance
       .post("user-create/", payload)
@@ -154,7 +168,9 @@ class Register extends Component {
           <Title title="Register" />
           <form onSubmit={this.submitHandler}>
             {form}
-            <Button btnType="submit">Register</Button>
+            <Button btnType="submit" disabled={!this.state.formIsValid}>
+              Register
+            </Button>
           </form>
           <Link question="Have an account?" text="Sign In" navigate="/" />
         </Box>

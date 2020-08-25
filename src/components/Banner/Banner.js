@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Banner.css";
 import instance from "axios-instance";
 
-const Banner = () => {
+const Banner = (props) => {
   const [paper, setPaper] = useState([]);
 
   useEffect(() => {
@@ -29,7 +29,9 @@ const Banner = () => {
       <div className="banner__contents">
         <h1 className="banner__title">{paper?.title}</h1>
         <div className="banner__button_container">
-          <button className="banner__button">Leer</button>
+          <button className="banner__button" onClick={props.openModal}>
+            Leer
+          </button>
           <button className="banner__button">Mi lista</button>
         </div>
         <h1 className="banner__descriptions">

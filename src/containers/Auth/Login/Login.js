@@ -38,12 +38,13 @@ class Login extends Component {
         value: "",
         validation: {
           required: true,
-          minLength: 6,
+          minLength: 5,
         },
         valid: false,
         touched: false,
       },
     },
+    formIsValid: false,
   };
 
   checkValidity(value, rules) {
@@ -90,11 +91,21 @@ class Login extends Component {
         touched: true,
       },
     };
-    this.setState({ controls: updatedControls });
+
+    let formIsValid = true;
+    for (let inputIdentifier in updatedControls) {
+      formIsValid = updatedControls[inputIdentifier].valid && formIsValid;
+    }
+    this.setState({ controls: updatedControls, formIsValid: formIsValid });
   };
 
   submitHandler = (event) => {
     event.preventDefault();
+
+    if (!this.state.formIsValid) {
+      console.log("No es valido");
+      return;
+    }
 
     const payload = {
       email: this.state.controls.email.value,
@@ -141,7 +152,9 @@ class Login extends Component {
           <Title title="Sing In" />
           <form onSubmit={this.submitHandler}>
             {form}
-            <Button btnType="submit">Sign In</Button>
+            <Button btnType="submit" disabled={!this.state.formIsValid}>
+              Sign In
+            </Button>
             <CheckBox text="Remember me" />
           </form>
           <Link

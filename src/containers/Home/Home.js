@@ -7,7 +7,7 @@ import Modal from "components/Modal/Modal";
 
 class Home extends Component {
   state = {
-    showModal: true,
+    showModal: false,
   };
 
   modalHandler = () => {
@@ -19,19 +19,28 @@ class Home extends Component {
 
     return (
       <div>
-        {/* <Modal
+        <Modal
           clicked={this.modalHandler}
           show={this.state.showModal}
           modalClosed={this.modalHandler}
         >
           Hola
-        </Modal> */}
+        </Modal>
         <Toolbar />
-        <Banner />
-        <Row title="TRENDINGS" fetchURL={fetchURL} isLargeRow={true} />
-        <Row title="COSMOS" fetchURL={fetchURL} />
-        <Row title="BIOLOGIA" fetchURL={fetchURL} />
-        <Row title="MATEMATICAS" fetchURL={fetchURL} />
+        <Banner openModal={this.modalHandler} />
+        <Row
+          title="TRENDINGS"
+          fetchURL={fetchURL}
+          isLargeRow={true}
+          clicked={this.modalHandler}
+        />
+        <Row title="COSMOS" fetchURL={fetchURL} clicked={this.modalHandler} />
+        <Row title="BIOLOGIA" fetchURL={fetchURL} clicked={this.modalHandler} />
+        <Row
+          title="MATEMATICAS"
+          fetchURL={fetchURL}
+          clicked={this.modalHandler}
+        />
       </div>
     );
   }

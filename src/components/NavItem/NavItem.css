@@ -16,7 +16,10 @@
   display: block;
 }
 
-.nav__item-link:hover,
+.nav__item-link:hover {
+  color: lightgray;
+}
+
 .nav__item-link:active,
 .nav__item-link.active {
   color: white;

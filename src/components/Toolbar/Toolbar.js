@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Toolbar.css";
 
-import Logo from "components/Logo/Logo";
-import Avatar from "components/Avatar/Avatar";
 import NavItems from "components/NavItems/NavItems";
 
 const Toolbar = () => {
@@ -21,8 +19,6 @@ const Toolbar = () => {
 
   return (
     <header className={`toolbar ${scrolled && "toolbar__black"}`}>
-      {/* <Logo />
-      <Avatar /> */}
       <nav>
         <NavItems />
       </nav>

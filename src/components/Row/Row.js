@@ -27,6 +27,7 @@ const Row = (props) => {
             src={mockImage}
             alt={props.isLargeRow ? paper.title : ""}
             key={paper.id_paper}
+            onClick={props.clicked}
           />
         ))}
       </div>

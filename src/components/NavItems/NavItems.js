@@ -8,16 +8,17 @@ import Avatar from "components/Avatar/Avatar";
 const NavItems = () => {
   return (
     <ul className="nav__items">
-      <NavItem>
+      <NavItem link="/home">
         <Logo />
       </NavItem>
-      <NavItem>
+      <NavItem link="/home">
         <Avatar />
       </NavItem>
       <NavItem link="/home" active>
         Inicio
       </NavItem>
       <NavItem link="/home">Ciencia</NavItem>
+      <NavItem link="/home">Mi lista</NavItem>
     </ul>
   );
 };
