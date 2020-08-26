@@ -32,17 +32,17 @@ class Home extends Component {
         console.log(err);
       });
 
-    const payload = {
-      id_paper: 10,
-    };
+    // const payload = {
+    //   id_paper: 10,
+    // };
 
-    instance
-      .post("paper/", payload)
-      .then((response) => {
-        console.log(response);
-        this.setState({ paper: response.data });
-      })
-      .catch((err) => console.log(err));
+    // instance
+    //   .post("paper/", payload)
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.setState({ paper: response.data });
+    //   })
+    //   .catch((err) => console.log(err));
   }
 
   modalHandler = () => {
