@@ -13,6 +13,7 @@ class Home extends Component {
     showModal: true,
     loading: true,
     trendings: [],
+    paper: null,
   };
 
   componentDidMount() {
@@ -30,6 +31,18 @@ class Home extends Component {
         this.setState({ showModal: false, loading: false });
         console.log(err);
       });
+
+    const payload = {
+      id_paper: 10,
+    };
+
+    instance
+      .post("paper/", payload)
+      .then((response) => {
+        console.log(response);
+        this.setState({ paper: response.data });
+      })
+      .catch((err) => console.log(err));
   }
 
   modalHandler = () => {
@@ -53,12 +66,19 @@ class Home extends Component {
         </Modal>
         <Toolbar />
         <Banner openModal={this.modalHandler} />
+        {/* <embed
+          width="1200"
+          height="1200"
+          src={`data:application/pdf;base64,${this.state.paper}`}
+          type="application/pdf"
+        /> */}
         <Row
           title="TRENDINGS"
           data={this.state.trendings}
           isLargeRow={true}
           clicked={this.modalHandler}
         />
+        {/*
         <Row
           title="COSMOS"
           data={this.state.trendings}
@@ -73,7 +93,7 @@ class Home extends Component {
           title="MATEMATICAS"
           data={this.state.trendings}
           clicked={this.modalHandler}
-        />
+        /> */}
         <Footer />
       </div>
     );

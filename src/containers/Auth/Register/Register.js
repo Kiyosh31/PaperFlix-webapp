@@ -165,7 +165,7 @@ class Register extends Component {
       <Background image={BackgroundImage}>
         <Header />
         <Box>
-          <Title title="Register" />
+          <Title>Register</Title>
           <form onSubmit={this.submitHandler}>
             {form}
             <Button btnType="submit" disabled={!this.state.formIsValid}>

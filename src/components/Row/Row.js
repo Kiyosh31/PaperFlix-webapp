@@ -11,10 +11,10 @@ const Row = (props) => {
       <div className="row__posters">
         {props.data.map((paper) => (
           <img
+            key={paper.id_paper}
             className={`row__poster ${props.isLargeRow && "row__posterLarge"}`}
             src={mockImage}
             alt={props.isLargeRow ? paper.title : ""}
-            key={paper.id_paper}
             onClick={props.clicked}
           />
         ))}

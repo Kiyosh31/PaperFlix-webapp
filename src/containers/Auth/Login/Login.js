@@ -149,7 +149,7 @@ class Login extends Component {
       <Background image={BackgroundImage}>
         <Header />
         <Box>
-          <Title title="Sing In" />
+          <Title>Sign in</Title>
           <form onSubmit={this.submitHandler}>
             {form}
             <Button btnType="submit" disabled={!this.state.formIsValid}>
