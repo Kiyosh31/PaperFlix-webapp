@@ -8,7 +8,9 @@ const Modal = (props) => {
     <div>
       <Backdrop show={props.show} clicked={props.modalClosed} />
       <div
-        className={`modal ${props.show ? "modal_open" : "modal_close"}`}
+        className={`${props.transparent ? "modal__transparent" : "modal"} ${
+          props.show ? "modal__open" : "modal__close"
+        }`}
         onClick={props.clicked}
       >
         {props.children}

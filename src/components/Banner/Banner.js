@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./Banner.css";
 
-import instance from "axios-instance";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 const Banner = (props) => {
   const [paper, setPaper] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const request = await instance.get("paper-list/");
-      setPaper(
-        request.data[
-          request.data.length > 1
-            ? Math.floor(Math.random() * request.data.length - 1)
-            : 0
-        ]
-      );
-      return request;
+    let index = 0;
+    if (props.data && props.data.length > 1) {
+      index = Math.floor(Math.random() * props.data.length - 1);
     }
-    fetchData();
-  }, []);
+    setPaper(props.data[index]);
+  }, [props.data]);
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -30,16 +24,19 @@ const Banner = (props) => {
       <div className="banner__contents">
         <h1 className="banner__title">{paper?.title}</h1>
         <div className="banner__button_container">
-          <button className="banner__button" onClick={props.openModal}>
-            Leer
+          <h1 className="banner__description">
+            {truncate(paper?.description, 150)}
+          </h1>
+          <button className="button__content" onClick={props.openModal}>
+            <FontAwesomeIcon className="icon" icon={faPlay} />
+            Play
           </button>
-          <button className="banner__button">Mi lista</button>
+          <button className="button__content">
+            <FontAwesomeIcon className="icon" icon={faInfoCircle} /> More Info
+          </button>
         </div>
-        <h1 className="banner__descriptions">
-          {truncate(paper?.description, 150)}
-        </h1>
       </div>
-      <div className="banner__fadeBottom" />
+      <div className="banner--fadeBottom" />
     </div>
   );
 };

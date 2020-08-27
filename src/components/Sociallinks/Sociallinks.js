@@ -2,7 +2,6 @@ import React from "react";
 import "./Sociallinks.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import {
   faFacebookSquare,
   faTwitter,

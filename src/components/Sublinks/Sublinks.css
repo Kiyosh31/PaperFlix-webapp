@@ -1,8 +1,0 @@
-.sub__links ul {
-  margin-top: 30px;
-  list-style: none;
-  padding: 0;
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(4, 1fr);
-}

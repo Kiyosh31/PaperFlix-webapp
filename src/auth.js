@@ -19,12 +19,13 @@ class Auth {
       instance
         .post("user-login/", payload)
         .then((response) => {
+          console.log(response);
           if (response.status === 200) {
             let hash = sha256.create();
             hash.update(email + password);
             hash.hex();
             Cookies.set("authenticated", hash, { expires: 5 });
-            return resolve(true);
+            resolve(true);
           }
         })
         .catch((err) => {
@@ -36,6 +37,9 @@ class Auth {
 
   logout() {
     // CallBack => Logic Delete cookie from browser and in API
+    if (this.isAuthenticated()) {
+      Cookies.remove("authenticated");
+    }
   }
 
   isAuthenticated() {

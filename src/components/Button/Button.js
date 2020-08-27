@@ -3,15 +3,17 @@ import "./Button.css";
 
 const Button = (props) => {
   return (
-    <div className="button__container">
-      <button
-        className="button"
-        disabled={props.disabled}
-        type={props.btnType}
-        onClick={props.clicked}
-      >
-        {props.children}
-      </button>
+    <div>
+      <div className="button__container">
+        <button
+          className={!props.style ? "button" : props.style}
+          disabled={props.disabled}
+          type={props.btnType}
+          onClick={props.clicked}
+        >
+          {props.children}
+        </button>
+      </div>
     </div>
   );
 };

@@ -17,8 +17,8 @@ const NavItems = () => {
       <NavItem link="/home" active>
         Inicio
       </NavItem>
-      <NavItem link="/home">Ciencia</NavItem>
-      <NavItem link="/home">Mi lista</NavItem>
+      <NavItem link="/asdasda">Ciencia</NavItem>
+      <NavItem link="/hola">Mi lista</NavItem>
     </ul>
   );
 };

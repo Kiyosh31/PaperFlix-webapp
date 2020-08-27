@@ -117,11 +117,11 @@ class Login extends Component {
       return;
     }
     try {
-      const email = this.state.controls.email.value;
-      const password = this.state.controls.password.value;
-      await auth.login(email, password);
+      await auth.login(
+        this.state.controls.email.value,
+        this.state.controls.password.value
+      );
       this.setState({ isAuthenticated: true });
-      console.log("estado", this.state.isAuthenticated);
     } catch (err) {
       console.log(err);
     }

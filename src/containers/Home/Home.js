@@ -13,7 +13,7 @@ class Home extends Component {
     showModal: true,
     loading: true,
     trendings: [],
-    paper: null,
+    // paper: null,
   };
 
   componentDidMount() {
@@ -50,9 +50,9 @@ class Home extends Component {
   };
 
   render() {
-    let homePage = null;
+    let spinner = null;
     if (this.state.loading) {
-      homePage = <Spinner />;
+      spinner = <Spinner />;
     }
 
     return (
@@ -61,29 +61,26 @@ class Home extends Component {
           clicked={this.modalHandler}
           show={this.state.showModal}
           modalClosed={this.modalHandler}
+          transparent
         >
-          {homePage}
+          {spinner}
         </Modal>
         <Toolbar />
-        <Banner openModal={this.modalHandler} />
+        <Banner data={this.state.trendings} />
         {/* <embed
           width="1200"
           height="1200"
           src={`data:application/pdf;base64,${this.state.paper}`}
           type="application/pdf"
         /> */}
-        <Row
-          title="TRENDINGS"
-          data={this.state.trendings}
-          isLargeRow={true}
-          clicked={this.modalHandler}
-        />
-        {/*
+        <Row title="TRENDINGS" data={this.state.trendings} isLargeRow={true} />
+
         <Row
           title="COSMOS"
           data={this.state.trendings}
           clicked={this.modalHandler}
         />
+
         <Row
           title="BIOLOGIA"
           data={this.state.trendings}
@@ -93,7 +90,7 @@ class Home extends Component {
           title="MATEMATICAS"
           data={this.state.trendings}
           clicked={this.modalHandler}
-        /> */}
+        />
         <Footer />
       </div>
     );

@@ -7,13 +7,13 @@ const Toolbar = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 75) {
-        setScrolled(true);
-      } else setScrolled(false);
-    });
+    const handleScroll = () =>
+      window.pageYOffset > 75 ? setScrolled(true) : setScrolled(false);
+
+    const onScroll = window.addEventListener("scroll", handleScroll);
+
     return () => {
-      window.removeEventListener("scroll");
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 

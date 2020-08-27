@@ -7,7 +7,6 @@ const Row = (props) => {
   return (
     <div className="row">
       <h2>{props.title}</h2>
-
       <div className="row__posters">
         {props.data.map((paper) => (
           <img
