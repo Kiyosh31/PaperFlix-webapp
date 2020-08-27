@@ -8,9 +8,12 @@ import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import CheckBox from "components/CheckBox/CheckBox";
 import Link from "components/RegisterLink/RegisterLink";
-
 import BackgroundImage from "assets/img/login.jpg";
-import instance from "axios-instance";
+
+import auth from "auth";
+import { Redirect } from "react-router-dom";
+
+// import instance from "axios-instance";
 
 class Login extends Component {
   state = {
@@ -45,7 +48,14 @@ class Login extends Component {
       },
     },
     formIsValid: false,
+    isAuthenticated: false,
   };
+
+  componentDidMount() {
+    if (auth.isAuthenticated()) {
+      this.setState({ isAuthenticated: true });
+    }
+  }
 
   checkValidity(value, rules) {
     let isValid = true;
@@ -99,28 +109,22 @@ class Login extends Component {
     this.setState({ controls: updatedControls, formIsValid: formIsValid });
   };
 
-  submitHandler = (event) => {
+  submitHandler = async (event) => {
     event.preventDefault();
 
     if (!this.state.formIsValid) {
       console.log("No es valido");
       return;
     }
-
-    const payload = {
-      email: this.state.controls.email.value,
-      password: this.state.controls.password.value,
-    };
-
-    instance
-      .post("user-login/", payload)
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          console.log("LOGIN SUCCESSFULLY");
-        }
-      })
-      .catch((err) => console.log(err));
+    try {
+      const email = this.state.controls.email.value;
+      const password = this.state.controls.password.value;
+      await auth.login(email, password);
+      this.setState({ isAuthenticated: true });
+      console.log("estado", this.state.isAuthenticated);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   render() {
@@ -163,6 +167,7 @@ class Login extends Component {
             navigate="/register"
           />
         </Box>
+        {this.state.isAuthenticated && <Redirect to="/home" />}
       </Background>
     );
   }
