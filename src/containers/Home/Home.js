@@ -31,11 +31,9 @@ class Home extends Component {
         this.setState({ showModal: false, loading: false });
         console.log(err);
       });
-
     // const payload = {
     //   id_paper: 10,
     // };
-
     // instance
     //   .post("paper/", payload)
     //   .then((response) => {
@@ -55,42 +53,37 @@ class Home extends Component {
       spinner = <Spinner />;
     }
 
-    return (
-      <div>
+    let modal = null;
+    if (this.state.showModal) {
+      modal = (
         <Modal
           clicked={this.modalHandler}
           show={this.state.showModal}
-          modalClosed={this.modalHandler}
+          modalClosedByBackdrop={this.modalHandler}
           transparent
         >
           {spinner}
         </Modal>
+      );
+    } else {
+      modal = null;
+    }
+
+    return (
+      <div>
+        {modal}
         <Toolbar />
-        <Banner data={this.state.trendings} />
+        <Banner />
         {/* <embed
           width="1200"
           height="1200"
           src={`data:application/pdf;base64,${this.state.paper}`}
           type="application/pdf"
         /> */}
-        <Row title="TRENDINGS" data={this.state.trendings} isLargeRow={true} />
-
-        <Row
-          title="COSMOS"
-          data={this.state.trendings}
-          clicked={this.modalHandler}
-        />
-
-        <Row
-          title="BIOLOGIA"
-          data={this.state.trendings}
-          clicked={this.modalHandler}
-        />
-        <Row
-          title="MATEMATICAS"
-          data={this.state.trendings}
-          clicked={this.modalHandler}
-        />
+        <Row title="TRENDINGS" isLargeRow={true} data={this.state.trendings} />
+        <Row title="COSMOS" data={this.state.trendings} />
+        <Row title="BIOLOGIA" data={this.state.trendings} />
+        <Row title="MATEMATICAS" data={this.state.trendings} />
         <Footer />
       </div>
     );

@@ -2,21 +2,35 @@ import React, { useState, useEffect } from "react";
 import "./Banner.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faBookOpen, faListAlt } from "@fortawesome/free-solid-svg-icons";
+import Modal from "components/Modal/Modal";
+import instance from "axios-instance";
 
 const Banner = (props) => {
   const [paper, setPaper] = useState([]);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
-    let index = 0;
-    if (props.data && props.data.length > 1) {
-      index = Math.floor(Math.random() * props.data.length - 1);
-    }
-    setPaper(props.data[index]);
-  }, [props.data]);
+    instance
+      .get("paper-list/")
+      .then((response) => {
+        if (response.data.length > 1) {
+          setPaper(
+            response.data[Math.floor(Math.random() * response.data.length - 1)]
+          );
+        } else {
+          setPaper(response.data[0]);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [paper === null]);
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  }
+
+  function modalHandler() {
+    setModal(!modal);
   }
 
   return (
@@ -27,16 +41,21 @@ const Banner = (props) => {
           <h1 className="banner__description">
             {truncate(paper?.description, 150)}
           </h1>
-          <button className="button__content" onClick={props.openModal}>
-            <FontAwesomeIcon className="icon" icon={faPlay} />
-            Play
+          <button className="button__content" onClick={modalHandler}>
+            <FontAwesomeIcon className="icon" icon={faBookOpen} />
+            Read
           </button>
           <button className="button__content">
-            <FontAwesomeIcon className="icon" icon={faInfoCircle} /> More Info
+            <FontAwesomeIcon className="icon" icon={faListAlt} /> My list
           </button>
         </div>
       </div>
       <div className="banner--fadeBottom" />
+      {paper && (
+        <Modal show={modal} modalClosedByBackdrop={modalHandler}>
+          {paper.title}
+        </Modal>
+      )}
     </div>
   );
 };
