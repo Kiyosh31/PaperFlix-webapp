@@ -116,6 +116,7 @@ class Login extends Component {
       console.log("No es valido");
       return;
     }
+
     try {
       await auth.login(
         this.state.controls.email.value,
