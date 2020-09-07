@@ -19,7 +19,6 @@ class Auth {
       instance
         .post("user-login/", payload)
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
             let hash = sha256.create();
             hash.update(email + password);

@@ -1,6 +1,6 @@
-# Paperflix-api
+# Paperflix-webapp
 
-Backend proyecto modular INCO 2020
+Frontend proyecto modular INCO 2020
 
 # Requirements
 
