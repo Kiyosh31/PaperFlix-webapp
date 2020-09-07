@@ -23,3 +23,8 @@
   border: 1px solid red;
   background-color: #ff0033;
 }
+
+.error__message {
+  color: red;
+  margin: 5px 0;
+}
