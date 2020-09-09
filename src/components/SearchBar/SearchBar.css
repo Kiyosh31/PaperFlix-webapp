@@ -1,11 +1,11 @@
-.avatar__container {
+.searchbar__container {
   padding: 20px;
   height: 100%;
   box-sizing: border-box;
   border-radius: 5px;
 }
 
-.avatar__container img {
+.icon {
   height: 100%;
   cursor: pointer;
 }

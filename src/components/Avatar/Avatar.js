@@ -5,8 +5,8 @@ import avatar from "assets/img/avatar.png";
 
 const Avatar = () => {
   return (
-    <div>
-      <img className="avatar" src={avatar} alt="Paperflix-avatar" />
+    <div className="avatar__container">
+      <img src={avatar} alt="Paperflix-avatar" />
     </div>
   );
 };

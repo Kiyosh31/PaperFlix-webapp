@@ -1,6 +1,10 @@
-.logo {
-  position: fixed;
-  left: 20px;
-  width: 80px;
-  object-fit: contain;
+.logo__container {
+  padding: 8px;
+  height: 62%;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.logo__container img {
+  height: 100%;
 }

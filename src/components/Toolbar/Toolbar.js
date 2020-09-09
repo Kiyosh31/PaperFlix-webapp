@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./Toolbar.css";
 
 import NavItems from "components/NavItems/NavItems";
+import Logo from "components/Logo/Logo";
+import Avatar from "components/Avatar/Avatar";
+import SearchBar from "components/SearchBar/SearchBar";
 
 const Toolbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -19,8 +22,13 @@ const Toolbar = () => {
 
   return (
     <header className={`toolbar ${scrolled && "toolbar__black"}`}>
-      <nav>
+      <Logo />
+      <div>
         <NavItems />
+      </div>
+      <nav>
+        <SearchBar />
+        <Avatar />
       </nav>
     </header>
   );
