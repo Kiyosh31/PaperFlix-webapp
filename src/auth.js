@@ -36,9 +36,14 @@ class Auth {
 
   logout() {
     // CallBack => Logic Delete cookie from browser and in API
-    if (this.isAuthenticated()) {
+    return new Promise((resolve, reject) => {
       Cookies.remove("authenticated");
-    }
+      if (!this.isAuthenticated()) {
+        resolve(true);
+      }
+
+      reject(false);
+    });
   }
 
   isAuthenticated() {

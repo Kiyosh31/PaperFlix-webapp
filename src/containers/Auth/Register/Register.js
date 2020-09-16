@@ -126,8 +126,6 @@ class Register extends Component {
       password: this.state.controls.password.value,
     };
 
-    console.log(payload);
-
     instance
       .post("user-create/", payload)
       .then((response) => {
