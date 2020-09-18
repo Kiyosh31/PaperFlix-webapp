@@ -1,13 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SearchBar.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import SearchInput from "components/SearchInput/SearchInput";
 
-const SearchBar = () => {
+const SearchBar = (props) => {
+  const [showBar, setShowBar] = useState(false);
+
+  function showSearchBarHandler() {
+    setShowBar(true);
+  }
+
+  function closeSearchBarHandler() {
+    setShowBar(false);
+    props.closeSearchBarHandler();
+  }
+
   return (
     <div className="searchbar__container">
-      <FontAwesomeIcon className="icon" icon={faSearch} />
+      {showBar ? (
+        <div className="searchinput__container">
+          <FontAwesomeIcon
+            className="searchinput__icon"
+            icon={faTimesCircle}
+            onClick={closeSearchBarHandler}
+          />
+          <SearchInput
+            placeholder="Buscar documentos"
+            changed={props.searchBarHandler}
+          />
+        </div>
+      ) : (
+        <FontAwesomeIcon
+          className="search__icon"
+          icon={faSearch}
+          onClick={showSearchBarHandler}
+        />
+      )}
     </div>
   );
 };

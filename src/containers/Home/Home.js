@@ -5,15 +5,17 @@ import Banner from "components/Banner/Banner";
 import Toolbar from "components/Toolbar/Toolbar";
 import Modal from "components/Modal/Modal";
 import Spinner from "components/Spinner/Spinner";
-import instance from "axios-instance";
 import Footer from "components/Footer/Footer";
+
+import instance from "axios-instance";
+import GridPosters from "components/GridPosters/GridPosters";
 
 class Home extends Component {
   state = {
     showModal: true,
     loading: true,
     trendings: [],
-    // paper: null,
+    search: null,
   };
 
   componentDidMount() {
@@ -31,20 +33,18 @@ class Home extends Component {
         this.setState({ showModal: false, loading: false });
         console.log(err);
       });
-    // const payload = {
-    //   id_paper: 10,
-    // };
-    // instance
-    //   .post("paper/", payload)
-    //   .then((response) => {
-    //     console.log(response);
-    //     this.setState({ paper: response.data });
-    //   })
-    //   .catch((err) => console.log(err));
   }
 
   modalHandler = () => {
     this.setState({ showModal: !this.state.showModal });
+  };
+
+  searchBarHandler = (event) => {
+    this.setState({ search: event.target.value });
+  };
+
+  closeSearchBarHandler = () => {
+    this.setState({ search: null });
   };
 
   render() {
@@ -69,21 +69,42 @@ class Home extends Component {
       modal = null;
     }
 
+    let filteredPapers = null;
+    if (this.state.search === "" || this.state.search === null) {
+      filteredPapers = this.state.trendings;
+    } else {
+      filteredPapers = this.state.trendings.filter((paper) => {
+        return (
+          paper.title.toLowerCase().includes(this.state.search.toLowerCase()) ||
+          paper.author.toLowerCase().includes(this.state.search.toLowerCase())
+        );
+      });
+    }
+
+    let content = null;
+    if (this.state.search) {
+      content = <GridPosters data={filteredPapers} />;
+    } else {
+      content = (
+        <div>
+          <Banner />
+          <Row title="TRENDINGS" isLargeRow data={filteredPapers} />
+          <Row title="COSMOS" data={filteredPapers} />
+          <Row title="BIOLOGIA" data={filteredPapers} />
+          <Row title="MATEMATICAS" data={filteredPapers} />
+        </div>
+      );
+    }
+
     return (
       <div>
         {modal}
-        <Toolbar />
-        <Banner />
-        {/* <embed
-          width="1200"
-          height="1200"
-          src={`data:application/pdf;base64,${this.state.paper}`}
-          type="application/pdf"
-        /> */}
-        <Row title="TRENDINGS" isLargeRow={true} data={this.state.trendings} />
-        <Row title="COSMOS" data={this.state.trendings} />
-        <Row title="BIOLOGIA" data={this.state.trendings} />
-        <Row title="MATEMATICAS" data={this.state.trendings} />
+        <Toolbar
+          searchBarHandler={this.searchBarHandler}
+          closeSearchBarHandler={this.closeSearchBarHandler}
+          searched={this.state.search}
+        />
+        {content}
         <Footer />
       </div>
     );

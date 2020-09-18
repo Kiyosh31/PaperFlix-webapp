@@ -5,7 +5,19 @@
   border-radius: 5px;
 }
 
-.icon {
+.search__icon {
   height: 100%;
   cursor: pointer;
+}
+
+.searchinput__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.searchinput__icon {
+  margin-right: 12px;
+  cursor: pointer;
+  margin-bottom: 15px;
 }

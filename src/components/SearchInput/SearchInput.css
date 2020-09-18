@@ -1,0 +1,20 @@
+.input__search-container {
+  margin-bottom: 20px;
+}
+
+.input__search {
+  height: 35px;
+  width: 100%;
+  border-radius: 3px;
+  background: #333;
+  color: #fff;
+  border: 1px solid #333;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+
+.input__search::placeholder,
+.input__search::-webkit-placeholder {
+  color: #fff;
+  opacity: 1;
+}

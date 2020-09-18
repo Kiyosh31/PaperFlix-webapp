@@ -6,7 +6,7 @@ import Logo from "components/Logo/Logo";
 import Avatar from "components/Avatar/Avatar";
 import SearchBar from "components/SearchBar/SearchBar";
 
-const Toolbar = () => {
+const Toolbar = (props) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -21,13 +21,20 @@ const Toolbar = () => {
   }, []);
 
   return (
-    <header className={`toolbar ${scrolled && "toolbar__black"}`}>
+    <header
+      className={`toolbar ${scrolled && "toolbar__black"} ${
+        props.searched && "toolbar__black"
+      }`}
+    >
       <Logo />
       <div>
         <NavItems />
       </div>
       <nav>
-        <SearchBar />
+        <SearchBar
+          searchBarHandler={props.searchBarHandler}
+          closeSearchBarHandler={props.closeSearchBarHandler}
+        />
         <Avatar />
       </nav>
     </header>

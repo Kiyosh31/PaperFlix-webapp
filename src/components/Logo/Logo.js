@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Logo = () => {
   return (
     <div className="logo__container">
-      <Link to="/home">
+      <Link to="/">
         <img src={logo} alt="Paperflix-logo" />
       </Link>
     </div>

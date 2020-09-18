@@ -23,10 +23,16 @@ const Banner = (props) => {
         }
       })
       .catch((err) => console.log(err));
-  }, [paper === null]);
+  }, []);
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  }
+
+  function capitalizaFirstLetter(str) {
+    if (str) {
+      return str.slice(0, 1).toUpperCase() + str.slice(1, str.length);
+    }
   }
 
   function modalHandler() {
@@ -36,11 +42,12 @@ const Banner = (props) => {
   return (
     <div className="banner">
       <div className="banner__contents">
-        <h1 className="banner__title">{paper?.title}</h1>
+        <h1 className="banner__title">{capitalizaFirstLetter(paper?.title)}</h1>
         <div className="banner__button_container">
           <h1 className="banner__description">
             {truncate(paper?.description, 150)}
           </h1>
+          <div className="separation"></div>
           <button className="button__content" onClick={modalHandler}>
             <FontAwesomeIcon className="icon" icon={faBookOpen} />
             Read
