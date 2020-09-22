@@ -23,7 +23,9 @@ class Auth {
             let hash = sha256.create();
             hash.update(email + password);
             hash.hex();
-            Cookies.set("authenticated", hash, { expires: 5 });
+            Cookies.set("authenticated", hash + "/" + response.data.id_user, {
+              expires: 5,
+            });
             resolve(true);
           }
         })
@@ -41,7 +43,6 @@ class Auth {
       if (!this.isAuthenticated()) {
         resolve(true);
       }
-
       reject(false);
     });
   }

@@ -7,11 +7,11 @@ import PaperDetail from "components/PaperDetail/PaperDetail";
 
 const Row = (props) => {
   const [modal, setModal] = useState(false);
-  const [paper, setPaper] = useState(null);
+  const [paper, setPaper] = useState([]);
 
   function modalHandler(paper) {
-    setModal(!modal);
     setPaper(paper);
+    setModal(!modal);
   }
 
   return (

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookOpen, faListAlt } from "@fortawesome/free-solid-svg-icons";
 import Modal from "components/Modal/Modal";
 import instance from "axios-instance";
+import PaperDetail from "components/PaperDetail/PaperDetail";
 
 const Banner = (props) => {
   const [paper, setPaper] = useState([]);
@@ -50,17 +51,17 @@ const Banner = (props) => {
           <div className="separation"></div>
           <button className="button__content" onClick={modalHandler}>
             <FontAwesomeIcon className="icon" icon={faBookOpen} />
-            Read
+            Leer
           </button>
           <button className="button__content">
-            <FontAwesomeIcon className="icon" icon={faListAlt} /> My list
+            <FontAwesomeIcon className="icon" icon={faListAlt} /> Mi Lista
           </button>
         </div>
       </div>
       <div className="banner--fadeBottom" />
       {paper && (
         <Modal show={modal} modalClosedByBackdrop={modalHandler}>
-          {paper.title}
+          <PaperDetail paper={paper} />
         </Modal>
       )}
     </div>

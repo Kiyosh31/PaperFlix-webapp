@@ -14,17 +14,17 @@ class Home extends Component {
   state = {
     showModal: true,
     loading: true,
-    trendings: [],
+    papers: [],
     search: null,
   };
 
   componentDidMount() {
     instance
-      .get("paper-list/")
+      .get("papers-get/")
       .then((response) => {
-        const trendings = response.data;
+        const papers = response.data;
         this.setState({
-          trendings: trendings,
+          papers: papers,
           showModal: false,
           loading: false,
         });
@@ -71,14 +71,18 @@ class Home extends Component {
 
     let filteredPapers = null;
     if (this.state.search === "" || this.state.search === null) {
-      filteredPapers = this.state.trendings;
+      filteredPapers = this.state.papers;
     } else {
-      filteredPapers = this.state.trendings.filter((paper) => {
+      filteredPapers = this.state.papers.filter((paper) => {
         return (
           paper.title.toLowerCase().includes(this.state.search.toLowerCase()) ||
           paper.author.toLowerCase().includes(this.state.search.toLowerCase())
         );
       });
+    }
+
+    for (let i = 0; i < this.state.papers.length; i++) {
+      console.log("papers", this.state.papers[i]);
     }
 
     let content = null;
@@ -88,10 +92,17 @@ class Home extends Component {
       content = (
         <div>
           <Banner />
-          <Row title="TRENDINGS" isLargeRow data={filteredPapers} />
+          {Object.keys(this.state.papers).map((category, index) => (
+            <Row
+              key={index}
+              title={category}
+              data={this.state.papers[category]}
+            />
+          ))}
+          {/* <Row title="TRENDINGS" isLargeRow data={filteredPapers} />
           <Row title="COSMOS" data={filteredPapers} />
           <Row title="BIOLOGIA" data={filteredPapers} />
-          <Row title="MATEMATICAS" data={filteredPapers} />
+          <Row title="MATEMATICAS" data={filteredPapers} /> */}
         </div>
       );
     }

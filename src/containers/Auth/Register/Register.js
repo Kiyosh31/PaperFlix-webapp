@@ -10,6 +10,7 @@ import Link from "components/RegisterLink/RegisterLink";
 
 import BackgroundImage from "assets/img/register.jpg";
 import instance from "axios-instance";
+import { Redirect } from "react-router-dom";
 
 class Register extends Component {
   state = {
@@ -58,6 +59,7 @@ class Register extends Component {
       },
     },
     formIsValid: false,
+    redirect: false,
   };
 
   checkValidity(value, rules) {
@@ -132,6 +134,7 @@ class Register extends Component {
         console.log(response);
         if (response.status === 201) {
           console.log("USER CREATED SUCCESFULLY");
+          this.setState({ redirect: true });
         }
       })
       .catch((err) => console.log(err));
@@ -172,6 +175,7 @@ class Register extends Component {
           </form>
           <Link question="Have an account?" text="Sign In" navigate="/" />
         </Box>
+        {this.state.redirect && <Redirect to="/" />}
       </Background>
     );
   }

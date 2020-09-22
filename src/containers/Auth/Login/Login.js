@@ -6,7 +6,7 @@ import Box from "components/Box/Box";
 import Title from "components/Title/Title";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
-import CheckBox from "components/CheckBox/CheckBox";
+// import CheckBox from "components/CheckBox/CheckBox";
 import Link from "components/RegisterLink/RegisterLink";
 import BackgroundImage from "assets/img/login.jpg";
 
@@ -160,7 +160,7 @@ class Login extends Component {
             <Button btnType="submit" disabled={!this.state.formIsValid}>
               Sign In
             </Button>
-            <CheckBox text="Remember me" />
+            {/* <CheckBox text="Remember me" /> */}
           </form>
           <Link
             question="New in Paperflix?"

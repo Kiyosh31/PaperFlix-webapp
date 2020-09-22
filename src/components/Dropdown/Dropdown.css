@@ -13,7 +13,9 @@
   list-style: none;
   list-style-type: none;
   font-weight: normal;
-  margin: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
   padding: 0;
   justify-content: space-around;
 }
