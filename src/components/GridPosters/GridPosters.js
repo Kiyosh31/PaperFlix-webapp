@@ -10,8 +10,8 @@ const GridPosters = (props) => {
   const [paper, setPaper] = useState(null);
 
   function modalHandler(paper) {
-    setModal(!modal);
     setPaper(paper);
+    setModal(!modal);
   }
 
   return (

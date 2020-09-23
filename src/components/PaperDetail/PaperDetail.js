@@ -10,7 +10,8 @@ import Cookies from "js-cookie";
 const PaperDetail = (props) => {
   function starRatingHandler(newRating) {
     const cookie = Cookies.get("authenticated");
-    const id_user = cookie.split("/")[1];
+    let id_user = cookie.split("/")[1];
+    id_user = parseInt(id_user, 10);
 
     const formData = {
       id_user: id_user,
@@ -63,7 +64,7 @@ const PaperDetail = (props) => {
 
   return (
     <div className="paperdetail__container">
-      <Title>Acerca de {props.paper.title}</Title>
+      <Title>Acerca de: {props.paper.title}</Title>
       <p className="text">
         <strong className="text_int">Autor(es):</strong> {props.paper.author}
       </p>

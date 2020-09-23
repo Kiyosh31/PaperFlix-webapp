@@ -9,8 +9,8 @@ const NavItems = () => {
       <NavItem link="/home" active>
         Inicio
       </NavItem>
-      <NavItem link="/asdasda">Ciencia</NavItem>
-      <NavItem link="/hola">Mi lista</NavItem>
+      <NavItem link="/asdasda">Mas recientes</NavItem>
+      <NavItem link="/asdasda">Tendencias</NavItem>
     </ul>
   );
 };

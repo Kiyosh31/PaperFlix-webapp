@@ -20,7 +20,7 @@ class Home extends Component {
 
   componentDidMount() {
     instance
-      .get("papers-get/")
+      .get("paper-list/")
       .then((response) => {
         const papers = response.data;
         this.setState({
@@ -81,10 +81,6 @@ class Home extends Component {
       });
     }
 
-    for (let i = 0; i < this.state.papers.length; i++) {
-      console.log("papers", this.state.papers[i]);
-    }
-
     let content = null;
     if (this.state.search) {
       content = <GridPosters data={filteredPapers} />;
@@ -92,17 +88,10 @@ class Home extends Component {
       content = (
         <div>
           <Banner />
-          {Object.keys(this.state.papers).map((category, index) => (
-            <Row
-              key={index}
-              title={category}
-              data={this.state.papers[category]}
-            />
-          ))}
-          {/* <Row title="TRENDINGS" isLargeRow data={filteredPapers} />
+          <Row title="TRENDINGS" isLargeRow data={filteredPapers} />
           <Row title="COSMOS" data={filteredPapers} />
           <Row title="BIOLOGIA" data={filteredPapers} />
-          <Row title="MATEMATICAS" data={filteredPapers} /> */}
+          <Row title="MATEMATICAS" data={filteredPapers} />
         </div>
       );
     }
