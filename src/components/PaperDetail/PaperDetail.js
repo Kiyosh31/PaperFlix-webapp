@@ -8,11 +8,11 @@ import instance from "axios-instance";
 import Cookies from "js-cookie";
 
 const PaperDetail = (props) => {
-  function starRatingHandler(newRating) {
-    const cookie = Cookies.get("authenticated");
-    let id_user = cookie.split("/")[1];
-    id_user = parseInt(id_user, 10);
+  const cookie = Cookies.get("authenticated");
+  let id_user = cookie.split("/")[1];
+  id_user = parseInt(id_user, 10);
 
+  function starRatingHandler(newRating) {
     const formData = {
       id_user: id_user,
       id_paper: props.paper.id_paper,

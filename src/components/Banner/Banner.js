@@ -15,12 +15,16 @@ const Banner = (props) => {
     instance
       .get("paper-list/")
       .then((response) => {
-        if (response.data.length > 1) {
-          setPaper(
-            response.data[Math.floor(Math.random() * response.data.length - 1)]
-          );
-        } else {
-          setPaper(response.data[0]);
+        if (response.status === 200) {
+          if (response.data.length > 1) {
+            setPaper(
+              response.data[
+                Math.floor(Math.random() * response.data.length - 1)
+              ]
+            );
+          } else {
+            setPaper(response.data[0]);
+          }
         }
       })
       .catch((err) => console.log(err));
@@ -41,7 +45,7 @@ const Banner = (props) => {
   return (
     <div className="banner">
       <div className="banner__contents">
-        <h1 className="banner__title">{paper?.title}</h1>
+        <h1 className="banner__title">{truncate(paper?.title, 30)}</h1>
         <div className="banner__button_container">
           <h1 className="banner__description">
             {truncate(paper?.description, 150)}

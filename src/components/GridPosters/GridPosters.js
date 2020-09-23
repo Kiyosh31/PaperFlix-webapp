@@ -16,7 +16,7 @@ const GridPosters = (props) => {
 
   return (
     <div className="grid__container">
-      <div className="row">
+      <div className="grid__row">
         {props.data.map((paper) => (
           <img
             key={paper.id_paper}

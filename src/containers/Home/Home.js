@@ -6,33 +6,67 @@ import Toolbar from "components/Toolbar/Toolbar";
 import Modal from "components/Modal/Modal";
 import Spinner from "components/Spinner/Spinner";
 import Footer from "components/Footer/Footer";
+import GridPosters from "components/GridPosters/GridPosters";
 
 import instance from "axios-instance";
-import GridPosters from "components/GridPosters/GridPosters";
 
 class Home extends Component {
   state = {
     showModal: true,
     loading: true,
+    categories: [],
     papers: [],
     search: null,
   };
 
-  componentDidMount() {
+  getCategories = () => {
     instance
-      .get("paper-list/")
+      .get("category-list/")
       .then((response) => {
-        const papers = response.data;
-        this.setState({
-          papers: papers,
-          showModal: false,
-          loading: false,
-        });
+        if (response.status === 200) {
+          const categories = response.data;
+          this.setState({
+            categories: categories,
+            // showModal: false,
+            // loading: false,
+          });
+        }
       })
       .catch((err) => {
         this.setState({ showModal: false, loading: false });
         console.log(err);
       });
+  };
+
+  getPapers = () => {
+    instance
+      .get("paper-list/")
+      .then((response) => {
+        if (response.status === 200) {
+          const papers = response.data;
+          this.setState({
+            papers: papers,
+            // showModal: false,
+            // loading: false,
+          });
+        }
+      })
+      .catch((err) => {
+        this.setState({ showModal: false, loading: false });
+        console.log(err);
+      });
+  };
+
+  componentDidMount() {
+    this.getCategories();
+    this.getPapers();
+
+    if (this.state.papers && this.state.categories) {
+      this.setState({
+        showModal: false,
+        loading: false,
+      });
+    }
   }
 
   modalHandler = () => {
@@ -69,29 +103,34 @@ class Home extends Component {
       modal = null;
     }
 
-    let filteredPapers = null;
-    if (this.state.search === "" || this.state.search === null) {
-      filteredPapers = this.state.papers;
-    } else {
-      filteredPapers = this.state.papers.filter((paper) => {
-        return (
-          paper.title.toLowerCase().includes(this.state.search.toLowerCase()) ||
-          paper.author.toLowerCase().includes(this.state.search.toLowerCase())
-        );
-      });
-    }
+    // let filteredPapers = null;
+    // if (this.state.search === "" || this.state.search === null) {
+    //   filteredPapers = this.state.papers;
+    // } else {
+    //   filteredPapers = this.state.papers.filter((paper) => {
+    //     return (
+    //       paper.title.toLowerCase().includes(this.state.search.toLowerCase()) ||
+    //       paper.author.toLowerCase().includes(this.state.search.toLowerCase())
+    //     );
+    //   });
+    // }
 
     let content = null;
     if (this.state.search) {
-      content = <GridPosters data={filteredPapers} />;
+      // content = <GridPosters data={filteredPapers} />;
     } else {
       content = (
         <div>
           <Banner />
-          <Row title="TRENDINGS" isLargeRow data={filteredPapers} />
-          <Row title="COSMOS" data={filteredPapers} />
-          {/* <Row title="BIOLOGIA" data={filteredPapers} />
-          <Row title="MATEMATICAS" data={filteredPapers} /> */}
+          {this.state.categories.map((category, index) => (
+            <Row
+              key={index}
+              title={category.category}
+              data={this.state.papers.filter(
+                (paper) => paper.id_category === category.id_category
+              )}
+            />
+          ))}
         </div>
       );
     }

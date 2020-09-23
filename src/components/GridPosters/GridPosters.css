@@ -5,7 +5,8 @@
   min-height: 54vh;
 }
 
-.row {
+.grid__row {
+  display: flex;
   overflow-y: hidden;
   overflow-x: scroll;
   padding: 20px;
@@ -17,7 +18,7 @@
 
 .poster {
   object-fit: contain;
-  width: 100%;
+  width: 14%;
   max-height: 300px;
   margin-right: 10px;
   transition: transform 450ms;
