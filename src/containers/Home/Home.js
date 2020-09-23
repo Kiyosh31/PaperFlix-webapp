@@ -90,8 +90,8 @@ class Home extends Component {
           <Banner />
           <Row title="TRENDINGS" isLargeRow data={filteredPapers} />
           <Row title="COSMOS" data={filteredPapers} />
-          <Row title="BIOLOGIA" data={filteredPapers} />
-          <Row title="MATEMATICAS" data={filteredPapers} />
+          {/* <Row title="BIOLOGIA" data={filteredPapers} />
+          <Row title="MATEMATICAS" data={filteredPapers} /> */}
         </div>
       );
     }

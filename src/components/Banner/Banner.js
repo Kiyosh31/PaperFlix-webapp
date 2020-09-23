@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Banner.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookOpen, faListAlt } from "@fortawesome/free-solid-svg-icons";
+import { faBookOpen, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import Modal from "components/Modal/Modal";
 import instance from "axios-instance";
 import PaperDetail from "components/PaperDetail/PaperDetail";
@@ -40,6 +40,10 @@ const Banner = (props) => {
     setModal(!modal);
   }
 
+  function openPaperHandler() {
+    window.open(paper.url, "_blank");
+  }
+
   return (
     <div className="banner">
       <div className="banner__contents">
@@ -49,12 +53,13 @@ const Banner = (props) => {
             {truncate(paper?.description, 150)}
           </h1>
           <div className="separation"></div>
-          <button className="button__content" onClick={modalHandler}>
+          <button className="button__content" onClick={openPaperHandler}>
             <FontAwesomeIcon className="icon" icon={faBookOpen} />
             Leer
           </button>
-          <button className="button__content">
-            <FontAwesomeIcon className="icon" icon={faListAlt} /> Mi Lista
+          <button className="button__content" onClick={modalHandler}>
+            <FontAwesomeIcon className="icon" icon={faInfoCircle} /> Mas
+            informacion
           </button>
         </div>
       </div>
