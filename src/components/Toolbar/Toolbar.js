@@ -20,8 +20,6 @@ const Toolbar = (props) => {
     };
   }, []);
 
-  function userSettingsHandler() {}
-
   return (
     <header
       className={`toolbar ${scrolled && "toolbar__black"} ${

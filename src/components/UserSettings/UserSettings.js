@@ -8,6 +8,7 @@ import CreatedContent from "components/CreatedContent/CreatedContent";
 
 import Cookies from "js-cookie";
 import instance from "axios-instance";
+import Confirm from "components/Confirm/Confirm";
 
 const initialState = {
   controls: {
@@ -106,6 +107,7 @@ class UserSettings extends Component {
     },
     formIsValid: false,
     showModal: false,
+    contentType: null,
   };
 
   componentDidMount() {
@@ -166,8 +168,11 @@ class UserSettings extends Component {
     this.setState({ controls: updatedControls, formIsValid: formIsValid });
   };
 
-  modalHandler = () => {
-    this.setState({ showModal: !this.state.showModal });
+  modalHandler = (contentType) => {
+    this.setState({
+      showModal: !this.state.showModal,
+      contentType: contentType,
+    });
   };
 
   submitHandler = (event) => {
@@ -195,14 +200,16 @@ class UserSettings extends Component {
         console.log(response);
         if (response.status === 201) {
           console.log("USER UPDATED SUCCESFULLY");
-          this.modalHandler();
+          this.modalHandler("creado");
           this.clearForm();
         }
       })
       .catch((err) => console.log(err));
   };
 
-  deactivateAccountHandler = () => {};
+  deactivateAccountHandler = () => {
+    this.modalHandler("eliminar");
+  };
 
   clearForm = () => {
     this.setState(initialState);
@@ -238,12 +245,18 @@ class UserSettings extends Component {
           show={this.state.showModal}
           modalClosedByBackdrop={this.modalHandler}
         >
-          <CreatedContent
-            title="Usuario actualizado"
-            clicked={this.modalHandler}
-          >
-            El usuario fue actualizado con exito!
-          </CreatedContent>
+          {this.state.contentType === "creado" ? (
+            <CreatedContent
+              title="Usuario actualizado"
+              clicked={this.modalHandler}
+            >
+              El usuario fue actualizado con exito!
+            </CreatedContent>
+          ) : (
+            <Confirm title="Te vas tan pronto?" id_user={this.state.id_user}>
+              Seguro que deseas desactivar tu cuenta?
+            </Confirm>
+          )}
         </Modal>
       );
     } else {
@@ -255,11 +268,7 @@ class UserSettings extends Component {
         <h1>Actualizar informacion</h1>
         <form onSubmit={this.submitHandler}>
           {form}
-          <Button
-            btnType="submit"
-            style="button__edit"
-            disabled={!this.state.formIsValid}
-          >
+          <Button btnType="submit" edit disabled={!this.state.formIsValid}>
             Actualizar informacion
           </Button>
         </form>

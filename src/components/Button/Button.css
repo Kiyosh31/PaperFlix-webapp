@@ -55,3 +55,29 @@
   color: #666666;
   cursor: not-allowed;
 }
+
+.button__cancel {
+  height: 50px;
+  width: 100%;
+  background: #555555;
+  border: 1px solid #555555;
+  border-radius: 3px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.button__cancel:hover {
+  color: #000;
+  background-color: #555555;
+  transition: all 0.2s;
+}
+
+.button__cancel:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
