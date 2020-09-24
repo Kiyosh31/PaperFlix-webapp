@@ -10,12 +10,12 @@ import Modal from "components/Modal/Modal";
 import UserSettings from "components/UserSettings/UserSettings";
 
 const Dropdown = () => {
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
   let history = useHistory();
 
   function userSettingsHandler() {
-    // setModal(!modal);
+    setModal(!modal);
   }
 
   async function logoutHandler() {
