@@ -77,8 +77,7 @@ const PaperDetail = (props) => {
         {props.paper.publication_year}
       </p>
       <p className="text">
-        <strong className="text_int">Categorias:</strong>{" "}
-        {props.paper.category_name}
+        <strong className="text_int">Categoria:</strong> {props.category}
       </p>
       <StarRating changed={starRatingHandler} />
       <Button clicked={paperClickHandler}>Ver el documento</Button>

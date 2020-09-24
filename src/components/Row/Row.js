@@ -30,7 +30,7 @@ const Row = (props) => {
       </div>
       {paper && (
         <Modal show={modal} modalClosedByBackdrop={modalHandler}>
-          <PaperDetail paper={paper} />
+          <PaperDetail paper={paper} category={props.title} />
         </Modal>
       )}
     </div>

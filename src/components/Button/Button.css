@@ -29,3 +29,29 @@
   color: #666666;
   cursor: not-allowed;
 }
+
+.button__edit {
+  height: 50px;
+  width: 50%;
+  background: #6c757d;
+  border: 1px solid #6c757d;
+  border-radius: 3px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.button__edit:hover {
+  color: #000;
+  background-color: #6c757d;
+  transition: all 0.2s;
+}
+
+.button__edit:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}

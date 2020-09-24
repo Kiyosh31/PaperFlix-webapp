@@ -19,7 +19,7 @@ class Register extends Component {
         elementType: "input",
         elementConfig: {
           type: "text",
-          placeholder: "Enter Name",
+          placeholder: "Ingesa el nombre",
         },
         value: "",
         validation: {
@@ -33,7 +33,7 @@ class Register extends Component {
         elementType: "input",
         elementConfig: {
           type: "mail",
-          placeholder: "Enter Email",
+          placeholder: "Ingresar Correo",
         },
         value: "",
         validation: {
@@ -47,7 +47,7 @@ class Register extends Component {
         elementType: "input",
         elementConfig: {
           type: "text",
-          placeholder: "Enter Password",
+          placeholder: "Ingresar Contraseña",
         },
         value: "",
         validation: {

@@ -3,6 +3,7 @@ import "./Banner.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookOpen, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+
 import Modal from "components/Modal/Modal";
 import instance from "axios-instance";
 import PaperDetail from "components/PaperDetail/PaperDetail";

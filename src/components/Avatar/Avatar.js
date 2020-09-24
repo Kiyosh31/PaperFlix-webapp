@@ -5,13 +5,13 @@ import avatar from "assets/img/avatar.png";
 import Dropdown from "components/Dropdown/Dropdown";
 
 const Avatar = () => {
-  const [hover, setHover] = useState(false);
+  const [hover, setHover] = useState(true);
 
   return (
     <div
       className="avatar__container"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      // onMouseEnter={() => setHover(true)}
+      // onMouseLeave={() => setHover(false)}
     >
       <img src={avatar} alt="Paperflix-avatar" />
       {hover && <Dropdown />}
