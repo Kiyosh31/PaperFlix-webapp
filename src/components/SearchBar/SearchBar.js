@@ -28,7 +28,7 @@ const SearchBar = (props) => {
           />
           <SearchInput
             placeholder="Buscar documentos"
-            changed={props.searchBarHandler}
+            changed={props.searchBarChangedHandler}
           />
         </div>
       ) : (

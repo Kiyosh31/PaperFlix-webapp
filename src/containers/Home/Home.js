@@ -27,8 +27,6 @@ class Home extends Component {
           const categories = response.data;
           this.setState({
             categories: categories,
-            // showModal: false,
-            // loading: false,
           });
         }
       })
@@ -73,7 +71,7 @@ class Home extends Component {
     this.setState({ showModal: !this.state.showModal });
   };
 
-  searchBarHandler = (event) => {
+  searchBarChangedHandler = (event) => {
     this.setState({ search: event.target.value });
   };
 
@@ -139,7 +137,7 @@ class Home extends Component {
       <div>
         {modal}
         <Toolbar
-          searchBarHandler={this.searchBarHandler}
+          searchBarChangedHandler={this.searchBarChangedHandler}
           closeSearchBarHandler={this.closeSearchBarHandler}
           searched={this.state.search}
         />

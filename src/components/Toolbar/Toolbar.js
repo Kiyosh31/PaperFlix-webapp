@@ -32,7 +32,7 @@ const Toolbar = (props) => {
       </div>
       <nav>
         <SearchBar
-          searchBarHandler={props.searchBarHandler}
+          searchBarChangedHandler={props.searchBarChangedHandler}
           closeSearchBarHandler={props.closeSearchBarHandler}
         />
         <Avatar />

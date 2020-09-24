@@ -14,8 +14,6 @@ const Row = (props) => {
     setModal(!modal);
   }
 
-  console.log("papers en row", props.data);
-
   return (
     <div className="row">
       <h2>{props.title}</h2>
