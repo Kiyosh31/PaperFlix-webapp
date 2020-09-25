@@ -16,7 +16,7 @@ class Home extends Component {
     loading: true,
     categories: [],
     papers: [],
-    search: null,
+    filteredPapers: null,
   };
 
   getCategories = () => {
@@ -44,8 +44,6 @@ class Home extends Component {
           const papers = response.data;
           this.setState({
             papers: papers,
-            // showModal: false,
-            // loading: false,
           });
         }
       })
@@ -72,11 +70,25 @@ class Home extends Component {
   };
 
   searchBarChangedHandler = (event) => {
-    this.setState({ search: event.target.value });
+    let searchText = event.target.value;
+    setTimeout(() => {
+      const payload = {
+        search: searchText,
+      };
+
+      instance
+        .post("papers-search/", payload)
+        .then((response) => {
+          if (response.status === 200) {
+            this.setState({ filteredPapers: response.data });
+          }
+        })
+        .catch((err) => console.log(err));
+    }, 3000);
   };
 
   closeSearchBarHandler = () => {
-    this.setState({ search: null });
+    this.setState({ filteredPapers: null });
   };
 
   render() {
@@ -101,21 +113,9 @@ class Home extends Component {
       modal = null;
     }
 
-    // let filteredPapers = null;
-    // if (this.state.search === "" || this.state.search === null) {
-    //   filteredPapers = this.state.papers;
-    // } else {
-    //   filteredPapers = this.state.papers.filter((paper) => {
-    //     return (
-    //       paper.title.toLowerCase().includes(this.state.search.toLowerCase()) ||
-    //       paper.author.toLowerCase().includes(this.state.search.toLowerCase())
-    //     );
-    //   });
-    // }
-
     let content = null;
-    if (this.state.search) {
-      // content = <GridPosters data={filteredPapers} />;
+    if (this.state.filteredPapers) {
+      content = <GridPosters data={this.state.filteredPapers} />;
     } else {
       content = (
         <div>

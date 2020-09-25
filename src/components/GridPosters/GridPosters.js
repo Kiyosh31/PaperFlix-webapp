@@ -20,7 +20,7 @@ const GridPosters = (props) => {
         {props.data.map((paper) => (
           <img
             key={paper.id_paper}
-            className="poster"
+            className="grid__poster"
             src={mockImage}
             alt={props.isLargeRow ? paper.title : ""}
             onClick={() => modalHandler(paper)}

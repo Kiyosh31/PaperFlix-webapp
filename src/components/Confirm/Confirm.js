@@ -17,7 +17,7 @@ const Confirm = (props) => {
       .patch(`user-activate/${props.user.id_user}/`)
       .then((response) => {
         if (response.status === 201) {
-          console.log("CUENTA REACTIVADA");
+          // console.log("CUENTA REACTIVADA");
           let hash = sha256.create();
           hash.update(props.user.email + props.user.password);
           hash.hex();

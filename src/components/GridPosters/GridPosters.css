@@ -12,11 +12,11 @@
   padding: 20px;
 }
 
-.row::-webkit-scrollbar {
+.grid__row::-webkit-scrollbar {
   display: none;
 }
 
-.poster {
+.grid__poster {
   object-fit: contain;
   width: 14%;
   max-height: 300px;
@@ -24,7 +24,7 @@
   transition: transform 450ms;
 }
 
-.poster:hover {
+.grid__poster:hover {
   transform: scale(1.08);
   opacity: 1;
 }

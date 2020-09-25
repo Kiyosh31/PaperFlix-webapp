@@ -40,7 +40,9 @@ const Banner = (props) => {
   }
 
   function openPaperHandler() {
-    window.open(paper.url, "_blank");
+    if (paper) {
+      window.open(paper.url, "_blank");
+    }
   }
 
   return (
