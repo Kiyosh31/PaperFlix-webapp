@@ -15,3 +15,21 @@
   display: inline-block;
   margin-left: 10px;
 }
+
+.link__reactivate {
+  margin-top: 15px;
+}
+
+.link__reactivate p {
+  color: #8a8686;
+  font-size: 15px;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+.link__reactivate p a {
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 10px;
+}

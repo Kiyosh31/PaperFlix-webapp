@@ -6,14 +6,13 @@ import Box from "components/Box/Box";
 import Title from "components/Title/Title";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
-// import CheckBox from "components/CheckBox/CheckBox";
 import Link from "components/RegisterLink/RegisterLink";
 import BackgroundImage from "assets/img/login.jpg";
+import Modal from "components/Modal/Modal";
+import Confirm from "components/Confirm/Confirm";
 
 import auth from "auth";
 import { Redirect } from "react-router-dom";
-
-// import instance from "axios-instance";
 
 class Login extends Component {
   state = {
@@ -22,7 +21,7 @@ class Login extends Component {
         elementType: "input",
         elementConfig: {
           type: "mail",
-          placeholder: "Enter Email",
+          placeholder: "Ingresar Correo",
         },
         value: "",
         validation: {
@@ -36,7 +35,7 @@ class Login extends Component {
         elementType: "input",
         elementConfig: {
           type: "password",
-          placeholder: "Enter Password",
+          placeholder: "Ingresar Contraseña",
         },
         value: "",
         validation: {
@@ -49,6 +48,8 @@ class Login extends Component {
     },
     formIsValid: false,
     isAuthenticated: false,
+    showModal: false,
+    user: null,
   };
 
   componentDidMount() {
@@ -109,6 +110,10 @@ class Login extends Component {
     this.setState({ controls: updatedControls, formIsValid: formIsValid });
   };
 
+  modalHandler = () => {
+    this.setState({ showModal: !this.state.showModal });
+  };
+
   submitHandler = async (event) => {
     event.preventDefault();
 
@@ -123,8 +128,9 @@ class Login extends Component {
         this.state.controls.password.value
       );
       this.setState({ isAuthenticated: true });
-    } catch (err) {
-      console.log(err);
+    } catch (notActive) {
+      this.setState({ user: notActive.data });
+      this.modalHandler();
     }
   };
 
@@ -150,24 +156,51 @@ class Login extends Component {
       />
     ));
 
+    let modal = null;
+    if (this.state.showModal) {
+      modal = (
+        <Modal
+          clicked={this.modalHandler}
+          show={this.state.showModal}
+          modalClosedByBackdrop={this.modalHandler}
+        >
+          <Confirm
+            title="Reactivacion de cuenta"
+            reactivate
+            user={this.state.user}
+          >
+            Tu cuenta esta desactivada deseas reactivar tu cuenta?
+          </Confirm>
+        </Modal>
+      );
+    } else {
+      modal = null;
+    }
+
     return (
       <Background image={BackgroundImage}>
         <Header />
         <Box>
-          <Title>Sign in</Title>
+          <Title>Iniciar Sesion</Title>
           <form onSubmit={this.submitHandler}>
             {form}
             <Button btnType="submit" disabled={!this.state.formIsValid}>
-              Sign In
+              Iniciar Sesion
             </Button>
-            {/* <CheckBox text="Remember me" /> */}
           </form>
           <Link
-            question="New in Paperflix?"
-            text="Register"
+            question="Nuevo en Paperflix?"
+            text="Registrarse"
             navigate="/register"
           />
+          <Link
+            question="Deseas reactivar tu cuenta?"
+            text="Reactivar"
+            navigate="/reactivate"
+            reactivate
+          />
         </Box>
+        {modal}
         {this.state.isAuthenticated && <Redirect to="/home" />}
       </Background>
     );

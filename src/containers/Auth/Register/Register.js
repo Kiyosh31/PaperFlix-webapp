@@ -170,10 +170,14 @@ class Register extends Component {
           <form onSubmit={this.submitHandler}>
             {form}
             <Button btnType="submit" disabled={!this.state.formIsValid}>
-              Register
+              Registrarse
             </Button>
           </form>
-          <Link question="Have an account?" text="Sign In" navigate="/" />
+          <Link
+            question="Tienes una cuenta?"
+            text="Inicia Sesion"
+            navigate="/"
+          />
         </Box>
         {this.state.redirect && <Redirect to="/" />}
       </Background>

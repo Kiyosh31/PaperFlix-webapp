@@ -4,7 +4,7 @@ import "./RegisterLink.css";
 
 const RegisterLink = (props) => {
   return (
-    <div className="link__register">
+    <div className={props.reactivate ? "link__reactivate" : "link__register"}>
       <p>
         {props.question} <Link to={props.navigate}>{props.text}</Link>
       </p>
