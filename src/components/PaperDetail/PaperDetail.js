@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./PaperDetail.css";
 
 import Button from "components/Button/Button";
@@ -6,8 +6,11 @@ import StarRating from "components/StarRating/StarRating";
 import Title from "components/Title/Title";
 import instance from "axios-instance";
 import Cookies from "js-cookie";
+import ModalLoading from "components/ModalLoading/ModalLoading";
 
 const PaperDetail = (props) => {
+  const [showLoading, setShowLoading] = useState(false);
+
   const cookie = Cookies.get("authenticated");
   let id_user = cookie.split("/")[1];
   id_user = parseInt(id_user, 10);
@@ -18,6 +21,8 @@ const PaperDetail = (props) => {
       id_paper: props.paper.id_paper,
       rating: newRating,
     };
+
+    setShowLoading(true);
 
     instance
       .get(`papersuser-detail/${id_user}/${props.paper.id_paper}/`)
@@ -39,9 +44,13 @@ const PaperDetail = (props) => {
       .then((response) => {
         if (response.status === 201) {
           console.log("Si se creo!");
+          setShowLoading(false);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setShowLoading(false);
+      });
   }
 
   function updateRating(formData) {
@@ -53,9 +62,13 @@ const PaperDetail = (props) => {
       .then((response) => {
         if (response.status === 201) {
           console.log("Si se actualizo");
+          setShowLoading(false);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setShowLoading(false);
+      });
   }
 
   function paperClickHandler() {
@@ -64,6 +77,7 @@ const PaperDetail = (props) => {
 
   return (
     <div className="paperdetail__container">
+      {showLoading && <ModalLoading />}
       <Title>Acerca de: {props.paper.title}</Title>
       <p className="text">
         <strong className="text_int">Autor(es):</strong> {props.paper.author}

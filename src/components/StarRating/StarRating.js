@@ -14,7 +14,6 @@ const StarRating = (props) => {
         halfIcon={<i className="fa fa-star-half-alt"></i>}
         fullIcon={<i className="fa fa-star"></i>}
         activeColor="#e50914"
-        value={props.value}
       />
     </div>
   );

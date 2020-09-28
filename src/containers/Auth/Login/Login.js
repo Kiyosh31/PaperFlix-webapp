@@ -193,12 +193,6 @@ class Login extends Component {
             text="Registrarse"
             navigate="/register"
           />
-          <Link
-            question="Deseas reactivar tu cuenta?"
-            text="Reactivar"
-            navigate="/reactivate"
-            reactivate
-          />
         </Box>
         {modal}
         {this.state.isAuthenticated && <Redirect to="/home" />}

@@ -29,7 +29,7 @@ const GridPosters = (props) => {
       </div>
       {paper && (
         <Modal show={modal} modalClosedByBackdrop={modalHandler}>
-          <PaperDetail paper={paper} />
+          <PaperDetail paper={paper} categories={props.categories} />
         </Modal>
       )}
     </div>

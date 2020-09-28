@@ -3,16 +3,14 @@ import React, { Component } from "react";
 import Row from "components/Row/Row";
 import Banner from "components/Banner/Banner";
 import Toolbar from "components/Toolbar/Toolbar";
-import Modal from "components/Modal/Modal";
-import Spinner from "components/Spinner/Spinner";
 import Footer from "components/Footer/Footer";
 import GridPosters from "components/GridPosters/GridPosters";
+import ModalLoading from "components/ModalLoading/ModalLoading";
 
 import instance from "axios-instance";
 
 class Home extends Component {
   state = {
-    showModal: true,
     loading: true,
     categories: [],
     papers: [],
@@ -31,7 +29,7 @@ class Home extends Component {
         }
       })
       .catch((err) => {
-        this.setState({ showModal: false, loading: false });
+        this.setState({ loading: false });
         console.log(err);
       });
   };
@@ -48,7 +46,7 @@ class Home extends Component {
         }
       })
       .catch((err) => {
-        this.setState({ showModal: false, loading: false });
+        this.setState({ loading: false });
         console.log(err);
       });
   };
@@ -59,15 +57,11 @@ class Home extends Component {
 
     if (this.state.papers && this.state.categories) {
       this.setState({
-        showModal: false,
+        // showModal: false,
         loading: false,
       });
     }
   }
-
-  modalHandler = () => {
-    this.setState({ showModal: !this.state.showModal });
-  };
 
   searchBarChangedHandler = (event) => {
     let searchText = event.target.value;
@@ -92,34 +86,18 @@ class Home extends Component {
   };
 
   render() {
-    let spinner = null;
-    if (this.state.loading) {
-      spinner = <Spinner />;
-    }
-
-    let modal = null;
-    if (this.state.showModal) {
-      modal = (
-        <Modal
-          clicked={this.modalHandler}
-          show={this.state.showModal}
-          modalClosedByBackdrop={this.modalHandler}
-          transparent
-        >
-          {spinner}
-        </Modal>
-      );
-    } else {
-      modal = null;
-    }
-
     let content = null;
     if (this.state.filteredPapers) {
-      content = <GridPosters data={this.state.filteredPapers} />;
+      content = (
+        <GridPosters
+          data={this.state.filteredPapers}
+          categories={this.state.categories}
+        />
+      );
     } else {
       content = (
         <div>
-          <Banner />
+          <Banner categories={this.state.categories} />
           {this.state.categories.map((category, index) => (
             <Row
               key={index}
@@ -135,7 +113,7 @@ class Home extends Component {
 
     return (
       <div>
-        {modal}
+        {this.state.loading && <ModalLoading />}
         <Toolbar
           searchBarChangedHandler={this.searchBarChangedHandler}
           closeSearchBarHandler={this.closeSearchBarHandler}
