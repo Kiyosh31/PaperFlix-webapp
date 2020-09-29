@@ -6,7 +6,7 @@ import Box from "components/Box/Box";
 import Title from "components/Title/Title";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
-import Link from "components/RegisterLink/RegisterLink";
+import RegisterLink from "components/RegisterLink/RegisterLink";
 import BackgroundImage from "assets/img/login.jpg";
 import ModalError from "components/ModalError/ModalError";
 
@@ -166,7 +166,7 @@ class Login extends Component {
               Iniciar Sesion
             </Button>
           </form>
-          <Link
+          <RegisterLink
             question="Nuevo en Paperflix?"
             text="Registrarse"
             navigate="/register"
@@ -178,9 +178,7 @@ class Login extends Component {
             show={this.state.showModal}
             modalClosedByBackdrop={this.modalHandler}
             error={this.state.error}
-          >
-            {this.state.error.data}
-          </ModalError>
+          />
         )}
         {this.state.isAuthenticated && <Redirect to="/home" />}
       </Background>

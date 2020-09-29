@@ -7,9 +7,12 @@ import Title from "components/Title/Title";
 import instance from "axios-instance";
 import Cookies from "js-cookie";
 import ModalLoading from "components/ModalLoading/ModalLoading";
+import ModalError from "components/ModalError/ModalError";
 
 const PaperDetail = (props) => {
   const [showLoading, setShowLoading] = useState(false);
+  const [showModalError, setShowModalError] = useState(false);
+  const [error, setError] = useState();
 
   const cookie = Cookies.get("authenticated");
   let id_user = cookie.split("/")[1];
@@ -35,7 +38,10 @@ const PaperDetail = (props) => {
           createRating(formData);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setShowModalError(!showModalError);
+        setError(err.response);
+      });
   }
 
   function createRating(formData) {
@@ -95,6 +101,14 @@ const PaperDetail = (props) => {
       </p>
       <StarRating changed={starRatingHandler} />
       <Button clicked={paperClickHandler}>Ver el documento</Button>
+      {error && (
+        <ModalError
+          clicked={() => setShowModalError(!showModalError)}
+          show={showModalError}
+          modalClosedByBackdrop={() => setShowModalError(!showModalError)}
+          error={error}
+        />
+      )}
     </div>
   );
 };

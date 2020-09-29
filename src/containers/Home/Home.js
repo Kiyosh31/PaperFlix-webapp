@@ -77,7 +77,7 @@ class Home extends Component {
           }
         })
         .catch((err) => console.log(err));
-    }, 3000);
+    }, 700);
   };
 
   closeSearchBarHandler = () => {
