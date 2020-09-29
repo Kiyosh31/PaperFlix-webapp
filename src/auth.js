@@ -27,6 +27,9 @@ class Auth {
               expires: 5,
             });
             resolve(true);
+          } else if (response.status === 201) {
+            // console.log("id_user", response.data);
+            reject(response);
           }
         })
         .catch((err) => reject(err));
