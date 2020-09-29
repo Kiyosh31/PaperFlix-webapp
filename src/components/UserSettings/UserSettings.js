@@ -8,7 +8,7 @@ import CreatedContent from "components/CreatedContent/CreatedContent";
 
 import Cookies from "js-cookie";
 import instance from "axios-instance";
-import Confirm from "components/Confirm/Confirm";
+import DeactivateConfirm from "components/DeactivateConfirm/DeactivateConfirm";
 
 const initialState = {
   controls: {
@@ -253,9 +253,12 @@ class UserSettings extends Component {
               El usuario fue actualizado con exito!
             </CreatedContent>
           ) : (
-            <Confirm title="Te vas tan pronto?" id_user={this.state.id_user}>
+            <DeactivateConfirm
+              title="Te vas tan pronto?"
+              id_user={this.state.id_user}
+            >
               Seguro que deseas desactivar tu cuenta?
-            </Confirm>
+            </DeactivateConfirm>
           )}
         </Modal>
       );

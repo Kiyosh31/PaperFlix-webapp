@@ -8,8 +8,7 @@ import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import Link from "components/RegisterLink/RegisterLink";
 import BackgroundImage from "assets/img/login.jpg";
-import Modal from "components/Modal/Modal";
-import Confirm from "components/Confirm/Confirm";
+import ModalError from "components/ModalError/ModalError";
 
 import auth from "auth";
 import { Redirect } from "react-router-dom";
@@ -50,6 +49,7 @@ class Login extends Component {
     isAuthenticated: false,
     showModal: false,
     user: null,
+    error: null,
   };
 
   componentDidMount() {
@@ -128,9 +128,8 @@ class Login extends Component {
         this.state.controls.password.value
       );
       this.setState({ isAuthenticated: true });
-    } catch (notActive) {
-      this.setState({ user: notActive.data });
-      this.modalHandler();
+    } catch (err) {
+      this.setState({ error: err.response, showModal: !this.state.showModal });
     }
   };
 
@@ -156,27 +155,6 @@ class Login extends Component {
       />
     ));
 
-    let modal = null;
-    if (this.state.showModal) {
-      modal = (
-        <Modal
-          clicked={this.modalHandler}
-          show={this.state.showModal}
-          modalClosedByBackdrop={this.modalHandler}
-        >
-          <Confirm
-            title="Reactivacion de cuenta"
-            reactivate
-            user={this.state.user}
-          >
-            Tu cuenta esta desactivada deseas reactivar tu cuenta?
-          </Confirm>
-        </Modal>
-      );
-    } else {
-      modal = null;
-    }
-
     return (
       <Background image={BackgroundImage}>
         <Header />
@@ -194,7 +172,16 @@ class Login extends Component {
             navigate="/register"
           />
         </Box>
-        {modal}
+        {this.state.showModal && (
+          <ModalError
+            clicked={this.modalHandler}
+            show={this.state.showModal}
+            modalClosedByBackdrop={this.modalHandler}
+            error={this.state.error}
+          >
+            {this.state.error.data}
+          </ModalError>
+        )}
         {this.state.isAuthenticated && <Redirect to="/home" />}
       </Background>
     );

@@ -27,16 +27,9 @@ class Auth {
               expires: 5,
             });
             resolve(true);
-          } else if (response.status === 202) {
-            // console.log("response", response);
-            this.auth = false;
-            reject(response);
           }
         })
-        .catch((err) => {
-          console.log(err);
-          reject(false);
-        });
+        .catch((err) => reject(err));
     });
   }
 

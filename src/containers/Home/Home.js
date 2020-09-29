@@ -57,7 +57,6 @@ class Home extends Component {
 
     if (this.state.papers && this.state.categories) {
       this.setState({
-        // showModal: false,
         loading: false,
       });
     }
@@ -71,7 +70,7 @@ class Home extends Component {
       };
 
       instance
-        .post("papers-search/", payload)
+        .post("paper-search/", payload)
         .then((response) => {
           if (response.status === 200) {
             this.setState({ filteredPapers: response.data });

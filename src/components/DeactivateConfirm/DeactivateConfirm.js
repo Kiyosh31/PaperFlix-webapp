@@ -9,7 +9,7 @@ import instance from "axios-instance";
 
 import { useHistory } from "react-router-dom";
 
-const Confirm = (props) => {
+const DeactivateConfirm = (props) => {
   let history = useHistory();
 
   function reactivateAccountHandler() {
@@ -60,4 +60,4 @@ const Confirm = (props) => {
   );
 };
 
-export default Confirm;
+export default DeactivateConfirm;
