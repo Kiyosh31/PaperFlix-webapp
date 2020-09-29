@@ -5,12 +5,28 @@ import Button from "components/Button/Button";
 import Modal from "components/Modal/Modal";
 
 import { Redirect } from "react-router-dom";
+import instance from "axios-instance";
+import Cookies from "js-cookie";
+import { sha256 } from "js-sha256";
 
 const ModalError = (props) => {
   const [redirect, setRedirect] = useState(false);
 
   function reactivateAccountHandler() {
-    setRedirect(!redirect);
+    instance
+      .patch(`user-activate/${props.error.data.id_user}/`)
+      .then((response) => {
+        if (response.status === 201) {
+          let hash = sha256.create();
+          hash.update(props.error.data.email + props.error.data.password);
+          hash.hex();
+          Cookies.set("authenticated", hash + "/" + response.data.id_user, {
+            expires: 5,
+          });
+          setRedirect(true);
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -29,7 +45,7 @@ const ModalError = (props) => {
         ) : (
           <Button clicked={props.clicked}>Aceptar</Button>
         )}
-        {redirect && <Redirect to="/reactivate" />}
+        {redirect && <Redirect to="/home" />}
       </Modal>
     </div>
   );

@@ -171,12 +171,6 @@ class Login extends Component {
             text="Registrarse"
             navigate="/register"
           />
-          <RegisterLink
-            question="Reactivar cuenta?"
-            text="Reactivar"
-            navigate="/reactivate"
-            reactivate
-          />
         </Box>
         {this.state.showModal && (
           <ModalError
