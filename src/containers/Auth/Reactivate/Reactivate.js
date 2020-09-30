@@ -1,19 +1,20 @@
+import Background from "components/Background/Background";
 import React, { Component } from "react";
 
-import Background from "components/Background/Background";
+import BackgroundImage from "assets/img/reactivate.jpg";
 import Header from "components/Header/Header";
 import Box from "components/Box/Box";
 import Title from "components/Title/Title";
-import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import RegisterLink from "components/RegisterLink/RegisterLink";
-import BackgroundImage from "assets/img/login.jpg";
-import ModalError from "components/ModalError/ModalError";
+import Input from "components/Input/Input";
 
-import auth from "auth";
+import instance from "axios-instance";
 import { Redirect } from "react-router-dom";
+import Cookies from "js-cookie";
+import { sha256 } from "js-sha256";
 
-class Login extends Component {
+class Reactivate extends Component {
   state = {
     controls: {
       email: {
@@ -46,17 +47,8 @@ class Login extends Component {
       },
     },
     formIsValid: false,
-    isAuthenticated: false,
-    showModal: false,
-    user: null,
-    error: null,
+    redirect: false,
   };
-
-  componentDidMount() {
-    if (auth.isAuthenticated()) {
-      this.setState({ isAuthenticated: true });
-    }
-  }
 
   checkValidity(value, rules) {
     let isValid = true;
@@ -110,11 +102,7 @@ class Login extends Component {
     this.setState({ controls: updatedControls, formIsValid: formIsValid });
   };
 
-  modalHandler = () => {
-    this.setState({ showModal: !this.state.showModal });
-  };
-
-  submitHandler = async (event) => {
+  submitHandler = (event) => {
     event.preventDefault();
 
     if (!this.state.formIsValid) {
@@ -122,15 +110,26 @@ class Login extends Component {
       return;
     }
 
-    try {
-      await auth.login(
-        this.state.controls.email.value,
-        this.state.controls.password.value
-      );
-      this.setState({ isAuthenticated: true });
-    } catch (err) {
-      this.setState({ error: err, showModal: !this.state.showModal });
-    }
+    const payload = {
+      email: this.state.controls.email.value,
+      password: this.state.controls.password.value,
+    };
+
+    instance
+      .patch("user-activate/", payload)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("Reactivacion completa");
+          let hash = sha256.create();
+          hash.update(response.data.email + response.data.password);
+          hash.hex();
+          Cookies.set("authenticated", hash + "/" + response.data.id_user, {
+            expires: 5,
+          });
+          this.setState({ redirect: true });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   render() {
@@ -159,37 +158,21 @@ class Login extends Component {
       <Background image={BackgroundImage}>
         <Header />
         <Box>
-          <Title>Iniciar Sesion</Title>
+          <Title>Reactivar cuenta</Title>
           <form onSubmit={this.submitHandler}>
             {form}
-            <Button btnType="submit" disabled={!this.state.formIsValid}>
-              Iniciar Sesion
-            </Button>
+            <Button>Reactivar</Button>
           </form>
           <RegisterLink
-            question="Nuevo en Paperflix?"
-            text="Registrarse"
-            navigate="/register"
-          />
-          <RegisterLink
-            question="Regresando?"
-            text="Reactivar"
-            navigate="/reactivate"
-            reactivate
+            question="Tu cuenta esta activa?"
+            text="Inicia sesion"
+            navigate="/"
           />
         </Box>
-        {this.state.showModal && (
-          <ModalError
-            clicked={this.modalHandler}
-            show={this.state.showModal}
-            modalClosedByBackdrop={this.modalHandler}
-            error={this.state.error}
-          />
-        )}
-        {this.state.isAuthenticated && <Redirect to="/home" />}
+        {this.state.redirect && <Redirect to="/home" />}
       </Background>
     );
   }
 }
 
-export default Login;
+export default Reactivate;

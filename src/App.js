@@ -7,6 +7,7 @@ import Register from "./containers/Auth/Register/Register";
 import Home from "./containers/Home/Home";
 import NotFound from "containers/NotFound/NotFound";
 import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute";
+import Reactivate from "containers/Auth/Reactivate/Reactivate";
 
 class App extends Component {
   state = {
@@ -19,6 +20,7 @@ class App extends Component {
         <Switch>
           <Route path="/" exact component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/reactivate" component={Reactivate} />
           <ProtectedRoute path="/home" component={Home} />
           <Route path="*" component={NotFound} />
         </Switch>

@@ -29,26 +29,34 @@ const ModalError = (props) => {
       .catch((err) => console.log(err));
   }
 
-  return (
-    <div>
+  let content = null;
+  if (props.error.status === 201) {
+    content = (
       <Modal show={props.show} modalClosedByBackdrop={props.clicked}>
-        <Title>Codigo error: {props.error.status}</Title>
+        <Title>Error el usuario no esta activo</Title>
         <p style={{ color: "white" }}>{props.error.data.message}</p>
-        {props.error.status === 201 ? (
-          <div>
-            <p style={{ color: "white" }}>Deseas reactivar la cuenta?</p>
-            <Button clicked={reactivateAccountHandler}>Reactivar</Button>
-            <Button clicked={props.clicked} cancel noContainer>
-              Cancelar
-            </Button>
-          </div>
-        ) : (
-          <Button clicked={props.clicked}>Aceptar</Button>
-        )}
+        <p style={{ color: "white" }}>Deseas reactivar la cuenta?</p>
+        <Button clicked={reactivateAccountHandler}>Reactivar</Button>
+        <Button clicked={props.clicked} cancel noContainer>
+          Cancelar
+        </Button>
         {redirect && <Redirect to="/home" />}
       </Modal>
-    </div>
-  );
+    );
+  } else if (props.error === 400 || props.error === 400) {
+    content = (
+      <Modal show={props.show} modalClosedByBackdrop={props.clicked}>
+        <Title>Error al intentar iniciar sesion</Title>
+        <p style={{ color: "white" }}>
+          Tu cuenta esta desactivada o no existe, para poder continuar crea una
+          cuenta o reactiva la que ya tienes
+        </p>
+        <Button clicked={props.clicked}>Aceptar</Button>
+      </Modal>
+    );
+  }
+
+  return <div>{content}</div>;
 };
 
 export default ModalError;
