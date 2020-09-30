@@ -4,10 +4,11 @@ import "./PaperDetail.css";
 import Button from "components/Button/Button";
 import StarRating from "components/StarRating/StarRating";
 import Title from "components/Title/Title";
+import ModalError from "components/ModalError/ModalError";
+import ModalLoading from "components/ModalLoading/ModalLoading";
+
 import instance from "axios-instance";
 import Cookies from "js-cookie";
-import ModalLoading from "components/ModalLoading/ModalLoading";
-import ModalError from "components/ModalError/ModalError";
 
 const PaperDetail = (props) => {
   const [showLoading, setShowLoading] = useState(false);

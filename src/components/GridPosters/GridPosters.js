@@ -16,8 +16,8 @@ const GridPosters = (props) => {
 
   return (
     <div className="grid__container">
-      <div className="grid__row">
-        {props.data.map((paper) => (
+      {props.data.map((paper) => (
+        <div className="grid__box" key={paper.id_paper}>
           <img
             key={paper.id_paper}
             className="grid__poster"
@@ -25,8 +25,9 @@ const GridPosters = (props) => {
             alt={props.isLargeRow ? paper.title : ""}
             onClick={() => modalHandler(paper)}
           />
-        ))}
-      </div>
+        </div>
+      ))}
+
       {paper && (
         <Modal show={modal} modalClosedByBackdrop={modalHandler}>
           <PaperDetail paper={paper} categories={props.categories} />

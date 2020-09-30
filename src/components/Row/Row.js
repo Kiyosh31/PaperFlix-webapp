@@ -19,6 +19,14 @@ const Row = (props) => {
       <h2>{props.title}</h2>
       <div className="row__posters">
         {props.data.map((paper) => (
+          // <div
+          //   key={paper.id_paper}
+          //   className={`row__poster ${props.isLargeRow && "row__posterLarge"}`}
+          //   onClick={() => modalHandler(paper)}
+          // >
+          //   {paper.title}
+          //   {paper.author}
+          // </div>
           <img
             key={paper.id_paper}
             className={`row__poster ${props.isLargeRow && "row__posterLarge"}`}
