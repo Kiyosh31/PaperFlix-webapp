@@ -7,7 +7,7 @@
 }
 
 .nav__item-link {
-  color: white;
+  color: #e5e5e5;
   text-decoration: none;
   height: 100%;
   padding: 16px 10px;
@@ -17,11 +17,11 @@
 }
 
 .nav__item-link:hover {
-  color: lightgray;
+  color: white;
 }
 
 .nav__item-link:active,
 .nav__item-link.active {
   color: white;
-  font-weight: 600;
+  font-weight: 700;
 }

@@ -8,6 +8,8 @@ import Home from "./containers/Home/Home";
 import NotFound from "containers/NotFound/NotFound";
 import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute";
 import Reactivate from "containers/Auth/Reactivate/Reactivate";
+import Latest from "containers/Auth/Latest/Latest";
+import Trendings from "containers/Trendings/Trendings";
 
 class App extends Component {
   state = {
@@ -22,6 +24,8 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/reactivate" component={Reactivate} />
           <ProtectedRoute path="/home" component={Home} />
+          <ProtectedRoute path="/latest" component={Latest} />
+          <ProtectedRoute path="/trendings" component={Trendings} />
           <Route path="*" component={NotFound} />
         </Switch>
       </div>

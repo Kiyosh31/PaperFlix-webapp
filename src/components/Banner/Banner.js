@@ -9,7 +9,7 @@ import instance from "axios-instance";
 import PaperDetail from "components/PaperDetail/PaperDetail";
 
 const Banner = (props) => {
-  const [paper, setPaper] = useState([]);
+  const [paper, setPaper] = useState(null);
   const [category, setCategory] = useState();
   const [modal, setModal] = useState(false);
 
