@@ -10,6 +10,7 @@ import PaperDetail from "components/PaperDetail/PaperDetail";
 
 const Banner = (props) => {
   const [paper, setPaper] = useState([]);
+  const [category, setCategory] = useState();
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -30,6 +31,19 @@ const Banner = (props) => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    if (paper) {
+      instance
+        .get(`category-detail/${paper.id_category}/`)
+        .then((response) => {
+          if (response.status === 200) {
+            setCategory(response.data.category);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [paper]);
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -67,7 +81,7 @@ const Banner = (props) => {
       <div className="banner--fadeBottom" />
       {paper && (
         <Modal show={modal} modalClosedByBackdrop={modalHandler}>
-          <PaperDetail paper={paper} />
+          <PaperDetail paper={paper} category={category} />
         </Modal>
       )}
     </div>

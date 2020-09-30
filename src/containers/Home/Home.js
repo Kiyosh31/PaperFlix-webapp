@@ -75,6 +75,7 @@ class Home extends Component {
           if (response.status === 200) {
             this.setState({ filteredPapers: response.data });
           }
+          return;
         })
         .catch((err) => console.log(err));
     }, 700);
