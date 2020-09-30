@@ -77,10 +77,6 @@ class Latest extends Component {
     this.setState({ filteredPapers: null });
   };
 
-  loadingHandler = () => {
-    this.setState({ loading: false });
-  };
-
   render() {
     let content = null;
     if (this.state.filteredPapers) {
