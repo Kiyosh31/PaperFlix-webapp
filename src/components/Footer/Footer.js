@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <Sociallinks />
-      <p>
+      <p className="copyright">
         <FontAwesomeIcon icon={faCopyright} /> 2020 Paperflix, Inc.
       </p>
     </footer>

@@ -8,6 +8,7 @@ import GridPosters from "components/GridPosters/GridPosters";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 
 import instance from "axios-instance";
+import Pagination from "components/Pagination";
 
 class Home extends Component {
   state = {
@@ -112,16 +113,18 @@ class Home extends Component {
     }
 
     return (
-      <div>
-        {this.state.loading && <ModalLoading />}
-        <Toolbar
-          searchBarChangedHandler={this.searchBarChangedHandler}
-          closeSearchBarHandler={this.closeSearchBarHandler}
-          searched={this.state.search}
-        />
-        {content}
-        <Footer />
-      </div>
+      <Pagination>
+        <div>
+          {this.state.loading && <ModalLoading />}
+          <Toolbar
+            searchBarChangedHandler={this.searchBarChangedHandler}
+            closeSearchBarHandler={this.closeSearchBarHandler}
+            searched={this.state.search}
+          />
+          {content}
+          <Footer />
+        </div>
+      </Pagination>
     );
   }
 }
