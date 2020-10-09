@@ -11,6 +11,7 @@ import {
   getAllCategories,
   getAllPapers,
   searchPapers,
+  getRandomPaper,
 } from "Requests/Requests";
 
 class Home extends Component {
@@ -18,6 +19,7 @@ class Home extends Component {
     loading: true,
     categories: [],
     papers: [],
+    randomPaper: null,
     filteredPapers: null,
   };
 
@@ -32,6 +34,13 @@ class Home extends Component {
       this.setState({
         loading: false,
       });
+    }
+
+    try {
+      const fetchedPaper = await getRandomPaper();
+      this.setState({ randomPaper: fetchedPaper });
+    } catch (err) {
+      console.log(err);
     }
 
     try {
@@ -88,7 +97,10 @@ class Home extends Component {
     } else {
       content = (
         <div>
-          <Banner categories={this.state.categories} />
+          <Banner
+            randomPaper={this.state.randomPaper}
+            categories={this.state.categories}
+          />
           {this.state.categories.map((category, index) => (
             <Row
               key={index}

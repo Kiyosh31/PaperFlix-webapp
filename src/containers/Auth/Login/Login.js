@@ -7,7 +7,7 @@ import Title from "components/Title/Title";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import RegisterLink from "components/RegisterLink/RegisterLink";
-import BackgroundImage from "assets/img/login.jpg";
+import BackgroundImage from "assets/img/login-background.jpg";
 import ModalError from "components/ModalError/ModalError";
 
 import auth from "auth";
@@ -48,7 +48,6 @@ class Login extends Component {
     formIsValid: false,
     isAuthenticated: false,
     showModal: false,
-    user: null,
     error: null,
   };
 
@@ -123,11 +122,13 @@ class Login extends Component {
     }
 
     try {
-      await auth.login(
+      const isLoggedIn = await auth.login(
         this.state.controls.email.value,
         this.state.controls.password.value
       );
-      this.setState({ isAuthenticated: true });
+      if (isLoggedIn) {
+        this.setState({ isAuthenticated: true });
+      }
     } catch (err) {
       this.setState({ error: err, showModal: !this.state.showModal });
     }

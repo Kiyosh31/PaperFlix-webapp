@@ -7,75 +7,63 @@ import Title from "components/Title/Title";
 import ModalError from "components/ModalError/ModalError";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 
-import instance from "axios-instance";
-import Cookies from "js-cookie";
+import { alreadyRated, updateRating, createRating } from "Requests/Requests";
 
 const PaperDetail = (props) => {
   const [showLoading, setShowLoading] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
   const [error, setError] = useState();
 
-  const cookie = Cookies.get("authenticated");
-  let id_user = cookie.split("/")[1];
-  id_user = parseInt(id_user, 10);
-
-  function starRatingHandler(newRating) {
-    const formData = {
-      id_user: id_user,
-      id_paper: props.paper.id_paper,
-      rating: newRating,
-    };
-
+  async function starRatingHandler(newRating) {
     setShowLoading(true);
 
-    instance
-      .get(`papersuser-detail/${id_user}/${props.paper.id_paper}/`)
-      .then((response) => {
-        if (response.status === 200) {
-          console.log("ya calificaste");
-          updateRating(formData);
-        } else if (response.status === 204) {
-          console.log("No has calificado");
-          createRating(formData);
-        }
-      })
-      .catch((err) => {
-        setShowModalError(!showModalError);
-        setError(err.response);
-      });
+    try {
+      const fetchedRatingDetail = await alreadyRated(props.paper.id_paper);
+      if (fetchedRatingDetail === 200) {
+        // ya calificaste
+        console.log("ya calificaste");
+        updateRatingHandler(newRating);
+      } else if (fetchedRatingDetail === 204) {
+        // no has calificado
+        console.log("no has calificado");
+        createRatingHandler(newRating);
+      }
+    } catch (err) {
+      setShowModalError(!showModalError);
+      setError(err.response);
+    }
   }
 
-  function createRating(formData) {
-    instance
-      .post("papersuser-create/", formData)
-      .then((response) => {
-        if (response.status === 201) {
-          console.log("Si se creo!");
-          setShowLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
+  async function createRatingHandler(newRating) {
+    try {
+      const fetchedCreatedRating = await createRating(
+        props.paper.id_paper,
+        newRating
+      );
+      if (fetchedCreatedRating) {
+        console.log("calificacion creada");
         setShowLoading(false);
-      });
+      }
+    } catch (err) {
+      console.log(err);
+      setShowLoading(false);
+    }
   }
 
-  function updateRating(formData) {
-    instance
-      .patch(
-        `papersuser-update/${formData.id_user}/${formData.id_paper}/`,
-        formData
-      )
-      .then((response) => {
-        if (response.status === 201) {
-          console.log("Si se actualizo");
-          setShowLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
+  async function updateRatingHandler(newRating) {
+    try {
+      const fetchedUpdatedRating = await updateRating(
+        props.paper.id_paper,
+        newRating
+      );
+      if (fetchedUpdatedRating) {
+        console.log("calificacion actualizada");
         setShowLoading(false);
-      });
+      }
+    } catch (err) {
+      console.log(err);
+      setShowLoading(false);
+    }
   }
 
   function paperClickHandler() {

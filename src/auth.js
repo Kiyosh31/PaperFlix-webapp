@@ -2,7 +2,7 @@ import instance from "axios-instance";
 import Cookies from "js-cookie";
 
 class Auth {
-  login(email, password) {
+  async login(email, password) {
     // CallBack => Logic to check in API if the user exist
     return new Promise((resolve, reject) => {
       const payload = {

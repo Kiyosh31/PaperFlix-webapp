@@ -3,11 +3,11 @@ import "./Banner.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookOpen, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-
 import Modal from "components/Modal/Modal";
 import PaperDetail from "components/PaperDetail/PaperDetail";
+import BackgroundImage from "assets/img/astrofisica.jpg";
 
-import { getAllPapers, getCategoryName } from "Requests/Requests";
+import { getCategoryName } from "Requests/Requests";
 
 const Banner = (props) => {
   const [paper, setPaper] = useState(null);
@@ -15,22 +15,8 @@ const Banner = (props) => {
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
-    async function fetchedPapers() {
-      try {
-        const fetchedPapers = await getAllPapers();
-        if (fetchedPapers > 1) {
-          setPaper(
-            fetchedPapers[Math.floor(Math.random() * fetchedPapers.length - 1)]
-          );
-        } else {
-          setPaper(fetchedPapers[0]);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    fetchedPapers();
-  }, []);
+    setPaper(props.randomPaper);
+  }, [props.randomPaper]);
 
   useEffect(() => {
     async function fetchedData() {
@@ -63,7 +49,10 @@ const Banner = (props) => {
   }
 
   return (
-    <div className="banner">
+    <div
+      className="banner"
+      style={{ backgroundImage: `url(${BackgroundImage})` }}
+    >
       <div className="banner__contents">
         <h1 className="banner__title">{truncate(paper?.title, 30)}</h1>
         <div className="banner__button_container">
