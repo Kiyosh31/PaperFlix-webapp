@@ -5,9 +5,10 @@ import { useHistory } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faCog } from "@fortawesome/free-solid-svg-icons";
-import auth from "auth";
 import Modal from "components/Modal/Modal";
 import UserSettings from "components/UserSettings/UserSettings";
+
+import auth from "auth";
 
 const Dropdown = () => {
   const [modal, setModal] = useState(false);
@@ -20,11 +21,9 @@ const Dropdown = () => {
 
   async function logoutHandler() {
     try {
-      const result = await auth.logout();
-      if (result) {
-        console.log("logout exitoso");
-        history.push("/");
-      }
+      await auth.logout();
+      auth.deleteCookie();
+      history.push("/");
     } catch (err) {
       console.log(err);
     }

@@ -43,7 +43,7 @@ const ModalError = (props) => {
         {redirect && <Redirect to="/home" />}
       </Modal>
     );
-  } else if (props.error === 400 || props.error === 400) {
+  } else if (props.error === 400 || props.error === 404) {
     content = (
       <Modal show={props.show} modalClosedByBackdrop={props.clicked}>
         <Title>Error al intentar iniciar sesion</Title>

@@ -1,6 +1,6 @@
 .banner {
   background-size: cover;
-  background-image: url("../../assets/img/bojack.jpg");
+  /* background-image: url("../../assets/img/"); */
   background-position: center center;
   color: white;
   object-fit: "content";

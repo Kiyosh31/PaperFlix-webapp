@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Toolbar from "components/Toolbar/Toolbar";
 import Footer from "components/Footer/Footer";
-import Row from "components/Row/Row";
+// import Row from "components/Row/Row";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 import GridPosters from "components/GridPosters/GridPosters";
 

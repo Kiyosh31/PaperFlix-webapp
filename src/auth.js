@@ -1,12 +1,7 @@
 import instance from "axios-instance";
 import Cookies from "js-cookie";
-import { sha256 } from "js-sha256";
 
 class Auth {
-  constructor() {
-    this.auth = false;
-  }
-
   login(email, password) {
     // CallBack => Logic to check in API if the user exist
     return new Promise((resolve, reject) => {
@@ -19,15 +14,16 @@ class Auth {
       instance
         .post("user-login/", payload)
         .then((response) => {
-          if (response.status === 200) {
-            let hash = sha256.create();
-            hash.update(email + password);
-            hash.hex();
-            Cookies.set("authenticated", hash + "/" + response.data.id_user, {
-              expires: 5,
-            });
+          if (response.status === 201 || response.status === 200) {
+            Cookies.set(
+              "authenticated",
+              response.data.id_user + "|" + response.data.cookie,
+              {
+                expires: 5,
+              }
+            );
             resolve(true);
-          } else if (response.status === 201) {
+          } else if (response.status === 400) {
             reject(response);
           }
         })
@@ -37,13 +33,21 @@ class Auth {
 
   logout() {
     // CallBack => Logic Delete cookie from browser and in API
-    return new Promise((resolve, reject) => {
-      Cookies.remove("authenticated");
-      if (!this.isAuthenticated()) {
-        resolve(true);
-      }
-      reject(false);
-    });
+    const id_user = Cookies.get("authenticated").split("|")[0];
+    const cookieValue = Cookies.get("authenticated").split("|")[1];
+
+    instance
+      .get(`user-logout/${id_user}/`, {
+        headers: {
+          authorization: `authenticated=${cookieValue}`,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          Cookies.remove("authenticated");
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   isAuthenticated() {
@@ -51,6 +55,12 @@ class Auth {
       return true;
     }
     return false;
+  }
+
+  deleteCookie() {
+    if (Cookies.get("authenticated")) {
+      Cookies.remove("authenticated");
+    }
   }
 }
 
