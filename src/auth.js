@@ -10,7 +10,6 @@ class Auth {
         password: password,
       };
 
-      this.auth = true;
       instance
         .post("user-login/", payload)
         .then((response) => {

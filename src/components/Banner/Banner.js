@@ -5,8 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookOpen, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "components/Modal/Modal";
-import instance from "axios-instance";
 import PaperDetail from "components/PaperDetail/PaperDetail";
+
+import { getAllPapers, getCategoryName } from "Requests/Requests";
 
 const Banner = (props) => {
   const [paper, setPaper] = useState(null);
@@ -14,35 +15,37 @@ const Banner = (props) => {
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
-    instance
-      .get("paper-list/")
-      .then((response) => {
-        if (response.status === 200) {
-          if (response.data.length > 1) {
-            setPaper(
-              response.data[
-                Math.floor(Math.random() * response.data.length - 1)
-              ]
-            );
-          } else {
-            setPaper(response.data[0]);
-          }
+    async function fetchedPapers() {
+      try {
+        const fetchedPapers = await getAllPapers();
+        if (fetchedPapers > 1) {
+          setPaper(
+            fetchedPapers[Math.floor(Math.random() * fetchedPapers.length - 1)]
+          );
+        } else {
+          setPaper(fetchedPapers[0]);
         }
-      })
-      .catch((err) => console.log(err));
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchedPapers();
   }, []);
 
   useEffect(() => {
-    if (paper) {
-      instance
-        .get(`category-detail/${paper.id_category}/`)
-        .then((response) => {
-          if (response.status === 200) {
-            setCategory(response.data.category);
+    async function fetchedData() {
+      if (paper) {
+        try {
+          const fetchedCategoryName = await getCategoryName(paper.id_category);
+          if (fetchedCategoryName) {
+            setCategory(fetchedCategoryName);
           }
-        })
-        .catch((err) => console.log(err));
+        } catch (err) {
+          console.log(err);
+        }
+      }
     }
+    fetchedData();
   }, [paper]);
 
   function truncate(str, n) {
