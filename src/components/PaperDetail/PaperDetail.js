@@ -7,7 +7,7 @@ import Title from "components/Title/Title";
 import ModalError from "components/ModalError/ModalError";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 
-import { alreadyRated, updateRating, createRating } from "Requests/Requests";
+import Requests from "Requests/Requests";
 
 const PaperDetail = (props) => {
   const [showLoading, setShowLoading] = useState(false);
@@ -18,7 +18,9 @@ const PaperDetail = (props) => {
     setShowLoading(true);
 
     try {
-      const fetchedRatingDetail = await alreadyRated(props.paper.id_paper);
+      const fetchedRatingDetail = await Requests.alreadyRated(
+        props.paper.id_paper
+      );
       if (fetchedRatingDetail === 200) {
         // ya calificaste
         console.log("ya calificaste");
@@ -36,7 +38,7 @@ const PaperDetail = (props) => {
 
   async function createRatingHandler(newRating) {
     try {
-      const fetchedCreatedRating = await createRating(
+      const fetchedCreatedRating = await Requests.createRating(
         props.paper.id_paper,
         newRating
       );
@@ -52,7 +54,7 @@ const PaperDetail = (props) => {
 
   async function updateRatingHandler(newRating) {
     try {
-      const fetchedUpdatedRating = await updateRating(
+      const fetchedUpdatedRating = await Requests.updateRating(
         props.paper.id_paper,
         newRating
       );

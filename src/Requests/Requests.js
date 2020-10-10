@@ -1,151 +1,219 @@
 import instance from "axios-instance";
 import Cookies from "js-cookie";
 
-const id_user = Cookies.get("authenticated").split("|")[0];
-const cookieValue = Cookies.get("authenticated").split("|")[1];
-const headers = { authorization: `authenticated=${cookieValue}` };
-const contentHeaders = {
-  "Content-Type": "application/json",
-  authorization: `authenticated=${cookieValue}`,
-};
+class Requests {
+  constructor() {
+    if (Cookies.get("authenticated")) {
+      this.id_user = Cookies.get("authenticated").split("|")[0];
+      this.cookieValue = Cookies.get("authenticated").split("|")[1];
+      this.headers = { authorization: `authenticated=${this.cookieValue}` };
+      this.contentHeaders = {
+        "Content-Type": "application/json",
+        authorization: `authenticated=${this.cookieValue}`,
+      };
+    }
+  }
 
-export const getAllCategories = () => {
-  return new Promise((resolve, reject) => {
-    instance
-      .get("category-list/", {
-        headers: headers,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          resolve(response.data);
-        }
-      })
-      .catch((err) => reject(err));
-  });
-};
+  getAllCategories = () => {
+    return new Promise((resolve, reject) => {
+      instance
+        .get("category-list/", {
+          headers: this.headers,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
 
-export const getAllPapers = () => {
-  return new Promise((resolve, reject) => {
-    instance
-      .get("paper-list/", {
-        headers: headers,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          resolve(response.data);
-        }
-      })
-      .catch((err) => reject(err));
-  });
-};
+  getLatestPapers = () => {
+    return new Promise((resolve, reject) => {
+      instance
+        .get("paper-latest/", {
+          headers: this.headers,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  };
 
-export const getRandomPaper = () => {
-  return new Promise((resolve, reject) => {
-    instance
-      .get("paper-random/", {
-        headers: headers,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          resolve(response.data);
-        }
-      })
-      .catch((err) => reject(err));
-  });
-};
+  getAllPapers = () => {
+    return new Promise((resolve, reject) => {
+      instance
+        .get("paper-list/", {
+          headers: this.headers,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
 
-export const searchPapers = (payload) => {
-  return new Promise((resolve, reject) => {
-    instance
-      .post("paper-search/", payload, {
-        headers: contentHeaders,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          resolve(response.data);
-        }
-        return;
-      })
-      .catch((err) => reject(err));
-  });
-};
+  getRandomPaper = () => {
+    return new Promise((resolve, reject) => {
+      instance
+        .get("paper-random/", {
+          headers: this.headers,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
 
-export const getCategoryName = (id_category) => {
-  return new Promise((resolve, reject) => {
-    instance
-      .get(`category-detail/${id_category}/`, {
-        headers: headers,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          resolve(response.data.category);
-        }
-      })
-      .catch((err) => reject(err));
-  });
-};
+  searchPapers = (payload) => {
+    return new Promise((resolve, reject) => {
+      instance
+        .post("paper-search/", payload, {
+          headers: this.contentHeaders,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data);
+          }
+          return;
+        })
+        .catch((err) => reject(err));
+    });
+  };
 
-export const alreadyRated = (id_paper) => {
-  return new Promise((resolve, reject) => {
-    instance
-      .get(`papersuser-detail/${id_user}/${id_paper}/`, {
-        headers: headers,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          resolve(response.status);
-        } else if (response.status === 204) {
-          resolve(response.status);
-        }
-      })
-      .catch((err) => reject(err.response));
-  });
-};
+  getCategoryName = (id_category) => {
+    return new Promise((resolve, reject) => {
+      instance
+        .get(`category-detail/${id_category}/`, {
+          headers: this.headers,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data.category);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
 
-export const createRating = (id_paper, newRating) => {
-  return new Promise((resolve, reject) => {
-    const payload = {
-      id_user: id_user,
-      id_paper: id_paper,
-      rating: newRating,
-    };
+  alreadyRated = (id_paper) => {
+    return new Promise((resolve, reject) => {
+      instance
+        .get(`papersuser-detail/${this.id_user}/${id_paper}/`, {
+          headers: this.headers,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.status);
+          } else if (response.status === 204) {
+            resolve(response.status);
+          }
+        })
+        .catch((err) => reject(err.response));
+    });
+  };
 
-    instance
-      .post("papersuser-create/", payload, {
-        headers: contentHeaders,
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          console.log("creado nuevo rating");
-          resolve(response.data);
-        }
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-};
+  createRating = (id_paper, newRating) => {
+    return new Promise((resolve, reject) => {
+      const payload = {
+        id_user: this.id_user,
+        id_paper: id_paper,
+        rating: newRating,
+      };
 
-export const updateRating = (id_paper, newRating) => {
-  return new Promise((resolve, reject) => {
-    const payload = {
-      id_user: id_user,
-      id_paper: id_paper,
-      rating: newRating,
-    };
+      instance
+        .post("papersuser-create/", payload, {
+          headers: this.contentHeaders,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  };
 
-    instance
-      .patch(`papersuser-update/${id_user}/${id_paper}/`, payload, {
-        headers: headers,
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          console.log("actualizado rating");
-          resolve(response.data);
-        }
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-};
+  updateRating = (id_paper, newRating) => {
+    return new Promise((resolve, reject) => {
+      const payload = {
+        id_user: this.id_user,
+        id_paper: id_paper,
+        rating: newRating,
+      };
+
+      instance
+        .patch(`papersuser-update/${this.id_user}/${id_paper}/`, payload, {
+          headers: this.headers,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  };
+
+  updateUser = (payload) => {
+    return new Promise((resolve, reject) => {
+      instance
+        .patch(`user-update/${this.id_user}/`, payload, {
+          headers: this.contentHeaders,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
+
+  reactivateUser = () => {
+    return new Promise((resolve, reject) => {
+      instance
+        .patch(`user-activate/${this.id_user}/`, {
+          headers: this.contentHeaders,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
+
+  deactivateUser = () => {
+    return new Promise((resolve, reject) => {
+      instance
+        .patch(`user-delete/${this.id_user}/`, {
+          headers: this.contentHeaders,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
+}
+
+export default new Requests();

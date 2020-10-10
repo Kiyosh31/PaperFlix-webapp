@@ -7,7 +7,7 @@ import Modal from "components/Modal/Modal";
 import PaperDetail from "components/PaperDetail/PaperDetail";
 import BackgroundImage from "assets/img/astrofisica.jpg";
 
-import { getCategoryName } from "Requests/Requests";
+import Requests from "Requests/Requests";
 
 const Banner = (props) => {
   const [paper, setPaper] = useState(null);
@@ -22,7 +22,9 @@ const Banner = (props) => {
     async function fetchedData() {
       if (paper) {
         try {
-          const fetchedCategoryName = await getCategoryName(paper.id_category);
+          const fetchedCategoryName = await Requests.getCategoryName(
+            paper.id_category
+          );
           if (fetchedCategoryName) {
             setCategory(fetchedCategoryName);
           }

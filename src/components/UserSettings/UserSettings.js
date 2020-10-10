@@ -6,9 +6,8 @@ import Button from "components/Button/Button";
 import Modal from "components/Modal/Modal";
 import CreatedContent from "components/CreatedContent/CreatedContent";
 
-import Cookies from "js-cookie";
-import instance from "axios-instance";
 import DeactivateConfirm from "components/DeactivateConfirm/DeactivateConfirm";
+import Requests from "Requests/Requests";
 
 const initialState = {
   controls: {
@@ -57,7 +56,6 @@ const initialState = {
   },
   formIsValid: false,
 };
-
 class UserSettings extends Component {
   state = {
     id_user: null,
@@ -109,12 +107,6 @@ class UserSettings extends Component {
     showModal: false,
     contentType: null,
   };
-
-  componentDidMount() {
-    const cookie = Cookies.get("authenticated");
-    let id_user = cookie.split("/")[1];
-    this.setState({ id_user: parseInt(id_user, 10) });
-  }
 
   checkValidity(value, rules) {
     let isValid = true;
@@ -175,7 +167,7 @@ class UserSettings extends Component {
     });
   };
 
-  submitHandler = (event) => {
+  submitHandler = async (event) => {
     event.preventDefault();
 
     if (!this.state.formIsValid) {
@@ -194,17 +186,15 @@ class UserSettings extends Component {
       payload.password = this.state.controls.password.value;
     }
 
-    instance
-      .patch(`user-update/${this.state.id_user}/`, payload)
-      .then((response) => {
-        console.log(response);
-        if (response.status === 201) {
-          console.log("USER UPDATED SUCCESFULLY");
-          this.modalHandler("creado");
-          this.clearForm();
-        }
-      })
-      .catch((err) => console.log(err));
+    try {
+      const fetchedUpdatedUser = await Requests.updateUser(payload);
+      if (fetchedUpdatedUser) {
+        this.modalHandler("creado");
+        this.clearForm();
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   deactivateAccountHandler = () => {

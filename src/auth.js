@@ -30,7 +30,7 @@ class Auth {
     });
   }
 
-  logout() {
+  async logout() {
     // CallBack => Logic Delete cookie from browser and in API
     const id_user = Cookies.get("authenticated").split("|")[0];
     const cookieValue = Cookies.get("authenticated").split("|")[1];

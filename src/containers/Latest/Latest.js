@@ -6,7 +6,7 @@ import Row from "components/Row/Row";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 import GridPosters from "components/GridPosters/GridPosters";
 
-import instance from "axios-instance";
+import Requests from "Requests/Requests";
 
 class Latest extends Component {
   state = {
@@ -17,37 +17,30 @@ class Latest extends Component {
     filteredPapers: null,
   };
 
-  getCategories = () => {
-    instance
-      .get("category-list/")
-      .then((response) => {
-        if (response.status === 200) {
-          this.setState({ categories: response.data });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        this.setState({ loading: false });
+  async componentDidMount() {
+    try {
+      const fetchedCategories = await Requests.getAllCategories();
+      if (fetchedCategories) {
+        this.setState({ categories: fetchedCategories });
+      }
+    } catch (err) {
+      console.log(err);
+      this.setState({
+        loading: false,
       });
-  };
+    }
 
-  getLatestPapers = () => {
-    instance
-      .get("paper-latest/")
-      .then((response) => {
-        if (response.status === 200) {
-          this.setState({ papers: response.data });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        this.setState({ loading: false });
+    try {
+      const fetchedCategories = await Requests.getLatestPapers();
+      if (fetchedCategories) {
+        this.setState({ papers: fetchedCategories });
+      }
+    } catch (err) {
+      console.log(err);
+      this.setState({
+        loading: false,
       });
-  };
-
-  componentDidMount() {
-    this.getCategories();
-    this.getLatestPapers();
+    }
 
     if (this.state.categories && this.state.papers) {
       this.setState({ loading: false });
@@ -56,20 +49,19 @@ class Latest extends Component {
 
   searchBarChangedHandler = (event) => {
     let searchText = event.target.value;
-    setTimeout(() => {
+    setTimeout(async () => {
       const payload = {
         search: searchText,
       };
 
-      instance
-        .post("paper-search/", payload)
-        .then((response) => {
-          if (response.status === 200) {
-            this.setState({ filteredPapers: response.data });
-          }
-          return;
-        })
-        .catch((err) => console.log(err));
+      try {
+        const fetchedSearch = await Requests.searchPapers(payload);
+        if (fetchedSearch) {
+          this.setState({ filteredPapers: fetchedSearch });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }, 700);
   };
 

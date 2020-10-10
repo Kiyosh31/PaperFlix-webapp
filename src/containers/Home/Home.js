@@ -7,12 +7,7 @@ import Footer from "components/Footer/Footer";
 import GridPosters from "components/GridPosters/GridPosters";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 
-import {
-  getAllCategories,
-  getAllPapers,
-  searchPapers,
-  getRandomPaper,
-} from "Requests/Requests";
+import Requests from "Requests/Requests";
 
 class Home extends Component {
   state = {
@@ -25,7 +20,7 @@ class Home extends Component {
 
   async componentDidMount() {
     try {
-      const fetchedCategories = await getAllCategories();
+      const fetchedCategories = await Requests.getAllCategories();
       if (fetchedCategories) {
         this.setState({ categories: fetchedCategories });
       }
@@ -37,14 +32,14 @@ class Home extends Component {
     }
 
     try {
-      const fetchedPaper = await getRandomPaper();
+      const fetchedPaper = await Requests.getRandomPaper();
       this.setState({ randomPaper: fetchedPaper });
     } catch (err) {
       console.log(err);
     }
 
     try {
-      const fetchedPapers = await getAllPapers();
+      const fetchedPapers = await Requests.getAllPapers();
       if (fetchedPapers) {
         this.setState({ papers: fetchedPapers });
       }
@@ -71,7 +66,7 @@ class Home extends Component {
       };
 
       try {
-        const fetchedSearch = await searchPapers(payload);
+        const fetchedSearch = await Requests.searchPapers(payload);
         if (fetchedSearch) {
           this.setState({ filteredPapers: fetchedSearch });
         }

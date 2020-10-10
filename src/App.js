@@ -8,7 +8,7 @@ import Home from "./containers/Home/Home";
 import NotFound from "containers/NotFound/NotFound";
 import ProtectedRoute from "components/ProtectedRoute/ProtectedRoute";
 import Reactivate from "containers/Auth/Reactivate/Reactivate";
-import Latest from "containers/Auth/Latest/Latest";
+import Latest from "containers/Latest/Latest";
 import Trendings from "containers/Trendings/Trendings";
 
 class App extends Component {
