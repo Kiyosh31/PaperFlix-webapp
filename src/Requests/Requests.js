@@ -77,6 +77,7 @@ class Requests {
   };
 
   searchPapers = (payload) => {
+    console.log("se mando llamar");
     return new Promise((resolve, reject) => {
       instance
         .post("paper-search/", payload, {
@@ -185,14 +186,12 @@ class Requests {
     });
   };
 
-  reactivateUser = () => {
+  reactivateUser = (payload) => {
     return new Promise((resolve, reject) => {
       instance
-        .patch(`user-activate/${this.id_user}/`, {
-          headers: this.contentHeaders,
-        })
+        .patch("user-activate/", payload)
         .then((response) => {
-          if (response.status === 201) {
+          if (response.status === 200) {
             resolve(response.data);
           }
         })
@@ -203,11 +202,11 @@ class Requests {
   deactivateUser = () => {
     return new Promise((resolve, reject) => {
       instance
-        .patch(`user-delete/${this.id_user}/`, {
-          headers: this.contentHeaders,
+        .delete(`user-delete/${this.id_user}/`, {
+          headers: this.headers,
         })
         .then((response) => {
-          if (response.status === 201) {
+          if (response.status === 200) {
             resolve(response.data);
           }
         })

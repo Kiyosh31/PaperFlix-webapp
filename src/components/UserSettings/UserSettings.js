@@ -58,7 +58,6 @@ const initialState = {
 };
 class UserSettings extends Component {
   state = {
-    id_user: null,
     controls: {
       email: {
         elementType: "input",
@@ -243,10 +242,7 @@ class UserSettings extends Component {
               El usuario fue actualizado con exito!
             </CreatedContent>
           ) : (
-            <DeactivateConfirm
-              title="Te vas tan pronto?"
-              id_user={this.state.id_user}
-            >
+            <DeactivateConfirm title="Te vas tan pronto?">
               Seguro que deseas desactivar tu cuenta?
             </DeactivateConfirm>
           )}

@@ -9,10 +9,8 @@ import Button from "components/Button/Button";
 import RegisterLink from "components/RegisterLink/RegisterLink";
 import Input from "components/Input/Input";
 
-import instance from "axios-instance";
 import { Redirect } from "react-router-dom";
-import Cookies from "js-cookie";
-import { sha256 } from "js-sha256";
+import Requests from "Requests/Requests";
 
 class Reactivate extends Component {
   state = {
@@ -102,7 +100,7 @@ class Reactivate extends Component {
     this.setState({ controls: updatedControls, formIsValid: formIsValid });
   };
 
-  submitHandler = (event) => {
+  submitHandler = async (event) => {
     event.preventDefault();
 
     if (!this.state.formIsValid) {
@@ -115,21 +113,15 @@ class Reactivate extends Component {
       password: this.state.controls.password.value,
     };
 
-    instance
-      .patch("user-activate/", payload)
-      .then((response) => {
-        if (response.status === 200) {
-          console.log("Reactivacion completa");
-          let hash = sha256.create();
-          hash.update(response.data.email + response.data.password);
-          hash.hex();
-          Cookies.set("authenticated", hash + "/" + response.data.id_user, {
-            expires: 5,
-          });
-          this.setState({ redirect: true });
-        }
-      })
-      .catch((err) => console.log(err));
+    try {
+      const fetchedReactivate = await Requests.reactivateUser(payload);
+      if (fetchedReactivate) {
+        console.log("reactivacion completa");
+        this.setState({ redirect: true });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   render() {
