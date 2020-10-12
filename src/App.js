@@ -12,10 +12,6 @@ import Latest from "containers/Latest/Latest";
 import Trendings from "containers/Trendings/Trendings";
 
 class App extends Component {
-  state = {
-    auth: null,
-  };
-
   render() {
     return (
       <div className="app__color">

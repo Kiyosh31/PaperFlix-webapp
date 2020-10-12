@@ -77,7 +77,6 @@ class Requests {
   };
 
   searchPapers = (payload) => {
-    console.log("se mando llamar");
     return new Promise((resolve, reject) => {
       instance
         .post("paper-search/", payload, {
