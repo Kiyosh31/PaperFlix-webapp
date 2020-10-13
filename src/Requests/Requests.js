@@ -6,15 +6,28 @@ class Requests {
     if (Cookies.get("authenticated")) {
       this.id_user = Cookies.get("authenticated").split("|")[0];
       this.cookieValue = Cookies.get("authenticated").split("|")[1];
-      this.headers = { authorization: `authenticated=${this.cookieValue}` };
+      this.headers = { authorization: this.cookieValue };
       this.contentHeaders = {
         "Content-Type": "application/json",
-        authorization: `authenticated=${this.cookieValue}`,
+        authorization: this.cookieValue,
       };
     }
   }
 
+  checkCookie = () => {
+    if (Cookies.get("authenticated")) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   getAllCategories = () => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       instance
         .get("category-list/", {
@@ -30,6 +43,11 @@ class Requests {
   };
 
   getLatestPapers = () => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       instance
         .get("paper-latest/", {
@@ -47,6 +65,11 @@ class Requests {
   };
 
   getAllPapers = () => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       instance
         .get("paper-list/", {
@@ -62,6 +85,11 @@ class Requests {
   };
 
   getRandomPaper = () => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       instance
         .get("paper-random/", {
@@ -77,6 +105,11 @@ class Requests {
   };
 
   searchPapers = (payload) => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       instance
         .post("paper-search/", payload, {
@@ -93,6 +126,11 @@ class Requests {
   };
 
   getCategoryName = (id_category) => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       instance
         .get(`category-detail/${id_category}/`, {
@@ -108,6 +146,11 @@ class Requests {
   };
 
   alreadyRated = (id_paper) => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       instance
         .get(`papersuser-detail/${this.id_user}/${id_paper}/`, {
@@ -125,6 +168,11 @@ class Requests {
   };
 
   createRating = (id_paper, newRating) => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       const payload = {
         id_user: this.id_user,
@@ -148,6 +196,11 @@ class Requests {
   };
 
   updateRating = (id_paper, newRating) => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       const payload = {
         id_user: this.id_user,
@@ -171,6 +224,11 @@ class Requests {
   };
 
   updateUser = (payload) => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       instance
         .patch(`user-update/${this.id_user}/`, payload, {
@@ -199,6 +257,11 @@ class Requests {
   };
 
   deactivateUser = () => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       instance
         .delete(`user-delete/${this.id_user}/`, {
