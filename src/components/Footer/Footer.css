@@ -1,6 +1,6 @@
 .footer {
   padding: 100px;
-  color: gray;
+  color: #b3b3b3;
   background: #111;
   margin-top: 41px;
 }
@@ -8,4 +8,9 @@
 .copyright {
   margin-top: 30px;
   margin-bottom: 40px;
+}
+
+.source_of_truth_link {
+  color: #fff;
+  text-decoration: none;
 }

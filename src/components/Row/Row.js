@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import "./Row.css";
 
-// import mockImage from "assets/img/bojack.jpg";
 import Modal from "components/Modal/Modal";
 import PaperDetail from "components/PaperDetail/PaperDetail";
 
 const Row = (props) => {
   const [modal, setModal] = useState(false);
   const [paper, setPaper] = useState([]);
-
-  function truncate(str, n) {
-    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
-  }
 
   function modalHandler(paper) {
     setPaper(paper);
@@ -28,16 +23,8 @@ const Row = (props) => {
             onClick={() => modalHandler(paper)}
             key={paper.id_paper}
           >
-            {truncate(paper.title, 50)}
-            {/* <p style={{ fontSize: "15px" }}>{truncate(paper.title, 50)}</p> */}
+            <p className="poster__text">{paper.title}</p>
           </div>
-          // <img
-          //   key={paper.id_paper}
-          //   className={`row__poster ${props.isLargeRow && "row__posterLarge"}`}
-          //   src={mockImage}
-          //   alt={props.isLargeRow ? paper.title : ""}
-          //   onClick={() => modalHandler(paper)}
-          // />
         ))}
       </div>
       {paper && (

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./GridPosters.css";
 
-import mockImage from "assets/img/stranger.jpg";
 import Modal from "components/Modal/Modal";
 import PaperDetail from "components/PaperDetail/PaperDetail";
 
@@ -18,13 +17,13 @@ const GridPosters = (props) => {
     <div className="grid__container">
       {props.data.map((paper) => (
         <div className="grid__box" key={paper.id_paper}>
-          <img
+          {/* <img
             key={paper.id_paper}
             className="grid__poster"
             src={mockImage}
             alt={props.isLargeRow ? paper.title : ""}
             onClick={() => modalHandler(paper)}
-          />
+          /> */}
         </div>
       ))}
 
