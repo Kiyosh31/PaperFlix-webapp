@@ -1,6 +1,6 @@
 .grid__container {
   color: white;
-  margin-left: 20px;
+  margin-left: 60px;
   padding-top: 71px;
   min-height: 54vh;
   display: flex;
@@ -9,17 +9,26 @@
 
 .grid__box {
   flex: 1 0 33%;
-  min-height: 33.33vh;
+  min-height: 20.33vh;
   max-width: 220px;
+  color: #b3b3b3;
+  margin-right: 80px;
 }
 
 .grid__poster {
-  object-fit: contain;
-  max-height: 300px;
+  min-width: 250px;
+  min-height: 130px;
+  border: 3.5px solid white;
   transition: transform 450ms;
+  cursor: pointer;
 }
 
 .grid__poster:hover {
   transform: scale(1.08);
   opacity: 1;
+}
+
+.grid__poster_text {
+  font-size: 18px;
+  margin: 10px;
 }

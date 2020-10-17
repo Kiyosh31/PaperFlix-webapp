@@ -13,6 +13,10 @@ const Row = (props) => {
     setModal(!modal);
   }
 
+  function truncate(str, n) {
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  }
+
   return (
     <div className="row">
       <h2>{props.title}</h2>
@@ -23,7 +27,7 @@ const Row = (props) => {
             onClick={() => modalHandler(paper)}
             key={paper.id_paper}
           >
-            <p className="poster__text">{paper.title}</p>
+            <p className="poster__text">{truncate(paper.title, 100)}</p>
           </div>
         ))}
       </div>
