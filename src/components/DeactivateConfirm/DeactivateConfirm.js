@@ -21,15 +21,6 @@ const DeactivateConfirm = (props) => {
     } catch (err) {
       console.log(err);
     }
-    // instance
-    //   .patch(`user-delete/${props.id_user}/`)
-    //   .then((response) => {
-    //     if (response.status === 201) {
-    //       Cookies.remove("authenticated");
-    //       history.push("/");
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
   }
 
   return (

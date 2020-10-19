@@ -38,7 +38,7 @@ class Auth {
     instance
       .get(`user-logout/${id_user}/`, {
         headers: {
-          authorization: `authenticated=${cookieValue}`,
+          authorization: cookieValue,
         },
       })
       .then((response) => {
