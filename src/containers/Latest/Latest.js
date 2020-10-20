@@ -15,6 +15,7 @@ class Latest extends Component {
     papers: [],
     searched: null,
     filteredPapers: null,
+    canSearch: null,
   };
 
   async componentDidMount() {
@@ -49,7 +50,12 @@ class Latest extends Component {
 
   searchBarChangedHandler = (event) => {
     let searchText = event.target.value;
-    setTimeout(async () => {
+
+    if (this.state.canSearch !== null || this.state.canSearch !== undefined) {
+      clearTimeout(this.state.canSearch);
+    }
+
+    const myRef = setTimeout(async () => {
       const payload = {
         search: searchText,
       };
@@ -63,6 +69,8 @@ class Latest extends Component {
         console.log(err);
       }
     }, 700);
+
+    this.setState({ canSearch: myRef });
   };
 
   closeSearchBarHandler = () => {
