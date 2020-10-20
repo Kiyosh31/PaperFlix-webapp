@@ -10,7 +10,7 @@ import RegisterLink from "components/RegisterLink/RegisterLink";
 import Input from "components/Input/Input";
 
 import { Redirect } from "react-router-dom";
-import Requests from "Requests/Requests";
+import APICalls from "APICalls/APICalls";
 
 class Reactivate extends Component {
   state = {
@@ -114,7 +114,7 @@ class Reactivate extends Component {
     };
 
     try {
-      const fetchedReactivate = await Requests.reactivateUser(payload);
+      const fetchedReactivate = await APICalls.reactivateUser(payload);
       if (fetchedReactivate) {
         console.log("reactivacion completa");
         this.setState({ redirect: true });

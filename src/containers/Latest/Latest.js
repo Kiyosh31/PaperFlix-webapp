@@ -6,7 +6,7 @@ import Row from "components/Row/Row";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 import GridPosters from "components/GridPosters/GridPosters";
 
-import Requests from "Requests/Requests";
+import APICalls from "APICalls/APICalls";
 
 class Latest extends Component {
   state = {
@@ -19,7 +19,7 @@ class Latest extends Component {
 
   async componentDidMount() {
     try {
-      const fetchedCategories = await Requests.getAllCategories();
+      const fetchedCategories = await APICalls.getAllCategories();
       if (fetchedCategories) {
         this.setState({ categories: fetchedCategories });
       }
@@ -31,7 +31,7 @@ class Latest extends Component {
     }
 
     try {
-      const fetchedCategories = await Requests.getLatestPapers();
+      const fetchedCategories = await APICalls.getLatestPapers();
       if (fetchedCategories) {
         this.setState({ papers: fetchedCategories });
       }
@@ -55,7 +55,7 @@ class Latest extends Component {
       };
 
       try {
-        const fetchedSearch = await Requests.searchPapers(payload);
+        const fetchedSearch = await APICalls.searchPapers(payload);
         if (fetchedSearch) {
           this.setState({ filteredPapers: fetchedSearch });
         }

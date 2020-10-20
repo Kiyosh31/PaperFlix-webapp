@@ -7,7 +7,7 @@ import Modal from "components/Modal/Modal";
 import CreatedContent from "components/CreatedContent/CreatedContent";
 
 import DeactivateConfirm from "components/DeactivateConfirm/DeactivateConfirm";
-import Requests from "Requests/Requests";
+import APICalls from "APICalls/APICalls";
 
 const initialState = {
   controls: {
@@ -186,7 +186,7 @@ class UserSettings extends Component {
     }
 
     try {
-      const fetchedUpdatedUser = await Requests.updateUser(payload);
+      const fetchedUpdatedUser = await APICalls.updateUser(payload);
       if (fetchedUpdatedUser) {
         this.modalHandler("creado");
         this.clearForm();

@@ -6,14 +6,14 @@ import Title from "components/Title/Title";
 import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 
-import Requests from "Requests/Requests";
+import APICalls from "APICalls/APICalls";
 
 const DeactivateConfirm = (props) => {
   let history = useHistory();
 
   async function deactivateAccountHandler() {
     try {
-      const fetchedDeactivate = await Requests.deactivateUser();
+      const fetchedDeactivate = await APICalls.deactivateUser();
       if (fetchedDeactivate) {
         Cookies.remove("authenticated");
         history.push("/");

@@ -1,7 +1,7 @@
 import instance from "axios-instance";
 import Cookies from "js-cookie";
 
-class Requests {
+class APICalls {
   constructor() {
     if (Cookies.get("authenticated")) {
       this.id_user = Cookies.get("authenticated").split("|")[0];
@@ -277,4 +277,4 @@ class Requests {
   };
 }
 
-export default new Requests();
+export default new APICalls();

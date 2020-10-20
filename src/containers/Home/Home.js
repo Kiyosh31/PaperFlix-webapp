@@ -7,7 +7,7 @@ import Footer from "components/Footer/Footer";
 import GridPosters from "components/GridPosters/GridPosters";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 
-import Requests from "Requests/Requests";
+import APICalls from "APICalls/APICalls";
 
 class Home extends Component {
   state = {
@@ -16,11 +16,12 @@ class Home extends Component {
     papers: [],
     randomPaper: null,
     filteredPapers: null,
+    canSearch: null,
   };
 
   async componentDidMount() {
     try {
-      const fetchedCategories = await Requests.getAllCategories();
+      const fetchedCategories = await APICalls.getAllCategories();
       if (fetchedCategories) {
         this.setState({ categories: fetchedCategories });
       }
@@ -32,14 +33,14 @@ class Home extends Component {
     }
 
     try {
-      const fetchedPaper = await Requests.getRandomPaper();
+      const fetchedPaper = await APICalls.getRandomPaper();
       this.setState({ randomPaper: fetchedPaper });
     } catch (err) {
       console.log(err);
     }
 
     try {
-      const fetchedPapers = await Requests.getAllPapers();
+      const fetchedPapers = await APICalls.getAllPapers();
       if (fetchedPapers) {
         this.setState({ papers: fetchedPapers });
       }
@@ -60,20 +61,26 @@ class Home extends Component {
   searchBarChangedHandler = (event) => {
     let searchText = event.target.value;
 
-    setTimeout(async () => {
+    if (this.state.canSearch !== null || this.state.canSearch !== undefined) {
+      clearTimeout(this.state.canSearch);
+    }
+
+    const myRef = setTimeout(async () => {
       const payload = {
         search: searchText,
       };
 
       try {
-        const fetchedSearch = await Requests.searchPapers(payload);
+        const fetchedSearch = await APICalls.searchPapers(payload);
         if (fetchedSearch) {
           this.setState({ filteredPapers: fetchedSearch });
         }
       } catch (err) {
         console.log(err);
       }
-    }, 850);
+    }, 700);
+
+    this.setState({ canSearch: myRef });
   };
 
   closeSearchBarHandler = () => {

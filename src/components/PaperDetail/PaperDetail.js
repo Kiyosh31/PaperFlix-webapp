@@ -7,7 +7,7 @@ import Title from "components/Title/Title";
 import ModalError from "components/ModalError/ModalError";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 
-import Requests from "Requests/Requests";
+import APICalls from "APICalls/APICalls";
 
 const PaperDetail = (props) => {
   const [showLoading, setShowLoading] = useState(false);
@@ -18,7 +18,7 @@ const PaperDetail = (props) => {
     setShowLoading(true);
 
     try {
-      const fetchedRatingDetail = await Requests.alreadyRated(
+      const fetchedRatingDetail = await APICalls.alreadyRated(
         props.paper.id_paper
       );
       if (fetchedRatingDetail === 200) {
@@ -38,7 +38,7 @@ const PaperDetail = (props) => {
 
   async function createRatingHandler(newRating) {
     try {
-      const fetchedCreatedRating = await Requests.createRating(
+      const fetchedCreatedRating = await APICalls.createRating(
         props.paper.id_paper,
         newRating
       );
@@ -54,7 +54,7 @@ const PaperDetail = (props) => {
 
   async function updateRatingHandler(newRating) {
     try {
-      const fetchedUpdatedRating = await Requests.updateRating(
+      const fetchedUpdatedRating = await APICalls.updateRating(
         props.paper.id_paper,
         newRating
       );
