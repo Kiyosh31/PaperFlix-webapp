@@ -59,7 +59,7 @@ class Home extends Component {
   }
 
   searchBarChangedHandler = (event) => {
-    let searchText = event.target.value;
+    let searchText = event.target.value.trim();
 
     if (this.state.canSearch !== null || this.state.canSearch !== undefined) {
       clearTimeout(this.state.canSearch);

@@ -43,7 +43,8 @@ class Trendings extends Component {
   }
 
   searchBarChangedHandler = (event) => {
-    let searchText = event.target.value;
+    let searchText = event.target.value.trim();
+
     setTimeout(() => {
       const payload = {
         search: searchText,
