@@ -22,6 +22,26 @@ class APICalls {
     }
   };
 
+  getPaginatedPapers = (id_category, pageNumber) => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
+    return new Promise((resolve, reject) => {
+      instance
+        .get(`paper-pagination/${id_category}/${pageNumber}`, {
+          headers: this.headers,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
+
   getAllCategories = () => {
     if (!this.checkCookie()) {
       window.location.reload();

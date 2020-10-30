@@ -8,6 +8,7 @@ import GridPosters from "components/GridPosters/GridPosters";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 
 import APICalls from "APICalls/APICalls";
+import Pagination from "APICalls/Pagination";
 
 class Home extends Component {
   state = {
