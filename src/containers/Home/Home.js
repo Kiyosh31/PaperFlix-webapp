@@ -8,7 +8,6 @@ import GridPosters from "components/GridPosters/GridPosters";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 
 import APICalls from "APICalls/APICalls";
-import Pagination from "APICalls/Pagination";
 
 class Home extends Component {
   state = {
@@ -104,6 +103,19 @@ class Home extends Component {
             randomPaper={this.state.randomPaper}
             categories={this.state.categories}
           />
+          <p
+            style={{
+              color: "white",
+              marginLeft: "20px",
+              marginTop: "10px",
+              fontSize: "20px",
+              fontWeight: "bold",
+              marginBottom: "20px",
+            }}
+          >
+            Para scroll horizontal presionar shift y mover la rueda del raton
+            sobre la fila
+          </p>
           {this.state.categories.map((category, index) => (
             <Row
               key={index}

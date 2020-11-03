@@ -1,7 +1,7 @@
 .grid__container {
   color: white;
   margin-left: 60px;
-  padding-top: 71px;
+  padding-top: 100px;
   min-height: 54vh;
   display: flex;
   flex-flow: row wrap;

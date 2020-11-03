@@ -17,30 +17,7 @@ class Trendings extends Component {
     filteredPapers: null,
   };
 
-  getCategories = () => {
-    instance
-      .get("category-list/")
-      .then((response) => {
-        if (response.status === 200) {
-          this.setState({ categories: response.data });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        this.setState({ loading: false });
-      });
-  };
-
-  getLatestPapers = () => {};
-
-  componentDidMount() {
-    this.getCategories();
-    this.getLatestPapers();
-
-    // if (this.state.categories && this.state.papers) {
-    //   this.setState({ loading: false });
-    // }
-  }
+  componentDidMount() {}
 
   searchBarChangedHandler = (event) => {
     let searchText = event.target.value.trim();

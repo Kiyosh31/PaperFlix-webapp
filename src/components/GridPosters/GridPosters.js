@@ -17,6 +17,13 @@ const GridPosters = (props) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
 
+  function getCategory() {
+    const category = props.categories.filter(
+      (category) => category.id_category === paper.id_category
+    );
+    return category[0]?.category;
+  }
+
   return (
     <div className="grid__container">
       {props.data.map((paper) => (
@@ -28,19 +35,12 @@ const GridPosters = (props) => {
           >
             <p className="grid__poster_text">{truncate(paper.title, 100)}</p>
           </div>
-          {/* <img 
-            key={paper.id_paper}
-            className="grid__poster"
-            src={mockImage}
-            alt={props.isLargeRow ? paper.title : ""}
-            onClick={() => modalHandler(paper)}
-          /> */}
         </div>
       ))}
 
       {paper && (
         <Modal show={modal} modalClosedByBackdrop={modalHandler}>
-          <PaperDetail paper={paper} categories={props.categories} />
+          <PaperDetail paper={paper} category={getCategory()} />
         </Modal>
       )}
     </div>
