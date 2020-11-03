@@ -89,6 +89,19 @@ class Latest extends Component {
     } else {
       content = (
         <div style={{ paddingTop: "85px" }}>
+          <p
+            style={{
+              color: "white",
+              marginLeft: "20px",
+              marginTop: "10px",
+              fontSize: "20px",
+              fontWeight: "bold",
+              marginBottom: "20px",
+            }}
+          >
+            Para scroll horizontal presionar shift y mover la rueda del raton
+            sobre la fila
+          </p>
           {this.state.categories.map((category, index) => (
             <Row
               key={index}

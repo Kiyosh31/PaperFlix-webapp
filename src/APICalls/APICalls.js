@@ -145,26 +145,6 @@ class APICalls {
     });
   };
 
-  getCategoryName = (id_category) => {
-    if (!this.checkCookie()) {
-      window.location.reload();
-      return;
-    }
-
-    return new Promise((resolve, reject) => {
-      instance
-        .get(`category-detail/${id_category}/`, {
-          headers: this.headers,
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            resolve(response.data.category);
-          }
-        })
-        .catch((err) => reject(err));
-    });
-  };
-
   alreadyRated = (id_paper) => {
     if (!this.checkCookie()) {
       window.location.reload();

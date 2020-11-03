@@ -7,8 +7,6 @@ import Modal from "components/Modal/Modal";
 import PaperDetail from "components/PaperDetail/PaperDetail";
 import BackgroundImage from "assets/img/astrofisica.jpg";
 
-import APICalls from "APICalls/APICalls";
-
 const Banner = (props) => {
   const [paper, setPaper] = useState(null);
   const [category, setCategory] = useState();
@@ -19,22 +17,14 @@ const Banner = (props) => {
   }, [props.randomPaper]);
 
   useEffect(() => {
-    async function fetchedData() {
-      if (paper) {
-        try {
-          const fetchedCategoryName = await APICalls.getCategoryName(
-            paper.id_category
-          );
-          if (fetchedCategoryName) {
-            setCategory(fetchedCategoryName);
-          }
-        } catch (err) {
-          console.log(err);
+    if (paper) {
+      for (let key in props.categories) {
+        if (paper.id_category === props.categories[key].id_category) {
+          setCategory(props.categories[key].category);
         }
       }
     }
-    fetchedData();
-  }, [paper]);
+  }, [paper, props.categories]);
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
