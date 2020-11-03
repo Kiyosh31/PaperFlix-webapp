@@ -18,10 +18,15 @@ const GridPosters = (props) => {
   }
 
   function getCategory() {
-    const category = props.categories.filter(
-      (category) => category.id_category === paper.id_category
-    );
-    return category[0]?.category;
+    // const category = props.categories.find(
+    //   (category) => category.id_category === paper.id_category
+    // );
+    // return category?.category;
+    for (let key in props.categories) {
+      if (paper.id_category === props.categories[key].id_category) {
+        return props.categories[key].category;
+      }
+    }
   }
 
   return (
