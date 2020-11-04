@@ -1,4 +1,4 @@
-import instance from "axios-instance";
+import instance from "API-instance";
 import Cookies from "js-cookie";
 
 class Auth {
@@ -16,10 +16,7 @@ class Auth {
           if (response.status === 201 || response.status === 200) {
             Cookies.set(
               "authenticated",
-              response.data.id_user + "|" + response.data.cookie,
-              {
-                expires: 5,
-              }
+              response.data.id_user + "|" + response.data.cookie
             );
             resolve(true);
           } else if (response.status === 400) {

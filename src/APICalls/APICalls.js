@@ -1,4 +1,5 @@
-import instance from "axios-instance";
+import instance from "API-instance";
+import iaInstance from "IA-Instance";
 import Cookies from "js-cookie";
 
 class APICalls {
@@ -7,7 +8,7 @@ class APICalls {
       this.id_user = Cookies.get("authenticated").split("|")[0];
       this.cookieValue = Cookies.get("authenticated").split("|")[1];
       this.headers = { authorization: this.cookieValue };
-      this.contentHeaders = {
+      this.jsonHeaders = {
         "Content-Type": "application/json",
         authorization: this.cookieValue,
       };
@@ -21,6 +22,105 @@ class APICalls {
       return false;
     }
   };
+
+  ///////////////////////////////////////////////// section IA /////////////////////////////////////////////////
+
+  getMightLikePapers = () => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
+    return new Promise((resolve, reject) => {
+      const payload = {
+        id_user: parseInt(this.id_user),
+        qty_preds: 10,
+      };
+
+      iaInstance
+        .post("might_like/", payload, {
+          headers: this.jsonHeaders,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
+
+  getTopTenPapers = () => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
+    return new Promise((resolve, reject) => {
+      iaInstance
+        .get("top_ten", {
+          headers: this.jsonHeaders,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
+
+  getTrendingPapers = () => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
+    return new Promise((resolve, reject) => {
+      const payload = {
+        id_user: parseInt(this.id_user),
+        qty_preds: 10,
+      };
+
+      iaInstance
+        .post("trending/", payload, {
+          headers: this.jsonHeaders,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
+
+  getRecommendedPapers = () => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
+    return new Promise((resolve, reject) => {
+      const payload = {
+        id_user: parseInt(this.id_user),
+        qty_preds: 20,
+      };
+
+      iaInstance
+        .post("recommended/", payload, {
+          headers: this.jsonHeaders,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => reject(err));
+    });
+  };
+
+  ///////////////////////////////////////////////// section IA /////////////////////////////////////////////////
 
   getPaginatedPapers = (id_category, pageNumber) => {
     if (!this.checkCookie()) {
@@ -133,7 +233,7 @@ class APICalls {
     return new Promise((resolve, reject) => {
       instance
         .post("paper-search/", payload, {
-          headers: this.contentHeaders,
+          headers: this.jsonHeaders,
         })
         .then((response) => {
           if (response.status === 200) {
@@ -182,7 +282,7 @@ class APICalls {
 
       instance
         .post("papersuser-create/", payload, {
-          headers: this.contentHeaders,
+          headers: this.jsonHeaders,
         })
         .then((response) => {
           if (response.status === 201) {
@@ -232,7 +332,7 @@ class APICalls {
     return new Promise((resolve, reject) => {
       instance
         .patch(`user-update/${this.id_user}/`, payload, {
-          headers: this.contentHeaders,
+          headers: this.jsonHeaders,
         })
         .then((response) => {
           if (response.status === 201) {

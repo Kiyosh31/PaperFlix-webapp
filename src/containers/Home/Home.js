@@ -113,8 +113,8 @@ class Home extends Component {
               marginBottom: "20px",
             }}
           >
-            Para scroll horizontal presionar shift y mover la rueda del raton
-            sobre la fila
+            Para navegar entre las categorias presionar shift y mover la rueda
+            del raton sobre la fila
           </p>
           {this.state.categories.map((category, index) => (
             <Row

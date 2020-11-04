@@ -9,7 +9,7 @@ import Button from "components/Button/Button";
 import Link from "components/RegisterLink/RegisterLink";
 
 import BackgroundImage from "assets/img/register.jpg";
-import instance from "axios-instance";
+import instance from "API-instance";
 import { Redirect } from "react-router-dom";
 
 class Register extends Component {

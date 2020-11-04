@@ -21,6 +21,7 @@ const Banner = (props) => {
       for (let key in props.categories) {
         if (paper.id_category === props.categories[key].id_category) {
           setCategory(props.categories[key].category);
+          return;
         }
       }
     }
@@ -46,7 +47,7 @@ const Banner = (props) => {
       style={{ backgroundImage: `url(${BackgroundImage})` }}
     >
       <div className="banner__contents">
-        <h1 className="banner__title">{truncate(paper?.title, 30)}</h1>
+        <h1 className="banner__title">{truncate(paper?.title, 50)}</h1>
         <div className="banner__button_container">
           <h1 className="banner__description">
             {truncate(paper?.description, 150)}

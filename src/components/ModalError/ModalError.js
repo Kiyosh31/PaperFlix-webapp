@@ -5,7 +5,7 @@ import Button from "components/Button/Button";
 import Modal from "components/Modal/Modal";
 
 import { Redirect } from "react-router-dom";
-import instance from "axios-instance";
+import instance from "API-instance";
 import Cookies from "js-cookie";
 import { sha256 } from "js-sha256";
 
