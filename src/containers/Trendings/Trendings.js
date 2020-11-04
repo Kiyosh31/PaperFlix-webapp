@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Toolbar from "components/Toolbar/Toolbar";
 import Footer from "components/Footer/Footer";
-// import Row from "components/Row/Row";
+import Row from "components/Row/Row";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 import GridPosters from "components/GridPosters/GridPosters";
 
@@ -95,11 +95,6 @@ class Trendings extends Component {
         loading: false,
       });
     }
-
-    console.log("recommended", this.state.recommended);
-    console.log("trendings", this.state.trendings);
-    console.log("Top Ten", this.state.topTen);
-    console.log("Might Like", this.state.mightLike);
   }
 
   searchBarChangedHandler = (event) => {
@@ -142,16 +137,28 @@ class Trendings extends Component {
       );
     } else {
       content = (
-        <div style={{ paddingTop: "85px" }}>
-          {/* {this.state.categories.map((category, index) => (
-            <Row
-              key={index}
-              title={category.category}
-              data={this.state.papers.filter(
-                (paper) => paper.id_category === category.id_category
-              )}
-            />
-          ))} */}
+        <div style={{ paddingTop: "100px" }}>
+          <Row
+            title="Recomendado para ti"
+            data={this.state.recommended}
+            categories={this.state.categories}
+            large
+          />
+          <Row
+            title="Tendencias"
+            data={this.state.trendings}
+            categories={this.state.categories}
+          />
+          <Row
+            title="Top 10"
+            data={this.state.topTen}
+            categories={this.state.categories}
+          />
+          <Row
+            title="Podrian Gustarte"
+            data={this.state.mightLike}
+            categories={this.state.categories}
+          />
         </div>
       );
     }

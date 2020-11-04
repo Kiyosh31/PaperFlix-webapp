@@ -58,7 +58,7 @@ class APICalls {
 
     return new Promise((resolve, reject) => {
       iaInstance
-        .get("top_ten", {
+        .get("top_ten/", {
           headers: this.jsonHeaders,
         })
         .then((response) => {

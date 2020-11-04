@@ -23,7 +23,7 @@ const Row = (props) => {
       <div className="row__posters">
         {props.data.map((paper) => (
           <div
-            className="row__poster"
+            className={props.large ? "row__posterLarge" : "row__poster"}
             onClick={() => modalHandler(paper)}
             key={paper.id_paper}
           >
@@ -33,7 +33,18 @@ const Row = (props) => {
       </div>
       {paper && (
         <Modal show={modal} modalClosedByBackdrop={modalHandler}>
-          <PaperDetail paper={paper} category={props.title} />
+          <PaperDetail
+            paper={paper}
+            category={
+              props.categories
+                ? props.categories
+                    .filter(
+                      (category) => category.id_category === paper.id_category
+                    )
+                    .map((filteredCategory) => filteredCategory.category)
+                : props.title
+            }
+          />
         </Modal>
       )}
     </div>
