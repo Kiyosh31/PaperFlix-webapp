@@ -5,11 +5,13 @@ import Button from "components/Button/Button";
 import StarRating from "components/StarRating/StarRating";
 import Title from "components/Title/Title";
 import ModalLoading from "components/ModalLoading/ModalLoading";
+import ErrorModal from "components/ErrorModal/ErrorModal";
 
 import APICalls from "APICalls/APICalls";
 
 const PaperDetail = (props) => {
   const [showLoading, setShowLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   async function starRatingHandler(newRating) {
     setShowLoading(true);
@@ -28,7 +30,9 @@ const PaperDetail = (props) => {
         createRatingHandler(newRating);
       }
     } catch (err) {
-      console.log(err);
+      const errorData = ["Error al intentar calificar un articulo"];
+      setError(errorData);
+      setShowLoading(false);
     }
   }
 
@@ -43,7 +47,8 @@ const PaperDetail = (props) => {
         setShowLoading(false);
       }
     } catch (err) {
-      console.log(err);
+      const errorData = ["Error al crear una nueva calificacion"];
+      setError(errorData);
       setShowLoading(false);
     }
   }
@@ -59,13 +64,18 @@ const PaperDetail = (props) => {
         setShowLoading(false);
       }
     } catch (err) {
-      console.log(err);
+      const errorData = ["Error al actualizar una calificacion"];
+      setError(errorData);
       setShowLoading(false);
     }
   }
 
   function paperClickHandler() {
     window.open(props.paper.url, "_blank");
+  }
+
+  function modalHandler() {
+    setError(null);
   }
 
   return (
@@ -88,6 +98,7 @@ const PaperDetail = (props) => {
       </p>
       <StarRating changed={starRatingHandler} />
       <Button clicked={paperClickHandler}>Ver el documento</Button>
+      {error && <ErrorModal onClose={modalHandler} text={error} />}
     </div>
   );
 };

@@ -263,7 +263,7 @@ class APICalls {
             resolve(response.status);
           }
         })
-        .catch((err) => reject(err.response));
+        .catch((err) => reject(err.response.data));
     });
   };
 
