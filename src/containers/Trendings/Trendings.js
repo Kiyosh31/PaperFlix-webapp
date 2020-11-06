@@ -5,6 +5,7 @@ import Footer from "components/Footer/Footer";
 import Row from "components/Row/Row";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 import GridPosters from "components/GridPosters/GridPosters";
+import ErrorModal from "components/ErrorModal/ErrorModal";
 
 import APICalls from "APICalls/APICalls";
 
@@ -19,9 +20,12 @@ class Trendings extends Component {
     searched: null,
     filteredPapers: null,
     canSearch: null,
+    error: null,
   };
 
   async componentDidMount() {
+    let errorData = [];
+
     // Categorias
     try {
       const fetchedCategories = await APICalls.getAllCategories();
@@ -29,10 +33,7 @@ class Trendings extends Component {
         this.setState({ categories: fetchedCategories });
       }
     } catch (err) {
-      console.log(err);
-      this.setState({
-        loading: false,
-      });
+      errorData.push("No se pudieron obtener las categorias");
     }
 
     // Recommended
@@ -44,10 +45,7 @@ class Trendings extends Component {
         });
       }
     } catch (err) {
-      console.log(err);
-      this.setState({
-        loading: false,
-      });
+      errorData.push("No se pudieron obtener los recomendados");
     }
 
     // Trendings
@@ -59,10 +57,7 @@ class Trendings extends Component {
         });
       }
     } catch (err) {
-      console.log(err);
-      this.setState({
-        loading: false,
-      });
+      errorData.push("No se pudieron obtener las tendencias");
     }
 
     // Top Ten
@@ -74,10 +69,7 @@ class Trendings extends Component {
         });
       }
     } catch (err) {
-      console.log(err);
-      this.setState({
-        loading: false,
-      });
+      errorData.push("No se pudo obtener la categoria Top 10");
     }
 
     // Might Like
@@ -90,8 +82,12 @@ class Trendings extends Component {
         });
       }
     } catch (err) {
-      console.log(err);
+      errorData.push("No se pudo obtener la categoria Podrian gustarte");
+    }
+
+    if (errorData.length > 0) {
       this.setState({
+        error: errorData,
         loading: false,
       });
     }
@@ -105,6 +101,8 @@ class Trendings extends Component {
     }
 
     const myRef = setTimeout(async () => {
+      this.setState({ loading: true });
+
       const payload = {
         search: searchText,
       };
@@ -112,10 +110,14 @@ class Trendings extends Component {
       try {
         const fetchedSearch = await APICalls.searchPapers(payload);
         if (fetchedSearch) {
-          this.setState({ filteredPapers: fetchedSearch });
+          this.setState({ filteredPapers: fetchedSearch, loading: false });
         }
       } catch (err) {
-        console.log(err);
+        const errorData = ["Error al intentar buscar"];
+        this.setState({
+          error: errorData,
+          loading: false,
+        });
       }
     }, 700);
 
@@ -124,6 +126,10 @@ class Trendings extends Component {
 
   closeSearchBarHandler = () => {
     this.setState({ filteredPapers: null });
+  };
+
+  modalHandler = () => {
+    this.setState({ error: null });
   };
 
   render() {
@@ -173,6 +179,9 @@ class Trendings extends Component {
         />
         {content}
         <Footer />
+        {this.state.error && (
+          <ErrorModal onClose={this.modalHandler} text={this.state.error} />
+        )}
       </div>
     );
   }

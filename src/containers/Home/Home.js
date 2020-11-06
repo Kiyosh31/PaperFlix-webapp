@@ -71,6 +71,8 @@ class Home extends Component {
     }
 
     const myRef = setTimeout(async () => {
+      this.setState({ loading: true });
+
       const payload = {
         search: searchText,
       };
@@ -78,10 +80,14 @@ class Home extends Component {
       try {
         const fetchedSearch = await APICalls.searchPapers(payload);
         if (fetchedSearch) {
-          this.setState({ filteredPapers: fetchedSearch });
+          this.setState({ filteredPapers: fetchedSearch, loading: false });
         }
       } catch (err) {
-        console.log(err);
+        const errorData = ["Error al intentar buscar"];
+        this.setState({
+          error: errorData,
+          loading: false,
+        });
       }
     }, 700);
 

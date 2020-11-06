@@ -5,6 +5,7 @@ import Footer from "components/Footer/Footer";
 import Row from "components/Row/Row";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 import GridPosters from "components/GridPosters/GridPosters";
+import ErrorModal from "components/ErrorModal/ErrorModal";
 
 import APICalls from "APICalls/APICalls";
 
@@ -13,22 +14,22 @@ class Latest extends Component {
     loading: true,
     categories: [],
     papers: [],
+    error: null,
     searched: null,
     filteredPapers: null,
     canSearch: null,
   };
 
   async componentDidMount() {
+    let errorData = [];
+
     try {
       const fetchedCategories = await APICalls.getAllCategories();
       if (fetchedCategories) {
         this.setState({ categories: fetchedCategories });
       }
     } catch (err) {
-      console.log(err);
-      this.setState({
-        loading: false,
-      });
+      errorData.push("No se pudieron obtener las categorias");
     }
 
     try {
@@ -37,8 +38,12 @@ class Latest extends Component {
         this.setState({ papers: fetchedCategories });
       }
     } catch (err) {
-      console.log(err);
+      errorData.push("No se pudieron obtener las articulos mas recientes");
+    }
+
+    if (errorData.length > 0) {
       this.setState({
+        error: errorData,
         loading: false,
       });
     }
@@ -56,6 +61,8 @@ class Latest extends Component {
     }
 
     const myRef = setTimeout(async () => {
+      this.setState({ loading: true });
+
       const payload = {
         search: searchText,
       };
@@ -63,10 +70,14 @@ class Latest extends Component {
       try {
         const fetchedSearch = await APICalls.searchPapers(payload);
         if (fetchedSearch) {
-          this.setState({ filteredPapers: fetchedSearch });
+          this.setState({ filteredPapers: fetchedSearch, loading: false });
         }
       } catch (err) {
-        console.log(err);
+        const errorData = ["Error al intentar buscar"];
+        this.setState({
+          error: errorData,
+          loading: false,
+        });
       }
     }, 700);
 
@@ -75,6 +86,12 @@ class Latest extends Component {
 
   closeSearchBarHandler = () => {
     this.setState({ filteredPapers: null });
+  };
+
+  modalHandler = () => {
+    this.setState({
+      error: null,
+    });
   };
 
   render() {
@@ -125,6 +142,9 @@ class Latest extends Component {
         />
         {content}
         <Footer />
+        {this.state.error && (
+          <ErrorModal onClose={this.modalHandler} text={this.state.error} />
+        )}
       </div>
     );
   }
