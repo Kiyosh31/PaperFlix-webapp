@@ -6,6 +6,7 @@ import Toolbar from "components/Toolbar/Toolbar";
 import Footer from "components/Footer/Footer";
 import GridPosters from "components/GridPosters/GridPosters";
 import ModalLoading from "components/ModalLoading/ModalLoading";
+import ErrorModal from "components/ErrorModal/ErrorModal";
 
 import APICalls from "APICalls/APICalls";
 
@@ -14,29 +15,29 @@ class Home extends Component {
     loading: true,
     categories: [],
     papers: [],
+    error: null,
     randomPaper: null,
     filteredPapers: null,
     canSearch: null,
   };
 
   async componentDidMount() {
+    let errorsInData = [];
+
     try {
       const fetchedCategories = await APICalls.getAllCategories();
       if (fetchedCategories) {
         this.setState({ categories: fetchedCategories });
       }
     } catch (err) {
-      console.log(err);
-      this.setState({
-        loading: false,
-      });
+      errorsInData.push("No se pudieron obtener las categorias");
     }
 
     try {
       const fetchedPaper = await APICalls.getRandomPaper();
       this.setState({ randomPaper: fetchedPaper });
     } catch (err) {
-      console.log(err);
+      errorsInData.push("No se pudo obtener el articulo de cabecera");
     }
 
     try {
@@ -45,8 +46,12 @@ class Home extends Component {
         this.setState({ papers: fetchedPapers });
       }
     } catch (err) {
-      console.log(err);
+      errorsInData.push("No se pudieron obtener todos los articulos");
+    }
+
+    if (errorsInData.length > 0) {
       this.setState({
+        error: errorsInData,
         loading: false,
       });
     }
@@ -85,6 +90,10 @@ class Home extends Component {
 
   closeSearchBarHandler = () => {
     this.setState({ filteredPapers: null });
+  };
+
+  modalHandler = () => {
+    this.setState({ error: null });
   };
 
   render() {
@@ -139,6 +148,9 @@ class Home extends Component {
         />
         {content}
         <Footer />
+        {this.state.error && (
+          <ErrorModal onClose={this.modalHandler} text={this.state.error} />
+        )}
       </div>
     );
   }
