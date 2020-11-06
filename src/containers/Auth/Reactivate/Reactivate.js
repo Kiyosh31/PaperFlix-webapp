@@ -8,6 +8,7 @@ import Title from "components/Title/Title";
 import Button from "components/Button/Button";
 import RegisterLink from "components/RegisterLink/RegisterLink";
 import Input from "components/Input/Input";
+import ErrorModal from "components/ErrorModal/ErrorModal";
 
 import { Redirect } from "react-router-dom";
 import APICalls from "APICalls/APICalls";
@@ -46,6 +47,7 @@ class Reactivate extends Component {
     },
     formIsValid: false,
     redirect: false,
+    error: null,
   };
 
   checkValidity(value, rules) {
@@ -100,6 +102,10 @@ class Reactivate extends Component {
     this.setState({ controls: updatedControls, formIsValid: formIsValid });
   };
 
+  modalHandler = () => {
+    this.setState({ error: null });
+  };
+
   submitHandler = async (event) => {
     event.preventDefault();
 
@@ -120,7 +126,7 @@ class Reactivate extends Component {
         this.setState({ redirect: true });
       }
     } catch (err) {
-      console.log(err);
+      this.setState({ error: err });
     }
   };
 
@@ -162,6 +168,9 @@ class Reactivate extends Component {
           />
         </Box>
         {this.state.redirect && <Redirect to="/home" />}
+        {this.state.error && (
+          <ErrorModal onClose={this.modalHandler} text={this.state.error} />
+        )}
       </Background>
     );
   }

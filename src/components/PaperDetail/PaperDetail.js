@@ -4,15 +4,12 @@ import "./PaperDetail.css";
 import Button from "components/Button/Button";
 import StarRating from "components/StarRating/StarRating";
 import Title from "components/Title/Title";
-import ModalError from "components/ModalError/ModalError";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 
 import APICalls from "APICalls/APICalls";
 
 const PaperDetail = (props) => {
   const [showLoading, setShowLoading] = useState(false);
-  const [showModalError, setShowModalError] = useState(false);
-  const [error, setError] = useState();
 
   async function starRatingHandler(newRating) {
     setShowLoading(true);
@@ -31,8 +28,7 @@ const PaperDetail = (props) => {
         createRatingHandler(newRating);
       }
     } catch (err) {
-      setShowModalError(!showModalError);
-      setError(err.response);
+      console.log(err);
     }
   }
 
@@ -92,14 +88,6 @@ const PaperDetail = (props) => {
       </p>
       <StarRating changed={starRatingHandler} />
       <Button clicked={paperClickHandler}>Ver el documento</Button>
-      {error && (
-        <ModalError
-          clicked={() => setShowModalError(!showModalError)}
-          show={showModalError}
-          modalClosedByBackdrop={() => setShowModalError(!showModalError)}
-          error={error}
-        />
-      )}
     </div>
   );
 };

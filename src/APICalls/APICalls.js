@@ -46,7 +46,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -66,7 +66,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -91,7 +91,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -116,7 +116,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -138,7 +138,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -158,7 +158,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -179,7 +179,7 @@ class APICalls {
           }
         })
         .catch((err) => {
-          reject(err);
+          reject(err.response.data);
         });
     });
   };
@@ -200,7 +200,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -220,7 +220,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -241,7 +241,7 @@ class APICalls {
           }
           return;
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -290,7 +290,7 @@ class APICalls {
           }
         })
         .catch((err) => {
-          reject(err);
+          reject(err.response.data);
         });
     });
   };
@@ -318,7 +318,7 @@ class APICalls {
           }
         })
         .catch((err) => {
-          reject(err);
+          reject(err.response.data);
         });
     });
   };
@@ -339,7 +339,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -352,7 +352,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -372,7 +372,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err));
+        .catch((err) => reject(err.response.data));
     });
   };
 }

@@ -8,7 +8,7 @@ import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import RegisterLink from "components/RegisterLink/RegisterLink";
 import BackgroundImage from "assets/img/login-background.jpg";
-import ModalError from "components/ModalError/ModalError";
+import ErrorModal from "components/ErrorModal/ErrorModal";
 
 import auth from "auth";
 import { Redirect } from "react-router-dom";
@@ -47,7 +47,6 @@ class Login extends Component {
     },
     formIsValid: false,
     isAuthenticated: false,
-    showModal: false,
     error: null,
   };
 
@@ -110,7 +109,7 @@ class Login extends Component {
   };
 
   modalHandler = () => {
-    this.setState({ showModal: !this.state.showModal });
+    this.setState({ error: null });
   };
 
   submitHandler = async (event) => {
@@ -133,7 +132,7 @@ class Login extends Component {
         }
       }
     } catch (err) {
-      this.setState({ error: err, showModal: !this.state.showModal });
+      this.setState({ error: err });
     }
   };
 
@@ -182,15 +181,10 @@ class Login extends Component {
             reactivate
           />
         </Box>
-        {this.state.showModal && (
-          <ModalError
-            clicked={this.modalHandler}
-            show={this.state.showModal}
-            modalClosedByBackdrop={this.modalHandler}
-            error={this.state.error}
-          />
-        )}
         {this.state.isAuthenticated && <Redirect to="/home" />}
+        {this.state.error && (
+          <ErrorModal onClose={this.modalHandler} text={this.state.error} />
+        )}
       </Background>
     );
   }

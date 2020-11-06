@@ -13,17 +13,18 @@ class Auth {
       instance
         .post("user-login/", payload)
         .then((response) => {
+          console.log(response);
           if (response.status === 201 || response.status === 200) {
             Cookies.set(
               "authenticated",
               response.data.id_user + "|" + response.data.cookie
             );
             resolve(true);
-          } else if (response.status === 400) {
-            reject(response);
           }
         })
-        .catch((err) => reject(400));
+        .catch((err) => {
+          reject(err.response.data);
+        });
     });
   }
 
