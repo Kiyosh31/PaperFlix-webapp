@@ -375,6 +375,26 @@ class APICalls {
         .catch((err) => reject(err.response.data));
     });
   };
+
+  createUser = (payload) => {
+    if (!this.checkCookie()) {
+      window.location.reload();
+      return;
+    }
+
+    return new Promise((resolve, reject) => {
+      instance
+        .post("user-create/", payload)
+        .then((response) => {
+          if (response.status === 201) {
+            resolve(response.data);
+          }
+        })
+        .catch((err) => {
+          reject(err.response.data);
+        });
+    });
+  };
 }
 
 export default new APICalls();

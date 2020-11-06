@@ -8,6 +8,7 @@ import CreatedContent from "components/CreatedContent/CreatedContent";
 
 import DeactivateConfirm from "components/DeactivateConfirm/DeactivateConfirm";
 import APICalls from "APICalls/APICalls";
+import ErrorModal from "components/ErrorModal/ErrorModal";
 
 const initialState = {
   controls: {
@@ -55,6 +56,9 @@ const initialState = {
     },
   },
   formIsValid: false,
+  showModal: false,
+  contentType: null,
+  error: null,
 };
 class UserSettings extends Component {
   state = {
@@ -105,6 +109,7 @@ class UserSettings extends Component {
     formIsValid: false,
     showModal: false,
     contentType: null,
+    error: null,
   };
 
   checkValidity(value, rules) {
@@ -166,6 +171,12 @@ class UserSettings extends Component {
     });
   };
 
+  errorModalHandler = () => {
+    this.setState({
+      error: null,
+    });
+  };
+
   submitHandler = async (event) => {
     event.preventDefault();
 
@@ -192,7 +203,10 @@ class UserSettings extends Component {
         this.clearForm();
       }
     } catch (err) {
-      console.log(err);
+      const errorData = ["Error al intentar actualizar los datos del usuario"];
+      this.setState({
+        error: errorData,
+      });
     }
   };
 
@@ -266,6 +280,12 @@ class UserSettings extends Component {
           Desactivar Cuenta
         </Button>
         {modal}
+        {this.state.error && (
+          <ErrorModal
+            onClose={this.errorModalHandler}
+            text={this.state.error}
+          />
+        )}
       </div>
     );
   }

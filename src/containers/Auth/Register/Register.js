@@ -7,9 +7,10 @@ import Title from "components/Title/Title";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import Link from "components/RegisterLink/RegisterLink";
-
 import BackgroundImage from "assets/img/register.jpg";
-import instance from "API-instance";
+import ErrorModal from "components/ErrorModal/ErrorModal";
+
+import APICalls from "APICalls/APICalls";
 import { Redirect } from "react-router-dom";
 
 class Register extends Component {
@@ -60,6 +61,7 @@ class Register extends Component {
     },
     formIsValid: false,
     redirect: false,
+    error: null,
   };
 
   checkValidity(value, rules) {
@@ -114,7 +116,7 @@ class Register extends Component {
     this.setState({ controls: updatedControls, formIsValid: formIsValid });
   };
 
-  submitHandler = (event) => {
+  submitHandler = async (event) => {
     event.preventDefault();
 
     if (!this.state.formIsValid) {
@@ -128,16 +130,20 @@ class Register extends Component {
       password: this.state.controls.password.value,
     };
 
-    instance
-      .post("user-create/", payload)
-      .then((response) => {
-        console.log(response);
-        if (response.status === 201) {
-          console.log("USER CREATED SUCCESFULLY");
-          this.setState({ redirect: true });
-        }
-      })
-      .catch((err) => console.log(err));
+    try {
+      const fetchedNewUser = await APICalls.createUser(payload);
+      if (fetchedNewUser) {
+        console.log("fetchedUser", fetchedNewUser);
+        // this.setState({ redirect: true });
+      }
+    } catch (err) {
+      const errorData = ["Error al intentar registrarse"];
+      this.setState({ error: errorData });
+    }
+  };
+
+  modalHandler = () => {
+    this.setState({ error: null });
   };
 
   render() {
@@ -180,6 +186,9 @@ class Register extends Component {
           />
         </Box>
         {this.state.redirect && <Redirect to="/" />}
+        {this.state.error && (
+          <ErrorModal onClose={this.modalHandler} text={this.state.error} />
+        )}
       </Background>
     );
   }
