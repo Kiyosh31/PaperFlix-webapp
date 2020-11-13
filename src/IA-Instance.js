@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Base URL to make requests to the IA
 const iaInstance = axios.create({
-  baseURL: "http://127.0.0.1:8080/api/",
+  baseURL: "https://paperflix-ml.wn.r.appspot.com",
 });
 
 export default iaInstance;
