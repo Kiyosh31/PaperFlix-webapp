@@ -120,7 +120,7 @@ class APICalls {
     });
   };
 
-  ///////////////////////////////////////////////// section IA /////////////////////////////////////////////////
+  ///////////////////////////////////////////////// Finish IA section /////////////////////////////////////////////////
 
   getPaginatedPapers = (id_category, pageNumber) => {
     if (!this.checkCookie()) {
@@ -289,9 +289,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => {
-          reject(err.response.data);
-        });
+        .catch((err) => reject(err.response.data));
     });
   };
 
@@ -390,9 +388,7 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => {
-          reject(err.response.data);
-        });
+        .catch((err) => reject(err.response.data));
     });
   };
 }

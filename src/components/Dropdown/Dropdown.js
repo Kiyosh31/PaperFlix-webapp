@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import "./Dropdown.css";
 
-import { useHistory } from "react-router-dom";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faCog } from "@fortawesome/free-solid-svg-icons";
 import Modal from "components/Modal/Modal";
 import UserSettings from "components/UserSettings/UserSettings";
+import ErrorModal from "components/ErrorModal/ErrorModal";
 
+import { useHistory } from "react-router-dom";
 import auth from "auth";
 
 const Dropdown = () => {
   const [modal, setModal] = useState(false);
+  const [error, setError] = useState(null);
 
   let history = useHistory();
 
@@ -25,8 +26,12 @@ const Dropdown = () => {
       auth.deleteCookie();
       history.push("/");
     } catch (err) {
-      console.log(err);
+      setError(err);
     }
+  }
+
+  function modalHandler() {
+    setError(null);
   }
 
   return (
@@ -47,6 +52,7 @@ const Dropdown = () => {
           <UserSettings />
         </Modal>
       )}
+      {error && <ErrorModal onClose={modalHandler} text={error} />}
     </div>
   );
 };

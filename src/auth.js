@@ -33,18 +33,21 @@ class Auth {
     const id_user = Cookies.get("authenticated").split("|")[0];
     const cookieValue = Cookies.get("authenticated").split("|")[1];
 
-    instance
-      .get(`user-logout/${id_user}/`, {
-        headers: {
-          authorization: cookieValue,
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          Cookies.remove("authenticated");
-        }
-      })
-      .catch((err) => console.log(err));
+    return new Promise((resolve, reject) => {
+      instance
+        .get(`user-logout/${id_user}/`, {
+          headers: {
+            authorization: cookieValue,
+          },
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            Cookies.remove("authenticated");
+            resolve(true);
+          }
+        })
+        .catch((err) => reject(err.response.data));
+    });
   }
 
   isAuthenticated() {
