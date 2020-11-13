@@ -375,11 +375,6 @@ class APICalls {
   };
 
   createUser = (payload) => {
-    if (!this.checkCookie()) {
-      window.location.reload();
-      return;
-    }
-
     return new Promise((resolve, reject) => {
       instance
         .post("user-create/", payload)

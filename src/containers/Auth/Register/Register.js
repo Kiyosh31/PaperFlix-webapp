@@ -133,8 +133,7 @@ class Register extends Component {
     try {
       const fetchedNewUser = await APICalls.createUser(payload);
       if (fetchedNewUser) {
-        console.log("fetchedUser", fetchedNewUser);
-        // this.setState({ redirect: true });
+        this.setState({ redirect: true });
       }
     } catch (err) {
       const errorData = ["Error al intentar registrarse"];
