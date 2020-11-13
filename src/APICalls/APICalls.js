@@ -23,6 +23,11 @@ class APICalls {
     }
   };
 
+  deleteCookie = () => {
+    Cookies.remove("authenticated");
+    window.location.reload();
+  };
+
   ///////////////////////////////////////////////// section IA /////////////////////////////////////////////////
 
   getMightLikePapers = () => {
@@ -46,7 +51,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -66,7 +77,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -91,7 +108,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -116,7 +139,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -138,7 +167,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -158,7 +193,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -179,7 +220,11 @@ class APICalls {
           }
         })
         .catch((err) => {
-          reject(err.response.data);
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
         });
     });
   };
@@ -200,7 +245,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -220,7 +271,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -241,7 +298,13 @@ class APICalls {
           }
           return;
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -263,7 +326,13 @@ class APICalls {
             resolve(response.status);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -289,7 +358,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -316,7 +391,11 @@ class APICalls {
           }
         })
         .catch((err) => {
-          reject(err.response.data);
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
         });
     });
   };
@@ -337,7 +416,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -350,7 +435,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
@@ -370,7 +461,13 @@ class APICalls {
             resolve(response.data);
           }
         })
-        .catch((err) => reject(err.response.data));
+        .catch((err) => {
+          if (err.response.status === 401) {
+            this.deleteCookie();
+          } else {
+            reject(err.response.data);
+          }
+        });
     });
   };
 
