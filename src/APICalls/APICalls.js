@@ -321,7 +321,7 @@ class APICalls {
         })
         .then((response) => {
           if (response.status === 200 || response.status === 202) {
-            resolve(response.status);
+            resolve(response);
           }
         })
         .catch((err) => {

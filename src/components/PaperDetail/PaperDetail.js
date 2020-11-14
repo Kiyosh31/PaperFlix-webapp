@@ -20,11 +20,11 @@ const PaperDetail = (props) => {
       const fetchedRatingDetail = await APICalls.alreadyRated(
         props.paper.id_paper
       );
-      if (fetchedRatingDetail === 200) {
+      if (fetchedRatingDetail.status === 200) {
         // ya calificaste
         console.log("ya calificaste");
         updateRatingHandler(newRating);
-      } else if (fetchedRatingDetail === 202) {
+      } else if (fetchedRatingDetail.status === 202) {
         // no has calificado
         console.log("no has calificado");
         createRatingHandler(newRating);
