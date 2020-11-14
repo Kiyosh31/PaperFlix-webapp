@@ -24,7 +24,7 @@ const PaperDetail = (props) => {
         // ya calificaste
         console.log("ya calificaste");
         updateRatingHandler(newRating);
-      } else if (fetchedRatingDetail === 204) {
+      } else if (fetchedRatingDetail === 202) {
         // no has calificado
         console.log("no has calificado");
         createRatingHandler(newRating);

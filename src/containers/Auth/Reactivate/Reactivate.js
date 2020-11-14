@@ -122,7 +122,6 @@ class Reactivate extends Component {
     try {
       const fetchedReactivate = await APICalls.reactivateUser(payload);
       if (fetchedReactivate) {
-        console.log("reactivacion completa");
         this.setState({ redirect: true });
       }
     } catch (err) {

@@ -320,9 +320,7 @@ class APICalls {
           headers: this.headers,
         })
         .then((response) => {
-          if (response.status === 200) {
-            resolve(response.status);
-          } else if (response.status === 204) {
+          if (response.status === 200 || response.status === 202) {
             resolve(response.status);
           }
         })
