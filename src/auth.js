@@ -13,7 +13,6 @@ class Auth {
       instance
         .post("user-login/", payload)
         .then((response) => {
-          console.log(response);
           if (response.status === 201 || response.status === 200) {
             Cookies.set(
               "authenticated",

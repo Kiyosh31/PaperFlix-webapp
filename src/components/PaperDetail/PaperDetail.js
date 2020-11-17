@@ -6,12 +6,14 @@ import StarRating from "components/StarRating/StarRating";
 import Title from "components/Title/Title";
 import ModalLoading from "components/ModalLoading/ModalLoading";
 import ErrorModal from "components/ErrorModal/ErrorModal";
+import SuccessModal from "components/SuccessModal/SuccessModal";
 
 import APICalls from "APICalls/APICalls";
 
 const PaperDetail = (props) => {
   const [showLoading, setShowLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   async function starRatingHandler(newRating) {
     setShowLoading(true);
@@ -22,11 +24,9 @@ const PaperDetail = (props) => {
       );
       if (fetchedRatingDetail.status === 200) {
         // ya calificaste
-        console.log("ya calificaste");
         updateRatingHandler(newRating);
       } else if (fetchedRatingDetail.status === 202) {
         // no has calificado
-        console.log("no has calificado");
         createRatingHandler(newRating);
       }
     } catch (err) {
@@ -43,7 +43,7 @@ const PaperDetail = (props) => {
         newRating
       );
       if (fetchedCreatedRating) {
-        console.log("calificacion creada");
+        setSuccess(["Calificacion Creada!", "Calificacion creada con exito"]);
         setShowLoading(false);
       }
     } catch (err) {
@@ -60,7 +60,10 @@ const PaperDetail = (props) => {
         newRating
       );
       if (fetchedUpdatedRating) {
-        console.log("calificacion actualizada");
+        setSuccess([
+          "Calificacion Actualizada!",
+          "Calificacion actualizada con exito",
+        ]);
         setShowLoading(false);
       }
     } catch (err) {
@@ -74,8 +77,12 @@ const PaperDetail = (props) => {
     window.open(props.paper.url, "_blank");
   }
 
-  function modalHandler() {
+  function errorModalHandler() {
     setError(null);
+  }
+
+  function successModalHandler() {
+    setSuccess(null);
   }
 
   return (
@@ -98,7 +105,8 @@ const PaperDetail = (props) => {
       </p>
       <StarRating changed={starRatingHandler} />
       <Button clicked={paperClickHandler}>Ver el documento</Button>
-      {error && <ErrorModal onClose={modalHandler} text={error} />}
+      {error && <ErrorModal onClose={errorModalHandler} text={error} />}
+      {success && <SuccessModal onClose={successModalHandler} data={success} />}
     </div>
   );
 };

@@ -116,7 +116,9 @@ class Login extends Component {
     event.preventDefault();
 
     if (!this.state.formIsValid) {
-      console.log("No es valido");
+      this.setState({
+        error: ["Los datos no tienen la forma correcta."],
+      });
       return;
     }
 
@@ -126,10 +128,10 @@ class Login extends Component {
         this.state.controls.password.value
       );
       if (isLoggedIn) {
-        if (auth.isAuthenticated()) {
-          this.setState({ isAuthenticated: true });
-          window.location.reload();
-        }
+        // if (auth.isAuthenticated()) {
+        this.setState({ isAuthenticated: true });
+        window.location.reload();
+        // }
       }
     } catch (err) {
       this.setState({ error: err });

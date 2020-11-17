@@ -120,7 +120,7 @@ class Register extends Component {
     event.preventDefault();
 
     if (!this.state.formIsValid) {
-      console.log("Invalido");
+      this.setState(["Los datos no tienen la forma correcta."]);
       return;
     }
 
