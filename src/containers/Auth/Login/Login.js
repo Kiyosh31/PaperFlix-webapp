@@ -123,16 +123,13 @@ class Login extends Component {
     }
 
     try {
-      const isLoggedIn = await auth.login(
+      await auth.login(
         this.state.controls.email.value,
         this.state.controls.password.value
       );
-      if (isLoggedIn) {
-        if (auth.isAuthenticated()) {
-          this.setState({ isAuthenticated: true });
-          window.location.reload();
-        }
-      }
+
+      this.setState({ isAuthenticated: true });
+      window.location.reload();
     } catch (err) {
       this.setState({ error: err });
     }

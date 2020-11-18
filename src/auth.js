@@ -52,8 +52,9 @@ class Auth {
   isAuthenticated() {
     if (Cookies.get("authenticated")) {
       return true;
+    } else {
+      return false;
     }
-    return false;
   }
 
   deleteCookie() {
