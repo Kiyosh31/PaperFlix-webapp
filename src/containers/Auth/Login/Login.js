@@ -11,8 +11,6 @@ import BackgroundImage from "assets/img/login-background.jpg";
 import ErrorModal from "components/ErrorModal/ErrorModal";
 
 import auth from "auth";
-import Cookies from "js-cookie";
-
 import { Redirect } from "react-router-dom";
 
 class Login extends Component {
@@ -130,7 +128,7 @@ class Login extends Component {
         this.state.controls.password.value
       );
       if (isLoggedIn) {
-        if (Cookies.get("authenticated")) {
+        if (auth.isAuthenticated()) {
           this.setState({ isAuthenticated: true });
           window.location.reload();
         }

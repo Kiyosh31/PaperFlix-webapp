@@ -24,8 +24,16 @@ class APICalls {
   };
 
   deleteCookie = () => {
-    Cookies.remove("authenticated");
-    window.location.reload();
+    if (Cookies.get("authenticated")) {
+      Cookies.remove("authenticated");
+      window.location.reload();
+    }
+  };
+
+  getCookieValue = () => {
+    const cookieValue = Cookies.get("authenticated").split("|")[1];
+    const headers = { authorization: cookieValue };
+    return headers;
   };
 
   ///////////////////////////////////////////////// section IA /////////////////////////////////////////////////
@@ -184,9 +192,11 @@ class APICalls {
     }
 
     return new Promise((resolve, reject) => {
+      const headers = this.getCookieValue();
+
       instance
         .get("category-list/", {
-          headers: this.headers,
+          headers: headers,
         })
         .then((response) => {
           if (response.status === 200) {
@@ -236,9 +246,11 @@ class APICalls {
     }
 
     return new Promise((resolve, reject) => {
+      const headers = this.getCookieValue();
+
       instance
         .get("paper-list/", {
-          headers: this.headers,
+          headers: headers,
         })
         .then((response) => {
           if (response.status === 200) {
@@ -262,9 +274,11 @@ class APICalls {
     }
 
     return new Promise((resolve, reject) => {
+      const headers = this.getCookieValue();
+
       instance
         .get("paper-random/", {
-          headers: this.headers,
+          headers: headers,
         })
         .then((response) => {
           if (response.status === 200) {
