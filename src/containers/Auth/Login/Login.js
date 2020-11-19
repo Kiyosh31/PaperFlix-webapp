@@ -130,7 +130,6 @@ class Login extends Component {
       if (isLoggedIn) {
         if (auth.isAuthenticated()) {
           this.setState({ isAuthenticated: true });
-          window.location.reload();
         }
       }
     } catch (err) {
