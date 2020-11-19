@@ -45,8 +45,6 @@ class APICalls {
     }
 
     return new Promise((resolve, reject) => {
-      const headers = this.();
-
       const payload = {
         id_user: parseInt(this.id_user),
         qty_preds: 10,
