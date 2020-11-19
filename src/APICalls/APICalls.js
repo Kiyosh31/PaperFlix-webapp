@@ -30,7 +30,7 @@ class APICalls {
     }
   };
 
-  getCookieValue = () => {
+  createHeader = () => {
     const cookieValue = Cookies.get("authenticated").split("|")[1];
     const headers = { authorization: cookieValue };
     return headers;
@@ -45,6 +45,8 @@ class APICalls {
     }
 
     return new Promise((resolve, reject) => {
+      const headers = this.();
+
       const payload = {
         id_user: parseInt(this.id_user),
         qty_preds: 10,
