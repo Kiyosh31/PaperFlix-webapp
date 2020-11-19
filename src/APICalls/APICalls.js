@@ -192,7 +192,7 @@ class APICalls {
     }
 
     return new Promise((resolve, reject) => {
-      const headers = this.getCookieValue();
+      const headers = this.createHeader();
 
       instance
         .get("category-list/", {
@@ -246,7 +246,7 @@ class APICalls {
     }
 
     return new Promise((resolve, reject) => {
-      const headers = this.getCookieValue();
+      const headers = this.createHeader();
 
       instance
         .get("paper-list/", {
@@ -274,7 +274,7 @@ class APICalls {
     }
 
     return new Promise((resolve, reject) => {
-      const headers = this.getCookieValue();
+      const headers = this.createHeader();
 
       instance
         .get("paper-random/", {
