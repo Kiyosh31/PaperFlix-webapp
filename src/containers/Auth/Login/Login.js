@@ -9,6 +9,7 @@ import Button from "components/Button/Button";
 import RegisterLink from "components/RegisterLink/RegisterLink";
 import BackgroundImage from "assets/img/login-background.jpg";
 import ErrorModal from "components/ErrorModal/ErrorModal";
+import ModalLoading from "components/ModalLoading/ModalLoading";
 
 import auth from "auth";
 import { Redirect } from "react-router-dom";
@@ -48,6 +49,7 @@ class Login extends Component {
     formIsValid: false,
     isAuthenticated: false,
     error: null,
+    isLoading: false,
   };
 
   componentDidMount() {
@@ -114,6 +116,7 @@ class Login extends Component {
 
   submitHandler = async (event) => {
     event.preventDefault();
+    this.setState({ isLoading: true });
 
     if (!this.state.formIsValid) {
       this.setState({
@@ -129,12 +132,13 @@ class Login extends Component {
       );
       if (isLoggedIn) {
         if (auth.isAuthenticated()) {
+          this.setState({ isLoading: false });
           this.setState({ isAuthenticated: true });
           window.location.reload();
         }
       }
     } catch (err) {
-      this.setState({ error: err });
+      this.setState({ error: err, isLoading: false });
     }
   };
 
@@ -184,6 +188,7 @@ class Login extends Component {
           />
         </Box>
         {this.state.isAuthenticated && <Redirect to="/home" />}
+        {this.state.isLoading && <ModalLoading />}
         {this.state.error && (
           <ErrorModal onClose={this.modalHandler} text={this.state.error} />
         )}
