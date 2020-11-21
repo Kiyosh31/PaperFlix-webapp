@@ -9,6 +9,7 @@ import Button from "components/Button/Button";
 import Link from "components/RegisterLink/RegisterLink";
 import BackgroundImage from "assets/img/register.jpg";
 import ErrorModal from "components/ErrorModal/ErrorModal";
+import ModalLoading from "components/ModalLoading/ModalLoading";
 
 import APICalls from "APICalls/APICalls";
 import { Redirect } from "react-router-dom";
@@ -47,7 +48,7 @@ class Register extends Component {
       password: {
         elementType: "input",
         elementConfig: {
-          type: "text",
+          type: "password",
           placeholder: "Ingresar Contraseña",
         },
         value: "",
@@ -62,6 +63,7 @@ class Register extends Component {
     formIsValid: false,
     redirect: false,
     error: null,
+    isLoading: false,
   };
 
   checkValidity(value, rules) {
@@ -118,6 +120,9 @@ class Register extends Component {
 
   submitHandler = async (event) => {
     event.preventDefault();
+    this.setState({
+      isLoading: true,
+    });
 
     if (!this.state.formIsValid) {
       this.setState(["Los datos no tienen la forma correcta."]);
@@ -133,16 +138,16 @@ class Register extends Component {
     try {
       const fetchedNewUser = await APICalls.createUser(payload);
       if (fetchedNewUser) {
-        this.setState({ redirect: true });
+        this.setState({ isLoading: false, redirect: true });
       }
     } catch (err) {
       const errorData = ["Error al intentar registrarse"];
-      this.setState({ error: errorData });
+      this.setState({ isLoading: false, error: errorData });
     }
   };
 
   modalHandler = () => {
-    this.setState({ error: null });
+    this.setState({ error: null, isLoading: false });
   };
 
   render() {
@@ -185,6 +190,7 @@ class Register extends Component {
           />
         </Box>
         {this.state.redirect && <Redirect to="/" />}
+        {this.state.isLoading && <ModalLoading />}
         {this.state.error && (
           <ErrorModal onClose={this.modalHandler} text={this.state.error} />
         )}

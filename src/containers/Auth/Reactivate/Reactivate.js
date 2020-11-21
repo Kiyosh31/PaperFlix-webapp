@@ -48,6 +48,7 @@ class Reactivate extends Component {
     formIsValid: false,
     redirect: false,
     error: null,
+    isLoading: false,
   };
 
   checkValidity(value, rules) {
@@ -108,9 +109,10 @@ class Reactivate extends Component {
 
   submitHandler = async (event) => {
     event.preventDefault();
+    this.setState({ isLoading: true });
 
     if (!this.state.formIsValid) {
-      console.log("No es valido");
+      this.setState({ error: ["El formulario no es valido."] });
       return;
     }
 
@@ -122,10 +124,10 @@ class Reactivate extends Component {
     try {
       const fetchedReactivate = await APICalls.reactivateUser(payload);
       if (fetchedReactivate) {
-        this.setState({ redirect: true });
+        this.setState({ isLoading: false, redirect: true });
       }
     } catch (err) {
-      this.setState({ error: err });
+      this.setState({ isLoading: false, error: err });
     }
   };
 
